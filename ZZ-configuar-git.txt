@@ -1,0 +1,22 @@
+Configurar Git/GitHub en la UNLA
+********************************
+
+Abri un CMD
+
+	Navega hasta la carpeta \git
+
+	git config --global http.proxy http://<Usuario-de-tu-PC>:<pass-de-tu-PC>@10.3.2.10:3128
+
+	git config --global credential.helper wincred
+
+	git clone https://github.com/geronimotondato/CampusUNLa.git
+
+	entrar a la carpeta del proyecto
+
+	git push
+		pone tu usuario de github
+		pone tu password de github
+
+Cerra el CMD
+
+Ya podés usar git desde Sublime ;)
