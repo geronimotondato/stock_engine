@@ -25,7 +25,7 @@ class Login extends CI_Controller {
 				'apellido'  => $user["apellido"],
 				'logged_in' => TRUE
 			];
-			$this->session->set_userdata("stockeng",$newdata);
+			$this->session->set_userdata($newdata);
 			echo "parece que todo funciono";
 			redirect('/', 'refresh');
 		}catch(Exception $e){
