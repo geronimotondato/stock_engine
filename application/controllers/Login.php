@@ -26,10 +26,8 @@ class Login extends CI_Controller {
 				'logged_in' => TRUE
 			];
 			$this->session->set_userdata($newdata);
-			echo "parece que todo funciono";
 			redirect('/', 'refresh');
 		}catch(Exception $e){
-			echo $e->getMessage();
 			$this->session->set_flashdata('mensaje', $e->getMessage());
 			redirect('/', 'refresh');
 		}
@@ -60,12 +58,6 @@ class Login extends CI_Controller {
 		}else{
 			echo "el password proporcionado es incorrecto";
 		}
-	}
-
-	public function watchCookie(){
-
-		echo $_SESSION['username']. " 1". $this->session->logged_in;
-
 	}
 	
 }

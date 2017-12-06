@@ -21,9 +21,9 @@ class Inicio extends CI_Controller {
 	public function index()
 	{
 		if(isset($this->session->logged_in)){
-			$this->load->view("index.php");
+			$this->load->view("dashboard.php");
 		}else{
-			$this->load->view("login_view.php");	
+			$this->load->view("login.php");	
 		}
 	}
 }

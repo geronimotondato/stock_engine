@@ -1,0 +1,10 @@
+#login-card{
+	margin:10% 25%;
+}
+
+@media (max-width: 700px){
+
+	#login-card{
+	margin:10% 10%;
+}
+}
