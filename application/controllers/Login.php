@@ -16,7 +16,7 @@ class Login extends CI_Controller {
 			$this->load->model('login_model');
 			$user = $this->login_model->get_user($usuario);
 			//compruebo que el password de la BD sea igual al proporcionado por el usuario
-			if(!($user["password"] === $this->login_model->encrypt_password($password,$user["salt"]))){
+			if(!password_verify( $password , $user["password"] )){
 				throw new Exception('Combinación Usuario/Password incorrecta');
 			}
 			$newdata = [
@@ -25,10 +25,11 @@ class Login extends CI_Controller {
 				'apellido'  => $user["apellido"],
 				'logged_in' => TRUE
 			];
-			$this->session->set_userdata($newdata);
+			$this->session->set_userdata("stockeng",$newdata);
+			echo "parece que todo funciono";
 			redirect('/', 'refresh');
 		}catch(Exception $e){
-
+			echo $e->getMessage();
 			$this->session->set_flashdata('mensaje', $e->getMessage());
 			redirect('/', 'refresh');
 		}
@@ -59,6 +60,12 @@ class Login extends CI_Controller {
 		}else{
 			echo "el password proporcionado es incorrecto";
 		}
+	}
+
+	public function watchCookie(){
+
+		echo $_SESSION['username']. " 1". $this->session->logged_in;
+
 	}
 	
 }

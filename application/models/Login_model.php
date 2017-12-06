@@ -16,18 +16,15 @@ class Login_model extends CI_Model {
 	// ******************************************************************************
 	public function create_user($username,$nombre,$apellido,$password)
 	{
-		$salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
 		$opciones = [
-			'cost' => 11,
-			'salt' => $salt,
+			'cost' => 11
 		];
 		$hashedPassword = password_hash($password, PASSWORD_BCRYPT, $opciones);
 		$data = [
 			'username'  => $username,
-			'nombre'		=> $nombre,
+			'nombre'	=> $nombre,
 			'apellido'	=> $apellido,
 			'password'  => $hashedPassword,
-			'salt'      => $salt,
 		];
 
 		if ($this->db->insert('usuario', $data)){
@@ -35,20 +32,6 @@ class Login_model extends CI_Model {
 		} else {
 			return false;
 		}
-	}
-
-	// ******************************************************************************
-	// ► Func : Encripta un password con una variable salt proporcionada
-	// ► Obser: aplica la funcion password_hash de PHP
-	// ► ToDo : 
-	// ******************************************************************************
-	public function encrypt_password($password,$salt)
-	{
-		$opciones = [
-		'cost' => 11,
-		'salt' => $salt,
-		];
-		return password_hash($password, PASSWORD_BCRYPT, $opciones);
 	}
 
 	// ******************************************************************************

@@ -23,7 +23,7 @@ class Inicio extends CI_Controller {
 		if(isset($this->session->logged_in)){
 			$this->load->view("index.php");
 		}else{
-			$this->load->view("login_view.php");		
+			$this->load->view("login_view.php");	
 		}
 	}
 }
