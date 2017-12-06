@@ -1,1 +1,1 @@
-"Stockeng v.1.0.1" 
+"Stockeng v.1.0.2" 
