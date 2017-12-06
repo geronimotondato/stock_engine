@@ -41,7 +41,7 @@ class Login extends CI_Controller {
 		redirect('/', 'refresh');
 	}
 
-	public function createUser()
+	public function create_user()
 	{
 		$pass = $this->input->get('pass', TRUE);
 		if( $pass === "grandstream" ){
