@@ -15,7 +15,7 @@
 
         <div id="login-card" class="card">
           <div class="card-header">
-            <div class="card-title h5">StockENG</div>
+            <div class="card-title h5">StockENG <i class="icon icon-apps"></i></div>
             <div class="card-subtitle text-gray">Control de stock by "El Mariskal"</div>
           </div>
           <div class="card-body">

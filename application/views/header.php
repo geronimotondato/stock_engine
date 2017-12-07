@@ -37,13 +37,12 @@
 
     <header class="navbar">
       <section class="navbar-section">
-        <a id="drawer-toggle" class="btn btn-link"><i class="icon icon-menu"></i></a>
+        <div id="drawer-toggle" class="btn btn-link"><i class="icon icon-menu"></i></div>
       </section>
       <section class="navbar-center">
-        <h4>StockENG <i class="icon icon-apps"></i></h4>
+        <div class="btn btn-link">StockENG <i class="icon icon-apps"></i></div>
       </section>
       <section class="navbar-section">
         <a href="<?PHP echo base_url('') ?>Login/log_out" class="btn btn-link"><i class="icon icon-shutdown"></i></a>
       </section>
     </header>
-    <div class="divider"></div>

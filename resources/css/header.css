@@ -13,3 +13,8 @@
 	width:100%;
 	position: absolute;
 }
+
+.navbar {
+
+	border-bottom: 1px solid #ccc;
+}
