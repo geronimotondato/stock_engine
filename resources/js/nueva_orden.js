@@ -20,12 +20,24 @@ addLoadEvent(function(){
 	   	this.setAttribute('data-tooltip', document.getElementById('tickmarks').childNodes[this.value].value);
 
 	   	var fecha = document.getElementById("fecha");
-	   	if(this.value == 3){
-	   		fecha.classList.remove("d-none");
-	   		this.classList.add("d-none")
-	   	}
+	   	
 
+	   	switch(this.value) {
+	   	    case "1":
+	   	    		fecha.value = getFecha(this.value);
+	   	        break;
+	   	    case "2":
+	   	    		fecha.value = getFecha(this.value);
+	   	        break;
+	   	    case "3":
+			   	    fecha.value = getFecha(this.value);
+				   	  fecha.classList.remove("d-none");
+				   		this.classList.add("d-none")
+				   		break;
+	   	}
 	});
+
+
 
 	document.getElementById("cantidad-slider").addEventListener("input", function(){
 		var cantidad = document.getElementById("cantidad");

@@ -29,3 +29,16 @@ addLoadEvent(function (){
 	});
 
 });
+
+function getFecha(extra_days){
+  
+   var pad = (n) => {return n<10 ? '0'+n : n};
+
+   var date = new Date();
+   date.setTime(date.getTime() + (extra_days * 86400000));
+   var day = pad(date.getDate());
+   var month = pad(date.getMonth() + 1);
+   var year = pad(date.getFullYear());
+   return  year + '-' + month + '-' + day;
+}
+
