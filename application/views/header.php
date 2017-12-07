@@ -27,22 +27,25 @@
       <li class="divider"></li>
 
       <li class="menu-item">
-        <a href="#">
-          <i class="icon icon-link"></i> Entregar
+        <a href="<?PHP echo base_url('') ?>Login/log_out">
+          <i class="icon icon-link"></i> Salir
         </a>
       </li>
     </ul>
 
     <div id="drawer-modal"></div>
 
-    <header class="navbar">
+    <header class="navbar p-1">
       <section class="navbar-section">
-        <div id="drawer-toggle" class="btn btn-link"><i class="icon icon-menu"></i></div>
+        <button id="drawer-toggle" class="btn btn-action btn-primary ">
+        <i class="icon icon-menu"></i></button>
       </section>
       <section class="navbar-center">
         <div class="btn btn-link">StockENG <i class="icon icon-apps"></i></div>
       </section>
       <section class="navbar-section">
-        <a href="<?PHP echo base_url('') ?>Login/log_out" class="btn btn-link"><i class="icon icon-shutdown"></i></a>
+
+      <a href=<?PHP echo base_url('Inicio/nueva_orden'); ?> ><button class="btn btn-action btn-primary ">🚚</i></button></a>
+        
       </section>
     </header>

@@ -27,7 +27,7 @@
               <input class="form-input" type="text" id="input-usuario" placeholder="Usuario" name="user">
               <p></p>
               <label class="form-label" for="input-contrasena">Contraseña</label>
-              <input class="form-input" type="text" id="input-contrasena" placeholder="Contraseña" name="pass">
+              <input class="form-input" type="password" id="input-contrasena" placeholder="Contraseña" name="pass">
               <p></p>
               <button class="btn" type="submit">INGRESAR</button>
             </div>
