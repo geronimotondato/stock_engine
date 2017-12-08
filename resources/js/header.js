@@ -19,6 +19,21 @@ addLoadEvent(function (){
 		document.getElementById("drawer-modal").style.visibility = "visible";
 		document.getElementById("drawer").style.visibility = "visible";
 
+    var showDrawer = function(elem) {  
+      var pos = -100;
+      var id = setInterval(frame, 3);
+      function frame() {
+        if (pos >= 0) {
+          clearInterval(id);
+        } else {
+          pos+=4;
+          elem.style.left = pos + 'px'; 
+        }
+      }
+    }
+
+    showDrawer(document.getElementById("drawer"));
+
 	});
 
 	document.getElementById("drawer-modal").addEventListener("click", function(){
@@ -41,4 +56,3 @@ function getFecha(extra_days){
    var year = pad(date.getFullYear());
    return  year + '-' + month + '-' + day;
 }
-

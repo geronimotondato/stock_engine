@@ -79,28 +79,6 @@
     <!-- navigation components: tabs, breadcrumbs or pagination -->
   </div>
   <div class="panel-body">
-    <div class="tile tile-centered">
-      <div class="tile-content">
-        <div class="tile-title">spectre-docs.pdf</div>
-        <div class="tile-subtitle text-gray">14MB · Public · 1 Jan, 2017</div>
-      </div>
-      <div class="tile-action">
-        <button class="btn btn-link">
-          <i class="icon icon-edit"></i>
-        </button>
-      </div>
-    </div>
-    <div class="tile tile-centered">
-      <div class="tile-content">
-        <div class="tile-title">spectre-docs.pdf</div>
-        <div class="tile-subtitle text-gray">14MB · Public · 1 Jan, 2017</div>
-      </div>
-      <div class="tile-action">
-        <button class="btn btn-link">
-          <i class="icon icon-edit"></i>
-        </button>
-      </div>
-    </div>
   </div>
   <div class="panel-footer">
     <!-- buttons or inputs -->

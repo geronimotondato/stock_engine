@@ -21,7 +21,7 @@ class Inicio extends CI_Controller {
 	public function index()
 	{
 		if(isset($this->session->logged_in)){
-			$this->load->view("header.php");
+			$this->load->view("header.php", $this->session->set_flashdata('header_tab', 'dashboard'));
 			$this->load->view("dashboard.php");
 			$this->load->view("footer.php");
 		}else{
@@ -32,7 +32,7 @@ class Inicio extends CI_Controller {
 		public function nueva_orden()
 	{
 		if(isset($this->session->logged_in)){
-			$this->load->view("header.php");
+			$this->load->view("header.php", $this->session->set_flashdata('header_tab','nueva_orden'));
 			$this->load->view("nueva_orden.php");
 			$this->load->view("footer.php");
 		}else{
