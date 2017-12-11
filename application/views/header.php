@@ -23,7 +23,7 @@
         <div class="btn btn-link">StockENG <i class="icon icon-stock"></i></div>
       </section>
       <section class="navbar-section">
-        <a href=<?PHP echo base_url('Inicio/nueva_orden'); ?> ><button class="btn btn-action btn-primary icon-truck-white"></button></a>
+        <a href=<?PHP echo base_url('Nueva_orden'); ?> ><button class="btn btn-action btn-primary icon-truck-white"></button></a>
       </section>
       </header> <!-- FIN HEADER -->
       <!-- DRAWER LATERAL -->
@@ -39,7 +39,7 @@
         <li class="divider"></li>
         <!-- menu item -->
         <li class="menu-item">
-          <a href  ="<?PHP echo base_url('Inicio/nueva_orden') ?>"
+          <a href  ="<?PHP echo base_url('Nueva_orden') ?>"
             class ="<?PHP if($this->session->flashdata('header_tab') =="nueva_orden") echo 'active' ?>" >
             <i class="icon icon-truck-black"></i> Nueva Orden
           </a>

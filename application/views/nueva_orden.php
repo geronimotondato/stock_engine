@@ -7,7 +7,7 @@
 <h5>Nueva Orden</h5>
 <p></p>
 <div id="selector_de_clientes" class="form-group">
-  <select class="form-select">
+  <select class="form-select" name="cliente">
     <option>Cliente</option>
     <option>Juan</option>
     <option>Rosa</option>
@@ -18,7 +18,7 @@
 <div id="selector_de_fecha" class="form-group">
   <label class="form-label" for=""></label>
   <input id="fecha-slider" class="slider tooltip" type="range" list="tickmarks"
-   min="1" max="3" value="1" data-tooltip="Mañana" name="fecha">
+   min="1" max="3" value="1" data-tooltip="Mañana">
   <datalist id="tickmarks">
     <option value="Mañana">
     <option value="Pasado">
@@ -30,17 +30,21 @@
 <p></p>
 <div id="selector_de_productos" class="form-group">
   <select class="form-select">
-    <option>Producto</option>
-    <option>levite</option>
-    <option>cocacola</option>
-    <option>smirnoff</option>
+    <option selected disabled="disabled">Productos</option>
+    <?PHP
+        foreach ($productos as $producto)
+    {
+          echo "<option data-id_producto = ".$producto->id_producto.">".$producto->nombre."</option>";
+    }
+    ?>
+    
   </select>
 </div>
 
 <!-- INICIO MODAL PRODUCTO -->
-<div id="modal_producto" class="modal modal-sm">
+<div id="modal_producto" class="modal modal-sm" data-modal-index="">
   <a id="cerrar_modal_producto" class="modal-overlay" aria-label="Close"></a>
-  <div id="modal_producto" class="modal-container m-2">
+  <div id="" class="modal-container m-2">
     <p></p>
     <div class="m-2">
       <h5 id="modal_producto_titulo">Seleccione</h5>
@@ -49,19 +53,22 @@
     <p></p>
     <div class="form-group m-2">
       <label class="form-label" for="">Cantidad</label>
-      <input id="cantidad-slider"class="slider tooltip" type="range" min="1" max="10" value="1" oninput="this.setAttribute('value', this.value);">
-      <input id="cantidad" class="form-input d-none" type="number" name="cantidad" min="1">
+
+      <input id="cantidad-slider" class="slider tooltip" type="range" min="1" max="10" value="1" oninput="this.setAttribute('value', this.value);">
+
+      <input id="cantidad" class="form-input" type="number" min="1" value="">
+
       <label class="form-label" for="">Descuento</label>
       <div class="input-group">
-        <input class="form-input" type="number" placeholder="Descuento" value="0" min="0" max="100">
+        <input id="descuento" class="form-input" type="number" placeholder="Descuento" value="0" min="0" max="100">
         <button class="btn btn-primary input-group-btn">%</button>
       </div>
     </div>
     <p></p>
     <p></p>
     <div class="text-right m-2">
-      <button class="btn btn-secondary">Eliminar</button>
-      <button class="btn btn-primary ">ok</button>
+      <button id = "boton-eliminar" class="btn btn-secondary">Eliminar</button>
+      <button id = "boton-ok" class="btn btn-primary ">Ok</button>
     </div>
     <p></p>
   </div>
@@ -71,7 +78,7 @@
 <p></p>
 
 
-<div class="panel">
+<div id="panel_productos" class="panel">
   <div class="panel-header">
     <div class="panel-title">Productos seleccionados</div>
   </div>
@@ -92,8 +99,5 @@
   <button class="btn btn-primary">Guardar</button>
   <button class="btn">Finalizar</button>
 </div>
-
-
-
 
 </main>

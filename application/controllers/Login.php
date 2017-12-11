@@ -17,7 +17,7 @@ class Login extends CI_Controller {
 			$user = $this->login_model->get_user($usuario);
 			//compruebo que el password de la BD sea igual al proporcionado por el usuario
 			if(!password_verify( $password , $user["password"] )){
-				throw new Exception('Combinación Usuario/Password incorrecta');
+				throw new Exception('Usuario o contraseña incorrectos');
 			}
 			$newdata = [
 				'username'  => $user["username"],
@@ -28,7 +28,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata($newdata);
 			redirect('/', 'refresh');
 		}catch(Exception $e){
-			$this->session->set_flashdata('mensaje', $e->getMessage());
+			$this->session->set_flashdata('mensaje', 'Usuario o contraseña incorrectos');
 			redirect('/', 'refresh');
 		}
 		
@@ -43,21 +43,30 @@ class Login extends CI_Controller {
 
 	public function create_user()
 	{
-		$pass = $this->input->get('pass', TRUE);
-		if( $pass === "grandstream" ){
-			$this->load->model('login_model');
+		try {
+			$pass     = $this->input->get('pass'	, TRUE);
 			$username = $this->input->get('username', TRUE);
-			$nombre   = $this->input->get('nombre', TRUE);
+			$nombre   = $this->input->get('nombre'	, TRUE);
 			$apellido = $this->input->get('apellido', TRUE);
 			$password = $this->input->get('password', TRUE);
+
+			//Valido que el usuario este loggeado en el sistema
+			if(! isset($this->session->logged_in)) throw new Exception('debe ingresar al sistema para poder crear usuarios');
+
+			//Valido que la contraseña para crear usuarios sea correcta
+			if(! ($pass === "grandstream") ) throw new Exception('el password proporcionado es incorrecto');
+
+
+			$this->load->model('login_model');
+
 			if ($this->login_model->create_user($username,$nombre,$apellido,$password)){
 				echo "usuario creado con exito";
 			} else {
 				echo "error al crear usuario";
 			}
-		}else{
-			echo "el password proporcionado es incorrecto";
+
+		}catch(Exception $e){
+			echo $e->getMessage();
 		}
 	}
-	
 }

@@ -28,15 +28,4 @@ class Inicio extends CI_Controller {
 			$this->load->view("login.php");	
 		}
 	}
-
-		public function nueva_orden()
-	{
-		if(isset($this->session->logged_in)){
-			$this->load->view("header.php", $this->session->set_flashdata('header_tab','nueva_orden'));
-			$this->load->view("nueva_orden.php");
-			$this->load->view("footer.php");
-		}else{
-			$this->load->view("login.php");	
-		}
-	}
 }
