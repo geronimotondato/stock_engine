@@ -9,6 +9,8 @@ class Nueva_orden extends CI_Controller {
 
 		$this->load->model('producto_model');
 		$data["productos"] = $this->producto_model->get_lista_productos();
+		$this->load->model('cliente_model');
+		$data["clientes"] = $this->cliente_model->get_lista_clientes();
 
 		$this->load->view("header.php", $this->session->set_flashdata('header_tab','nueva_orden'));
 		$this->load->view("nueva_orden.php", $data);

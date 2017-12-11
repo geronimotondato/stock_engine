@@ -8,10 +8,13 @@
 <p></p>
 <div id="selector_de_clientes" class="form-group">
   <select class="form-select" name="cliente">
-    <option>Cliente</option>
-    <option>Juan</option>
-    <option>Rosa</option>
-    <option>Muñeco</option>
+  <option selected disabled="disabled">Clientes</option>
+  <?PHP
+      foreach ($clientes as $cliente)
+  {
+        echo "<option data-id_cliente = ".$cliente->id_cliente.">".$cliente->nombre."</option>";
+  }
+  ?>
   </select>
 </div>
 
@@ -56,11 +59,11 @@
 
       <input id="cantidad-slider" class="slider tooltip" type="range" min="1" max="10" value="1" oninput="this.setAttribute('value', this.value);">
 
-      <input id="cantidad" class="form-input" type="number" min="1" value="">
+      <input id="cantidad" class="form-input" type="number" min="1" value="" name="cantidad">
 
       <label class="form-label" for="">Descuento</label>
       <div class="input-group">
-        <input id="descuento" class="form-input" type="number" placeholder="Descuento" value="0" min="0" max="100">
+        <input id="descuento" class="form-input" type="number" placeholder="Descuento" value="0" min="0" max="100" name="descuento">
         <button class="btn btn-primary input-group-btn">%</button>
       </div>
     </div>

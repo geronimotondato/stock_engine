@@ -35,9 +35,10 @@ addLoadEvent(function() {
     document.getElementById("cantidad-slider").addEventListener("input", function() {
         var cantidad = document.getElementById("cantidad");
         cantidad.setAttribute('value', this.value);
+        cantidad.value = this.value;
         if (this.value == 10) {
-            cantidad.classList.remove("d-none");
-            this.classList.add("d-none")
+            cantidad.style.display = "block";
+            this.style.display = "none";
         }
     });
 
@@ -63,11 +64,10 @@ addLoadEvent(function() {
 
         var item = {id_item: id_item, id_producto: id_producto, nombre: nombre, cantidad: cantidad, descuento: descuento};
 
-        try{
-            findById(lista_items, item.id_item);
+        if(findById(lista_items, item.id_item)){
             editar_item(item);
 
-        }catch(e){
+        }else{
             agregar_item(item)
         }
 
@@ -78,13 +78,17 @@ addLoadEvent(function() {
 
     document.getElementById("boton-eliminar").addEventListener("click", function() {
 
+       var id_item = document.getElementById("modal_producto_titulo").getAttribute("data-id_item");
+     
+        if (findById(lista_items, id_item)) { 
+            delete_item(id_item);
+            imprimir_lista_items();
+            cerrar_modal();
+        }else{
+            cerrar_modal();
+        }
 
     });
-
-    // document.getElementById("boton-descartar").addEventListener("click", function() {
-
-
-    // });
 
 });
 
@@ -92,7 +96,7 @@ addLoadEvent(function() {
 var lista_items = [];
 
 function setModal(id_item, id_producto, nombre){
-    try{    
+    if (findById(lista_items, id_item)) {  
         var  item = findById(lista_items, id_item);
         document.getElementById("modal_producto_titulo").innerHTML = item.nombre;
         document.getElementById("modal_producto_titulo").setAttribute("data-id_item", item.id_item);
@@ -103,7 +107,16 @@ function setModal(id_item, id_producto, nombre){
         document.getElementById("cantidad-slider").setAttribute('value', item.cantidad);
         document.getElementById("cantidad-slider").value = item.cantidad;
         document.getElementById("descuento").value = item.descuento;
-    } catch(e){
+
+        if(item.cantidad >= 10){
+            document.getElementById("cantidad-slider").style.display = "none";
+            document.getElementById("cantidad").style.display = "block";
+        }else{
+            document.getElementById("cantidad-slider").style.display = "block";
+            document.getElementById("cantidad").style.display = "none";
+        }
+
+    } else{
         document.getElementById("modal_producto_titulo").innerHTML = nombre;
         document.getElementById("modal_producto_titulo").setAttribute("data-id_item" , id_item);
         document.getElementById("modal_producto_titulo").setAttribute("data-id_producto", id_producto);
@@ -113,6 +126,11 @@ function setModal(id_item, id_producto, nombre){
         document.getElementById("cantidad-slider").setAttribute('value',1 );
         document.getElementById("cantidad-slider").value = 1 ;
         document.getElementById("descuento").value = 0;
+
+        document.getElementById("cantidad-slider").style.display = "block";
+        document.getElementById("cantidad").style.display = "none";
+
+
     }
 }
 
@@ -145,22 +163,20 @@ function imprimir_lista_items(){
 }
 
 function agregar_item(item){
-	// var id_item = lista_items.length;
-	// var producto = {id_item: id_item, id_producto: id_producto, nombre: nombre, cantidad:cantidad, descuento: descuento};
 	lista_items.push(item);
 }
 
 function editar_item(item){
-		var item_en_lista = findById(lista_items, item.id_item);
-        item_en_lista.id_producto = item.id_producto;
-		item_en_lista.nombre = item.nombre;
-		item_en_lista.cantidad = item.cantidad;
-		item_en_lista.descuento = item.descuento;
+	var item_en_lista = findById(lista_items, item.id_item);
+    item_en_lista.id_producto = item.id_producto;
+	item_en_lista.nombre = item.nombre;
+	item_en_lista.cantidad = item.cantidad;
+	item_en_lista.descuento = item.descuento;
 }
 
-function delete_item(item){
+function delete_item(id_item){
 	for (var i = 0; i < lista_items.length; i++) {
-	  if (lista_items[i].id_item === item.id_item) {
+	  if (lista_items[i].id_item === id_item) {
 	    lista_items.splice(i,1);
 	  }
 	}
@@ -172,5 +188,5 @@ function findById(source, id_item){
       return source[i];
     }
   }
-  throw "no hay objeto con id: " + id_item;
+  return false;
 }
