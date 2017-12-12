@@ -4,6 +4,7 @@
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
 
 <main class="m-2">
+<form action="Nueva_orden/guardar" method="POST">
 <h5>Nueva Orden</h5>
 <p></p>
 <div id="selector_de_clientes" class="form-group">
@@ -64,14 +65,14 @@
       <label class="form-label" for="">Descuento</label>
       <div class="input-group">
         <input id="descuento" class="form-input" type="number" placeholder="Descuento" value="0" min="0" max="100" name="descuento">
-        <button class="btn btn-primary input-group-btn">%</button>
+        <button class="btn btn-primary input-group-btn" type="button">%</button>
       </div>
     </div>
     <p></p>
     <p></p>
     <div class="text-right m-2">
-      <button id = "boton-eliminar" class="btn btn-secondary">Eliminar</button>
-      <button id = "boton-ok" class="btn btn-primary ">Ok</button>
+      <button id = "boton-eliminar" class="btn btn-secondary" type="button">Eliminar</button>
+      <button id = "boton-ok" class="btn btn-primary " type="button">Ok</button>
     </div>
     <p></p>
   </div>
@@ -99,8 +100,8 @@
 
 <div class="btn-group btn-group-block">
   <button class="btn">Descartar</button>
-  <button class="btn btn-primary">Guardar</button>
+  <button class="btn btn-primary" type="submit">Guardar</button>
   <button class="btn">Finalizar</button>
 </div>
-
+</form>
 </main>
