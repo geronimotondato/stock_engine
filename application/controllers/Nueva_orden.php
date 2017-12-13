@@ -8,8 +8,9 @@ class Nueva_orden extends CI_Controller {
 		if(isset($this->session->logged_in)){
 
 		$this->load->model('producto_model');
-		$data["productos"] = $this->producto_model->get_lista_productos();
 		$this->load->model('cliente_model');
+
+		$data["productos"] = $this->producto_model->get_lista_productos();
 		$data["clientes"] = $this->cliente_model->get_lista_clientes();
 
 		$this->load->view("header.php", $this->session->set_flashdata('header_tab','nueva_orden'));
@@ -21,29 +22,59 @@ class Nueva_orden extends CI_Controller {
 		}
 	}
 
-	public function guardar()
-	{
+	public function guardar(){
 
-		print_r($_POST);
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('cliente', 'Cliente', 'trim|required|numeric');
-		$this->form_validation->set_rules('fecha', 'fecha', 'trim|required');
-		$lista_item =$this->input->post('item', TRUE);
-		for( $i = 0; $i < count($_POST["item"]["id_producto"]); $i++)
-		{
-			$this->form_validation->set_rules ('item[id_producto]['.$i.']', 'id_producto', 'trim|required|numeric');
-			$this->form_validation->set_rules ('item[cantidad]['.$i.']', 'cantidad', 'trim|required|numeric');
-			$this->form_validation->set_rules ('item[descuento]['.$i.']', 'descuento', 'trim|required|numeric');
+		try{
+			$cliente = $this->input->post("cliente", TRUE);
+			$fecha   = $this->input->post("fecha",TRUE);
+			$items   = $this->input->post("items",TRUE);
+
+			if($cliente == null || $fecha == null || $items == null){
+				throw new Exception("Faltan ingresar campos");
+			}
+
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('cliente', 'Cliente', 'trim|required|numeric');
+			$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
+
+			for( $i = 0; $i < count($items); $i++){
+				$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
+			}
+
+			if(!($this->form_validation->run())){
+				throw new Exception("Los input no pasan la validacion");
+			}
+
+			$orden = array(
+					"cliente" => $cliente,
+					"fecha"   => $fecha,
+					"items"   => $items
+			);
+
+			var_dump($orden);
+
+		}catch(Exception $e){
+			echo $e->getMessage();
+			echo validation_errors();
 		}
-		// try{
-		// 	if(!($this->form_validation->run())){
-		// 		throw new Exception("Los input no pasan la validacion");
-		// 	}
+	}
 
-		// 	redirect('/', 'refresh');
-		// }catch(Exception $e){
-		// 	redirect('/', 'refresh');
-		// }
+
+
+
+	public function date_valid($date)
+	{
+	  $parts = explode("-", $date);
+	  if (count($parts) == 3) {      
+	    if (checkdate($parts[1], $parts[2], $parts[0]))
+	    {
+	      return TRUE;
+	    }
+	  }
+	  $this->form_validation->set_message('date_valid', 'The Date field must be yyyy/mm/dd and separated by -');
+	  return false;
 	}
 
 

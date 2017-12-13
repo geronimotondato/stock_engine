@@ -164,9 +164,9 @@ function generar_item(item){
           <i class='icon icon-edit'></i>\
         </button>\
       </div>\
-        <input type='hidden' name='item[id_producto][]' value='"+item.id_producto+"'>\
-        <input type='hidden' name='item[cantidad][]' value='"+item.cantidad+"'>\
-        <input type='hidden' name='item[descuento][]' value='"+item.descuento+"'>\
+        <input type='hidden' name='items["+item.id_item+"][id_producto]' value='"+item.id_producto+"'>\
+        <input type='hidden' name='items["+item.id_item+"][cantidad]' value='"+item.cantidad+"'>\
+        <input type='hidden' name='items["+item.id_item+"][descuento]' value='"+item.descuento+"'>\
     </div>";
 }
 
