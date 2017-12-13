@@ -1,13 +1,5 @@
 addLoadEvent(function() {
 
-    function cerrar_modal() {
-        document.getElementById("modal_producto").classList.remove("active");
-        var options = document.querySelectorAll('#selector_de_productos option');
-        for (var i = 0, l = options.length; i < l; i++) {
-            options[i].selected = options[i].defaultSelected;
-        }
-    }
-
     document.getElementById("cerrar_modal_producto").addEventListener("click", function (){
      cerrar_modal();   
     });
@@ -54,15 +46,30 @@ addLoadEvent(function() {
 
     });
 
+
+    document.getElementById("selector_de_clientes").addEventListener("change", function() {
+
+        var cliente = this.children[0].selectedOptions[0].getAttribute('data-id_cliente');
+        document.getElementById("cliente").value = cliente;
+
+    });
+
+
     document.getElementById("boton-ok").addEventListener("click", function() {
 
-        var id_item = document.getElementById("modal_producto_titulo").getAttribute("data-id_item");
-    	var id_producto = document.getElementById("modal_producto_titulo").getAttribute("data-id_producto");
-        var nombre = document.getElementById("modal_producto_titulo").getAttribute("data-nombre");
-        var cantidad = document.getElementById("cantidad").value;
-        var descuento = document.getElementById("descuento").value;
+        var id_item     = document.getElementById("modal_producto_titulo").getAttribute("data-id_item");
+        var id_producto = document.getElementById("modal_producto_titulo").getAttribute("data-id_producto");
+        var nombre      = document.getElementById("modal_producto_titulo").getAttribute("data-nombre");
+        var cantidad    = document.getElementById("cantidad").value;
+        var descuento   = document.getElementById("descuento").value;
 
-        var item = {id_item: id_item, id_producto: id_producto, nombre: nombre, cantidad: cantidad, descuento: descuento};
+        var item = {
+            id_item     : id_item, 
+            id_producto : id_producto,
+            nombre      : nombre, 
+            cantidad    : cantidad, 
+            descuento   : descuento
+        };
 
         if(findById(lista_items, item.id_item)){
             editar_item(item);
@@ -95,6 +102,14 @@ addLoadEvent(function() {
 
 var lista_items = [];
 
+function cerrar_modal() {
+    document.getElementById("modal_producto").classList.remove("active");
+    var options = document.querySelectorAll('#selector_de_productos option');
+    for (var i = 0, l = options.length; i < l; i++) {
+        options[i].selected = options[i].defaultSelected;
+    }
+}
+
 function setModal(id_item, id_producto, nombre){
     if (findById(lista_items, id_item)) {  
         var  item = findById(lista_items, id_item);
@@ -103,10 +118,10 @@ function setModal(id_item, id_producto, nombre){
         document.getElementById("modal_producto_titulo").setAttribute("data-id_producto" ,item.id_producto);
         document.getElementById("modal_producto_titulo").setAttribute("data-nombre" ,item.nombre);
         document.getElementById("cantidad").setAttribute('value', item.cantidad);
-        document.getElementById("cantidad").value = item.cantidad;
+        document.getElementById("cantidad").value                  = item.cantidad;
         document.getElementById("cantidad-slider").setAttribute('value', item.cantidad);
-        document.getElementById("cantidad-slider").value = item.cantidad;
-        document.getElementById("descuento").value = item.descuento;
+        document.getElementById("cantidad-slider").value           = item.cantidad;
+        document.getElementById("descuento").value                 = item.descuento;
 
         if(item.cantidad >= 10){
             document.getElementById("cantidad-slider").style.display = "none";
@@ -145,7 +160,7 @@ function generar_item(item){
         <div class='tile-subtitle text-gray'>Cant: "+item.cantidad+" | Desc: "+item.descuento+"</div>\
       </div>\
       <div class='tile-action'>\
-        <button class='btn btn-link editar' onclick= setModal("+item.id_item+");document.getElementById('modal_producto').classList.add('active');>\
+        <button class='btn btn-link editar' type='button' onclick= setModal("+item.id_item+");document.getElementById('modal_producto').classList.add('active');>\
           <i class='icon icon-edit'></i>\
         </button>\
       </div>\
@@ -167,11 +182,11 @@ function agregar_item(item){
 }
 
 function editar_item(item){
-	var item_en_lista = findById(lista_items, item.id_item);
+    var item_en_lista         = findById(lista_items, item.id_item);
     item_en_lista.id_producto = item.id_producto;
-	item_en_lista.nombre = item.nombre;
-	item_en_lista.cantidad = item.cantidad;
-	item_en_lista.descuento = item.descuento;
+    item_en_lista.nombre      = item.nombre;
+    item_en_lista.cantidad    = item.cantidad;
+    item_en_lista.descuento   = item.descuento;
 }
 
 function delete_item(id_item){
@@ -182,10 +197,10 @@ function delete_item(id_item){
 	}
 }
 
-function findById(source, id_item){
-  for (var i = 0; i < source.length; i++) {
-    if (source[i].id_item == id_item) {
-      return source[i];
+function findById(lista_items, id_item){
+  for (var i = 0; i < lista_items.length; i++) {
+    if (lista_items[i].id_item == id_item) {
+      return lista_items[i];
     }
   }
   return false;

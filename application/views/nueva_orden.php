@@ -8,7 +8,7 @@
 <h5>Nueva Orden</h5>
 <p></p>
 <div id="selector_de_clientes" class="form-group">
-  <select class="form-select" name="cliente">
+  <select class="form-select">
   <option selected disabled="disabled">Clientes</option>
   <?PHP
       foreach ($clientes as $cliente)
@@ -17,6 +17,7 @@
   }
   ?>
   </select>
+  <input id="cliente" type="hidden" name="cliente">
 </div>
 
 <div id="selector_de_fecha" class="form-group">
@@ -60,11 +61,11 @@
 
       <input id="cantidad-slider" class="slider tooltip" type="range" min="1" max="10" value="1" oninput="this.setAttribute('value', this.value);">
 
-      <input id="cantidad" class="form-input" type="number" min="1" value="" name="cantidad">
+      <input id="cantidad" class="form-input" type="number" min="1" value="">
 
       <label class="form-label" for="">Descuento</label>
       <div class="input-group">
-        <input id="descuento" class="form-input" type="number" placeholder="Descuento" value="0" min="0" max="100" name="descuento">
+        <input id="descuento" class="form-input" type="number" placeholder="Descuento" value="0" min="0" max="100">
         <button class="btn btn-primary input-group-btn" type="button">%</button>
       </div>
     </div>

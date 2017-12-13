@@ -24,44 +24,24 @@ class Nueva_orden extends CI_Controller {
 	public function guardar()
 	{
 
-		// print_r($_POST["item"]["cantidad"]);
+		print_r($_POST);
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('cliente', 'Usuario', 'trim|required|numeric');
-		$this->form_validation->set_rules('fecha', 'Contraseña', 'trim|required');
-
-
-
+		$this->form_validation->set_rules('cliente', 'Cliente', 'trim|required|numeric');
+		$this->form_validation->set_rules('fecha', 'fecha', 'trim|required');
 		$lista_item =$this->input->post('item', TRUE);
-		$i = 0;
-		foreach ($lista_item["id_producto"] as $key)
+		for( $i = 0; $i < count($_POST["item"]["id_producto"]); $i++)
 		{
 			$this->form_validation->set_rules ('item[id_producto]['.$i.']', 'id_producto', 'trim|required|numeric');
 			$this->form_validation->set_rules ('item[cantidad]['.$i.']', 'cantidad', 'trim|required|numeric');
 			$this->form_validation->set_rules ('item[descuento]['.$i.']', 'descuento', 'trim|required|numeric');
-			$i++;
 		}
 		// try{
 		// 	if(!($this->form_validation->run())){
 		// 		throw new Exception("Los input no pasan la validacion");
 		// 	}
-		// 	$usuario  = $this->input->post('user', TRUE);
-		// 	$password = $this->input->post('pass', TRUE);
-		// 	$this->load->model('login_model');
-		// 	$user = $this->login_model->get_user($usuario);
-		// 	//compruebo que el password de la BD sea igual al proporcionado por el usuario
-		// 	if(!password_verify( $password , $user["password"] )){
-		// 		throw new Exception('Usuario o contraseña incorrectos');
-		// 	}
-		// 	$newdata = [
-		// 		'username'  => $user["username"],
-		// 		'nombre'    => $user["nombre"],
-		// 		'apellido'  => $user["apellido"],
-		// 		'logged_in' => TRUE
-		// 	];
-		// 	$this->session->set_userdata($newdata);
+
 		// 	redirect('/', 'refresh');
 		// }catch(Exception $e){
-		// 	$this->session->set_flashdata('mensaje', 'Usuario o contraseña incorrectos');
 		// 	redirect('/', 'refresh');
 		// }
 	}
