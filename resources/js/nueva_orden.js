@@ -4,6 +4,9 @@ addLoadEvent(function() {
      cerrar_modal();   
     });
 
+
+
+    document.getElementById("fecha").value = getFecha(1);
     document.getElementById("fecha-slider").addEventListener("input", function() {
         this.setAttribute('value', this.value);
         this.setAttribute('data-tooltip', document.getElementById('tickmarks').childNodes[this.value].value);

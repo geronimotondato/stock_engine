@@ -22,6 +22,8 @@ class Nueva_orden extends CI_Controller {
 		}
 	}
 
+
+
 	public function guardar(){
 
 		try{
@@ -30,7 +32,7 @@ class Nueva_orden extends CI_Controller {
 			$items   = $this->input->post("items",TRUE);
 
 			if($cliente == null || $fecha == null || $items == null){
-				throw new Exception("Faltan ingresar campos");
+				throw new Exception("Debe completar todos los campos");
 			}
 
 			$this->load->library('form_validation');
@@ -44,7 +46,7 @@ class Nueva_orden extends CI_Controller {
 			}
 
 			if(!($this->form_validation->run())){
-				throw new Exception("Los input no pasan la validacion");
+				throw new Exception("Algun/os no fueron ingresados correctamente");
 			}
 
 			$orden = array(
@@ -53,11 +55,13 @@ class Nueva_orden extends CI_Controller {
 					"items"   => $items
 			);
 
-			var_dump($orden);
+			$this->load->model("orden_model");
+			$this->orden_model->guardar_orden($orden);
+
+			redirect('/','refresh');
 
 		}catch(Exception $e){
 			echo $e->getMessage();
-			echo validation_errors();
 		}
 	}
 

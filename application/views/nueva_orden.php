@@ -102,7 +102,6 @@
 <div class="btn-group btn-group-block">
   <button class="btn">Descartar</button>
   <button class="btn btn-primary" type="submit">Guardar</button>
-  <button class="btn">Finalizar</button>
 </div>
 </form>
 </main>
