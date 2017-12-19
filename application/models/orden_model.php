@@ -46,4 +46,33 @@ class Orden_model extends CI_Model {
 
 	}
 
+	public function get_orden($id_orden){
+
+		try{
+
+			$orden = array(
+				"cliente" => "",
+				"fecha"   => "",
+				"items"   => []
+			);
+
+
+			$query = $this->db->query("SELECT id_cliente, fecha_entrega FROM orden WHERE id_orden = ". $id_orden);
+			$row = $query->row();
+
+			$orden["cliente"] = $row->id_cliente;
+			$orden["fecha"] = $row->fecha_entrega;
+
+			$query = $this->db->query( "SELECT * FROM item WHERE id_orden = ". $id_orden);
+
+			$orden["items"] = $query->result_array();
+
+			return $orden;
+
+		}catch (Exception $e){
+			throw new Exception("No se pudo guardar recuperar la orden de la base de datos");
+		}
+
+	}
+
 }

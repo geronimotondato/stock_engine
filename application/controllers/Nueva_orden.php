@@ -10,8 +10,21 @@ class Nueva_orden extends CI_Controller {
 		$this->load->model('producto_model');
 		$this->load->model('cliente_model');
 
+
 		$data["productos"] = $this->producto_model->get_lista_productos();
 		$data["clientes"] = $this->cliente_model->get_lista_clientes();
+
+		if (null !== $this->input->get("id_orden")){
+					$this->load->model('orden_model');
+					$data["orden"] = $this->orden_model->get_orden($this->input->get("id_orden"));
+
+		}else{
+
+			$data["orden"]["cliente"] = null;
+			$data["orden"]["fecha_entrega"] = null;
+			$data["orden"]["items"] = null;
+
+		}
 
 		$this->load->view("header.php", $this->session->set_flashdata('header_tab','nueva_orden'));
 		$this->load->view("nueva_orden.php", $data);

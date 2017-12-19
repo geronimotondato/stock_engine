@@ -1,9 +1,12 @@
 addLoadEvent(function() {
 
-    document.getElementById("cerrar_modal_producto").addEventListener("click", function (){
-     cerrar_modal();   
-    });
 
+    document.getElementById("selector_de_clientes").addEventListener("change", function() {
+
+        var cliente = this.children[0].selectedOptions[0].getAttribute('data-id_cliente');
+        document.getElementById("cliente").value = cliente;
+
+    });
 
 
     document.getElementById("fecha").value = getFecha(1);
@@ -27,16 +30,6 @@ addLoadEvent(function() {
     });
 
 
-    document.getElementById("cantidad-slider").addEventListener("input", function() {
-        var cantidad = document.getElementById("cantidad");
-        cantidad.setAttribute('value', this.value);
-        cantidad.value = this.value;
-        if (this.value == 10) {
-            cantidad.style.display = "block";
-            this.style.display = "none";
-        }
-    });
-
     document.getElementById("selector_de_productos").addEventListener("change", function() {
 
         var nombre      = this.children[0].value;
@@ -50,12 +43,17 @@ addLoadEvent(function() {
     });
 
 
-    document.getElementById("selector_de_clientes").addEventListener("change", function() {
-
-        var cliente = this.children[0].selectedOptions[0].getAttribute('data-id_cliente');
-        document.getElementById("cliente").value = cliente;
-
+    document.getElementById("cantidad-slider").addEventListener("input", function() {
+        this.setAttribute('value', this.value);
+        var cantidad = document.getElementById("cantidad");
+        cantidad.setAttribute('value', this.value);
+        cantidad.value = this.value;
+        if (this.value == 10) {
+            cantidad.style.display = "block";
+            this.style.display = "none";
+        }
     });
+
 
 
     document.getElementById("boton-ok").addEventListener("click", function() {
@@ -100,17 +98,43 @@ addLoadEvent(function() {
 
     });
 
+
+    document.getElementById("cerrar_modal_producto").addEventListener("click", function (){
+     cerrar_modal();   
+    });
+
 });
 
 
 var lista_items = [];
 
-function cerrar_modal() {
-    document.getElementById("modal_producto").classList.remove("active");
-    var options = document.querySelectorAll('#selector_de_productos option');
-    for (var i = 0, l = options.length; i < l; i++) {
-        options[i].selected = options[i].defaultSelected;
+function agregar_item(item){
+	lista_items.push(item);
+}
+
+function editar_item(item){
+    var item_en_lista         = findById(lista_items, item.id_item);
+    item_en_lista.id_producto = item.id_producto;
+    item_en_lista.nombre      = item.nombre;
+    item_en_lista.cantidad    = item.cantidad;
+    item_en_lista.descuento   = item.descuento;
+}
+
+function delete_item(id_item){
+	for (var i = 0; i < lista_items.length; i++) {
+	  if (lista_items[i].id_item === id_item) {
+	    lista_items.splice(i,1);
+	  }
+	}
+}
+
+function findById(lista_items, id_item){
+  for (var i = 0; i < lista_items.length; i++) {
+    if (lista_items[i].id_item == id_item) {
+      return lista_items[i];
     }
+  }
+  return false;
 }
 
 function setModal(id_item, id_producto, nombre){
@@ -152,6 +176,22 @@ function setModal(id_item, id_producto, nombre){
     }
 }
 
+function cerrar_modal() {
+    document.getElementById("modal_producto").classList.remove("active");
+    var options = document.querySelectorAll('#selector_de_productos option');
+    for (var i = 0, l = options.length; i < l; i++) {
+        options[i].selected = options[i].defaultSelected;
+    }
+}
+
+
+function imprimir_lista_items(){
+    document.querySelectorAll('.panel-body')[0].innerHTML ="";
+    lista_items.forEach(function(producto){
+        generar_item(producto);
+    });
+}
+
 function generar_item(item){
     document.querySelectorAll('.panel-body')[0].innerHTML += 
     "<div class='tile tile-centered item' \
@@ -171,40 +211,4 @@ function generar_item(item){
         <input type='hidden' name='items["+item.id_item+"][cantidad]' value='"+item.cantidad+"'>\
         <input type='hidden' name='items["+item.id_item+"][descuento]' value='"+item.descuento+"'>\
     </div>";
-}
-
-function imprimir_lista_items(){
-    document.querySelectorAll('.panel-body')[0].innerHTML ="";
-	lista_items.forEach(function(producto){
-		generar_item(producto);
-	});
-}
-
-function agregar_item(item){
-	lista_items.push(item);
-}
-
-function editar_item(item){
-    var item_en_lista         = findById(lista_items, item.id_item);
-    item_en_lista.id_producto = item.id_producto;
-    item_en_lista.nombre      = item.nombre;
-    item_en_lista.cantidad    = item.cantidad;
-    item_en_lista.descuento   = item.descuento;
-}
-
-function delete_item(id_item){
-	for (var i = 0; i < lista_items.length; i++) {
-	  if (lista_items[i].id_item === id_item) {
-	    lista_items.splice(i,1);
-	  }
-	}
-}
-
-function findById(lista_items, id_item){
-  for (var i = 0; i < lista_items.length; i++) {
-    if (lista_items[i].id_item == id_item) {
-      return lista_items[i];
-    }
-  }
-  return false;
 }
