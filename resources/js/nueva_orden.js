@@ -99,22 +99,16 @@ addLoadEvent(function() {
 
     });
 
-
-<<<<<<< HEAD
     document.getElementById("btn_guardar").addEventListener("click", function() {
 
         document.getElementById("form_nueva_orden").submit();
-
     });
 
-
-
-=======
     document.getElementById("cerrar_modal_producto").addEventListener("click", function (){
      cerrar_modal();   
     });
 
->>>>>>> 0a8c6902b9dac46e406d26d26d3c92fdf9ada231
+
 });
 
 

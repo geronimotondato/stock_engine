@@ -108,13 +108,8 @@
 <p></p>
 
 <div class="btn-group btn-group-block">
-<<<<<<< HEAD
   <button id="btn_descartar" class="btn" type="button" onclick="location.href = <?PHP echo base_url(); ?>" >Descartar</button>
   <button id="btn_guardar" class="btn btn-primary" type="button">Guardar</button>
-=======
-  <button class="btn" type="button">Descartar</button>
-  <button class="btn btn-primary" type="submit">Guardar</button>
->>>>>>> 0a8c6902b9dac46e406d26d26d3c92fdf9ada231
 </div>
 </form>
 </main>
