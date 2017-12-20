@@ -70,7 +70,7 @@ class Orden_model extends CI_Model {
 			return $orden;
 
 		}catch (Exception $e){
-			throw new Exception("No se pudo guardar recuperar la orden de la base de datos");
+			throw new Exception("No se pudo recuperar la orden de la base de datos");
 		}
 
 	}

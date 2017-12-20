@@ -20,8 +20,8 @@ class Nueva_orden extends CI_Controller {
 
 		}else{
 
-			$data["orden"]["cliente"] = null;
-			$data["orden"]["fecha_entrega"] = null;
+			$data["orden"]["cliente"] = -1;
+			$data["orden"]["fecha_entrega"] = date("Y-m-d");
 			$data["orden"]["items"] = null;
 
 		}

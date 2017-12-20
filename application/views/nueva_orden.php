@@ -11,17 +11,17 @@
   <select class="form-select">
 
   <?PHP
-  $bandera = false;
+
+  if($orden["cliente"] == -1) echo '<option selected disabled="disabled">Clientes</option>';
   foreach ($clientes as $cliente)
   {
       if($orden["cliente"] == $cliente->id_cliente){
-        echo "<option data-id_cliente = ".$cliente->id_cliente." selected>".$cliente->nombre."</option>";
-        $bandera = true;
+        echo "<option data-id_cliente = ".$cliente->id_cliente." selected>".$cliente->nombre."</option>"; 
       }else{
         echo "<option data-id_cliente = ".$cliente->id_cliente.">".$cliente->nombre."</option>";
       }
   }
-  if(! $bandera) echo '<option selected disabled="disabled">Clientes</option>';
+  
   ?>
 
   </select>
