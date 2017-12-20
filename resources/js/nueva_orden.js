@@ -7,6 +7,7 @@ addLoadEvent(function() {
 
 
     document.getElementById("fecha").value = getFecha(1);
+    document.getElementById("fecha").setAttribute("min", getFecha(0));
     document.getElementById("fecha-slider").addEventListener("input", function() {
         this.setAttribute('value', this.value);
         this.setAttribute('data-tooltip', document.getElementById('tickmarks').childNodes[this.value].value);
@@ -99,6 +100,15 @@ addLoadEvent(function() {
         }
 
     });
+
+
+    document.getElementById("btn_guardar").addEventListener("click", function() {
+
+        document.getElementById("form_nueva_orden").submit();
+
+    });
+
+
 
 });
 

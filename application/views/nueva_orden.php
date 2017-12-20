@@ -4,7 +4,7 @@
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
 
 <main class="m-2">
-<form action="Nueva_orden/guardar" method="POST">
+<form id="form_nueva_orden" action="Nueva_orden/guardar" method="POST">
 <h5>Nueva Orden</h5>
 <p></p>
 <div id="selector_de_clientes" class="form-group">
@@ -100,8 +100,8 @@
 <p></p>
 
 <div class="btn-group btn-group-block">
-  <button class="btn">Descartar</button>
-  <button class="btn btn-primary" type="submit">Guardar</button>
+  <button id="btn_descartar" class="btn" type="button" onclick="location.href = <?PHP echo base_url(); ?>" >Descartar</button>
+  <button id="btn_guardar" class="btn btn-primary" type="button">Guardar</button>
 </div>
 </form>
 </main>
