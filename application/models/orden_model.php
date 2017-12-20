@@ -57,13 +57,14 @@ class Orden_model extends CI_Model {
 			);
 
 
-			$query = $this->db->query("SELECT id_cliente, fecha_entrega FROM orden WHERE id_orden = ". $id_orden);
+			$query = $this->db->query("SELECT * FROM orden WHERE id_orden = ". $id_orden);
 			$row = $query->row();
 
+			$orden["id_orden"] = $row->id_orden;
 			$orden["cliente"] = $row->id_cliente;
 			$orden["fecha"] = $row->fecha_entrega;
 
-			$query = $this->db->query( "SELECT * FROM item WHERE id_orden = ". $id_orden);
+			$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento FROM item left join producto on item.id_producto = producto.id_producto WHERE id_orden = ". $id_orden);
 
 			$orden["items"] = $query->result_array();
 

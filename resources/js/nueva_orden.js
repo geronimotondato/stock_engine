@@ -9,7 +9,7 @@ addLoadEvent(function() {
     });
 
 
-    document.getElementById("fecha").value = getFecha(1);
+    // document.getElementById("fecha").value = getFecha(1);
     document.getElementById("fecha").setAttribute("min", getFecha(0));
     document.getElementById("fecha-slider").addEventListener("input", function() {
         this.setAttribute('value', this.value);

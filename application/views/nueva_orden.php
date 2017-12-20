@@ -2,26 +2,23 @@
 <link href= "<?PHP echo base_url( 'resources/css/'. basename(__FILE__, '.php') . '.css'); ?>" rel="stylesheet">
 <!-- llamo a js propio de la vista -->
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
+<?PHP
+echo json_encode($orden);
+?>
 
 <main class="m-2">
 <form id="form_nueva_orden" action="Nueva_orden/guardar" method="POST">
+<input id="id_orden" class="form-input d-none" type="hidden" name="id_orden" value=<?PHP echo $orden["id_orden"] ?> >
 <h5>Nueva Orden</h5>
 <p></p>
 <div id="selector_de_clientes" class="form-group">
   <select class="form-select">
-
+    <option selected disabled="disabled">Clientes</option>
   <?PHP
-
-  if($orden["cliente"] == -1) echo '<option selected disabled="disabled">Clientes</option>';
   foreach ($clientes as $cliente)
   {
-      if($orden["cliente"] == $cliente->id_cliente){
-        echo "<option data-id_cliente = ".$cliente->id_cliente." selected>".$cliente->nombre."</option>"; 
-      }else{
         echo "<option data-id_cliente = ".$cliente->id_cliente.">".$cliente->nombre."</option>";
-      }
   }
-  
   ?>
 
   </select>
