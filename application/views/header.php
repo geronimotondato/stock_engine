@@ -31,7 +31,7 @@
         <!-- menu item -->
         <li class="menu-item">
           <a href  ="<?PHP echo base_url('') ?>"
-            class ="<?PHP if($this->session->flashdata('header_tab') =="dashboard") echo 'active' ?>" >
+            class ="<?PHP if($this->session->flashdata('side_bar') =="dashboard") echo 'active' ?>" >
             <i class="icon icon-orden"></i> Ordenes
           </a>
         </li>
@@ -40,7 +40,7 @@
         <!-- menu item -->
         <li class="menu-item">
           <a href  ="<?PHP echo base_url('Nueva_orden') ?>"
-            class ="<?PHP if($this->session->flashdata('header_tab') =="nueva_orden") echo 'active' ?>" >
+            class ="<?PHP if($this->session->flashdata('side_bar') =="nueva_orden") echo 'active' ?>" >
             <i class="icon icon-truck-black"></i> Nueva Orden
           </a>
         </li>

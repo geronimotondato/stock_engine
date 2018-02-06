@@ -22,11 +22,11 @@ class Nueva_orden extends CI_Controller {
 			$data["orden"]["id_orden"] = 0;
 			$data["orden"]["cliente"] = 0;
 			$data["orden"]["fecha"] = date("Y-m-d");
-			$data["orden"]["items"] = null;
+			$data["orden"]["items"] = [];
 
 		}
 
-		$this->load->view("header.php", $this->session->set_flashdata('header_tab','nueva_orden'));
+		$this->load->view("header.php", $this->session->set_flashdata('side_bar','nueva_orden'));
 		$this->load->view("nueva_orden.php", $data);
 		$this->load->view("footer.php");
 

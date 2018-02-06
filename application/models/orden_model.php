@@ -9,11 +9,7 @@ class Orden_model extends CI_Model {
 		parent::__construct();
 	}
 
-	// ******************************************************************************
-	// ► Func : consulta a la base de datos en busca de la lista de productos
-	// ► Obser: devuelve toda la lista de productos
-	// ► ToDo :
-	// ******************************************************************************
+
 	public function guardar_orden($orden){
 
 		try{
@@ -27,16 +23,16 @@ class Orden_model extends CI_Model {
 			$id_orden = $this->db->insert_id();
 
 			foreach ($orden["items"] as $item){
-					$this->db->query(
+				$this->db->query(
 
-							"INSERT INTO item (id_orden, id_producto, cantidad, descuento)VALUES
-							(".$id_orden.",
-							".$item['id_producto'].",
-							".$item['cantidad'].",
-							".$item['descuento']."
-							)"
+					"INSERT INTO item (id_orden, id_producto, cantidad, descuento)VALUES
+					(".$id_orden.",
+					".$item['id_producto'].",
+					".$item['cantidad'].",
+					".$item['descuento']."
+				)"
 
-					);
+			);
 			}
 
 			$this->db->trans_complete();
@@ -61,8 +57,8 @@ class Orden_model extends CI_Model {
 			$row = $query->row();
 
 			$orden["id_orden"] = $row->id_orden;
-			$orden["cliente"] = $row->id_cliente;
-			$orden["fecha"] = $row->fecha_entrega;
+			$orden["cliente"]  = $row->id_cliente;
+			$orden["fecha"]    = $row->fecha_entrega;
 
 			$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento FROM item left join producto on item.id_producto = producto.id_producto WHERE id_orden = ". $id_orden);
 
@@ -75,5 +71,39 @@ class Orden_model extends CI_Model {
 		}
 
 	}
+
+
+
+
+	public function get_orden_list($desde, $hasta){
+
+		try{
+
+			$query = $this->db->query("SELECT * FROM orden left join cliente on orden.id_cliente = cliente.id_cliente limit ". $desde.",".$hasta);
+
+			$query = $query->result_array();
+
+			foreach ($query as $row){
+
+				$ordenes[] = $row;
+			}
+
+
+			foreach ($ordenes as $key => $orden){
+
+				$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento FROM item left join producto on item.id_producto = producto.id_producto WHERE id_orden = ". $orden["id_orden"]);
+
+				$ordenes[$key]["items"] = $query->result_array();
+
+			}
+
+			return $ordenes;
+
+		}catch (Exception $e){
+			throw new Exception("No se pudo recuperar la orden de la base de datos");
+		}
+
+	}
+
 
 }

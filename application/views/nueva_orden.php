@@ -2,42 +2,32 @@
 <link href= "<?PHP echo base_url( 'resources/css/'. basename(__FILE__, '.php') . '.css'); ?>" rel="stylesheet">
 <!-- llamo a js propio de la vista -->
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
+
+<div id="form_data" class="d-none">
 <?PHP
 echo json_encode($orden);
 ?>
-
+</div>
 <main class="m-2">
 <form id="form_nueva_orden" action="Nueva_orden/guardar" method="POST">
 <input id="id_orden" class="form-input d-none" type="hidden" name="id_orden" value=<?PHP echo $orden["id_orden"] ?> >
 <h5>Nueva Orden</h5>
 <p></p>
 <div id="selector_de_clientes" class="form-group">
-  <select class="form-select">
-    <option selected disabled="disabled">Clientes</option>
-  <?PHP
-  foreach ($clientes as $cliente)
-  {
-        echo "<option data-id_cliente = ".$cliente->id_cliente.">".$cliente->nombre."</option>";
-  }
-  ?>
 
+  <select class="form-select">
+    <option disabled="disabled">Clientes</option>
+    <?PHP foreach ($clientes as $cliente): ?>
+    <option data-id_cliente = <?PHP echo $cliente->id_cliente ?>> <?PHP echo $cliente->nombre ?> </option>
+    <?PHP endforeach ?>
   </select>
   <input id="cliente" type="hidden" name="cliente">
 </div>
 
-<div id="selector_de_fecha" class="form-group">
-  <label class="form-label" for=""></label>
-  <input id="fecha-slider" class="slider tooltip" type="range" list="tickmarks"
-   min="1" max="3" value="1" data-tooltip="Mañana">
-  <datalist id="tickmarks">
-    <option value="Mañana">
-    <option value="Pasado">
-    <option value="Fecha Específica">
-  </datalist>
-  <input id="fecha" class="form-input d-none" type="date" name="fecha">
-</div>
-
 <p></p>
+  <input id="fecha" class="form-input" type="date" name="fecha" value=>
+<p></p>
+
 <div id="selector_de_productos" class="form-group">
   <select class="form-select">
     <option selected disabled="disabled">Productos</option>
@@ -96,6 +86,8 @@ echo json_encode($orden);
     <!-- navigation components: tabs, breadcrumbs or pagination -->
   </div>
   <div class="panel-body">
+
+
   </div>
   <div class="panel-footer">
     <!-- buttons or inputs -->

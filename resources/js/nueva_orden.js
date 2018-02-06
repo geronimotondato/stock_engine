@@ -1,6 +1,9 @@
 addLoadEvent(function() {
 
 
+    orden_data = JSON.parse(document.getElementById("form_data").innerText);
+    lista_items = orden_data.items;
+
     document.getElementById("selector_de_clientes").addEventListener("change", function() {
 
         var cliente = this.children[0].selectedOptions[0].getAttribute('data-id_cliente');
@@ -8,28 +11,21 @@ addLoadEvent(function() {
 
     });
 
+    if (orden_data.cliente != 0){
+    var children = document.getElementById("selector_de_clientes").children[0].children;
 
-    // document.getElementById("fecha").value = getFecha(1);
+
+    for (var i = 0; i < children.length; i++) {
+
+        if (children[i].getAttribute("data-id_cliente") == orden_data.cliente) document.getElementById("selector_de_clientes").children[0].selectedIndex = i;
+    }
+    }else{
+
+        document.getElementById("selector_de_clientes").children[0].selectedIndex = 0;
+    }
+
     document.getElementById("fecha").setAttribute("min", getFecha(0));
-    document.getElementById("fecha-slider").addEventListener("input", function() {
-        this.setAttribute('value', this.value);
-        this.setAttribute('data-tooltip', document.getElementById('tickmarks').childNodes[this.value].value);
-        var fecha = document.getElementById("fecha");
-        switch (this.value) {
-            case "1":
-                fecha.value = getFecha(this.value);
-                break;
-            case "2":
-                fecha.value = getFecha(this.value);
-                break;
-            case "3":
-                fecha.value = getFecha(this.value);
-                fecha.classList.remove("d-none");
-                this.classList.add("d-none")
-                break;
-        }
-    });
-
+    document.getElementById("fecha").setAttribute("value", orden_data.fecha);
 
     document.getElementById("selector_de_productos").addEventListener("change", function() {
 
@@ -109,10 +105,12 @@ addLoadEvent(function() {
     });
 
 
+    imprimir_lista_items();
+
 });
 
 
-var lista_items = [];
+
 
 function agregar_item(item){
 	lista_items.push(item);
@@ -193,9 +191,11 @@ function cerrar_modal() {
 
 function imprimir_lista_items(){
     document.querySelectorAll('.panel-body')[0].innerHTML ="";
-    lista_items.forEach(function(producto){
-        generar_item(producto);
-    });
+    if(lista_items != null){
+        lista_items.forEach(function(producto){
+            generar_item(producto);
+        });
+    }   
 }
 
 function generar_item(item){
