@@ -79,7 +79,7 @@ class Orden_model extends CI_Model {
 
 		try{
 
-			$query = $this->db->query("SELECT * FROM orden left join cliente on orden.id_cliente = cliente.id_cliente limit ". $desde.",".$hasta);
+			$query = $this->db->query("SELECT * FROM orden LEFT JOIN cliente on orden.id_cliente = cliente.id_cliente  ORDER BY fecha_entrega ASC LIMIT ". $desde.",".$hasta );
 
 			$query = $query->result_array();
 
@@ -91,7 +91,7 @@ class Orden_model extends CI_Model {
 
 			foreach ($ordenes as $key => $orden){
 
-				$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento FROM item left join producto on item.id_producto = producto.id_producto WHERE id_orden = ". $orden["id_orden"]);
+				$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento FROM item LEFT JOIN producto on item.id_producto = producto.id_producto WHERE id_orden = ". $orden["id_orden"]);
 
 				$ordenes[$key]["items"] = $query->result_array();
 
