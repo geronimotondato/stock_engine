@@ -37,52 +37,62 @@ class Nueva_orden extends CI_Controller {
 
 
 
-public function crear_nueva_orden(){
+	public function guardar(){
 
-	try{
+		try{
 
-		$cliente = $this->input->post("cliente", TRUE);
-		$fecha   = $this->input->post("fecha",TRUE);
-		$items   = $this->input->post("items",TRUE);
+			$id_orden = $this->input->post("id_orden", TRUE);
+			$cliente = $this->input->post("cliente", TRUE);
+			$fecha   = $this->input->post("fecha",TRUE);
+			$items   = $this->input->post("items",TRUE);
 
-		if($cliente == null || $fecha == null || $items == null){
-			throw new Exception("Debe completar todos los campos");
+			if($id_orden == null || $cliente == null || $fecha == null || $items == null){
+
+				var_dump($_POST);
+				throw new Exception("Debe completar todos los campos");
+			}
+
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('id_orden', 'Id_orden', 'trim|required|numeric');
+			$this->form_validation->set_rules('cliente', 'Cliente', 'trim|required|numeric');
+			$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
+
+/*			for( $i = 0; $i < count($items); $i++){
+				$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
+			}*/
+
+			foreach($items as $i => $value) {
+				$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
+			}
+
+			if(!($this->form_validation->run())){
+				throw new Exception("Algun/os no fueron ingresados correctamente");
+			}
+
+			$orden = array(
+					"id_orden" => $id_orden,
+					"cliente" => $cliente,
+					"fecha"   => $fecha,
+					"items"   => $items
+			);
+
+			$this->load->model("orden_model");
+
+			($id_orden == 0)? $this->orden_model->guardar_orden($orden) : $this->orden_model->actualizar_orden($orden);
+
+			redirect('/','refresh');
+
+		}catch(Exception $e){
+			echo validation_errors();
+			echo $e->getMessage();
+			echo "<pre>";
+			var_dump($_POST);
+			echo "</pre>";
 		}
-
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('cliente', 'Cliente', 'trim|required|numeric');
-		$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
-
-		for( $i = 0; $i < count($items); $i++){
-			$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
-			$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
-			$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
-		}
-
-		if(!($this->form_validation->run())){
-			throw new Exception("Algun/os no fueron ingresados correctamente");
-		}
-
-		$orden = array(
-				"cliente" => $cliente,
-				"fecha"   => $fecha,
-				"items"   => $items
-		);
-
-		$this->load->model("orden_model");
-		$this->orden_model->guardar_orden($orden);
-
-		redirect('/','refresh');
-
-	}catch(Exception $e){
-		echo $e->getMessage();
-	}
-
-}
-
-
-public function actualizar_orden(){
-
 
 }
 
@@ -90,31 +100,6 @@ public function eliminar_orden(){
 
 
 }
-
-
-public function guardar(){
-
-	try{
-
-		$id_orden = $this->input->post("id_orden", TRUE);
-
-		if($id_orden == null) throw new Exception("Debe completar todos los campos");
-
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('id_orden', 'Id_orden', 'trim|required|numeric');
-
-		if(!($this->form_validation->run())) throw new Exception("Algun/os no fueron ingresados correctamente");
-
-
-		($id_orden == 0)? $this->crear_nueva_orden() : $this->actualizar_orden();
-
-	}catch(Exception $e){
-		echo $e->getMessage();
-	}
-
-}
-
-
 
 
 	public function date_valid($date)

@@ -42,6 +42,43 @@ class Orden_model extends CI_Model {
 
 	}
 
+
+	public function actualizar_orden($orden){
+
+		try{
+
+			$this->db->trans_start();
+
+			$this->db->query(
+				"UPDATE orden SET id_cliente = ".$orden['cliente'].", fecha_entrega =\"".$orden['fecha']."\" WHERE
+				id_orden =" . $orden['id_orden']
+			);
+
+			$this->db->query(
+				"DELETE FROM item WHERE id_orden =". $orden['id_orden']
+			);
+
+			foreach ($orden["items"] as $item){
+				$this->db->query(
+
+					"INSERT INTO item (id_orden, id_producto, cantidad, descuento)VALUES
+					(
+						".$orden['id_orden'].",
+						".$item['id_producto'].",
+						".$item['cantidad'].",
+						".$item['descuento']."
+					)"
+
+			);
+			}
+
+			$this->db->trans_complete();
+		}catch (Exception $e){
+			throw new Exception("No se pudo guardar la orden en la base de datos, avise al administrador");
+		}
+
+	}
+
 	public function get_orden($id_orden){
 
 		try{
