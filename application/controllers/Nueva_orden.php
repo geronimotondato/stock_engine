@@ -57,12 +57,6 @@ class Nueva_orden extends CI_Controller {
 			$this->form_validation->set_rules('cliente', 'Cliente', 'trim|required|numeric');
 			$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
 
-/*			for( $i = 0; $i < count($items); $i++){
-				$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
-				$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
-				$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
-			}*/
-
 			foreach($items as $i => $value) {
 				$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
 				$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');

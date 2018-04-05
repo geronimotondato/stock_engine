@@ -1,7 +1,19 @@
+
 .tile{
 	max-width: 90%;
 	margin: 10px auto;
 	background-color: #eee;
 	padding: 8px;
 
+}
+
+#no-hay-ordenes{
+	color: #fff;
+	margin: 0 auto;
+	margin-top: 30px;
+	padding: 15px 20px;
+	background-color: #5755d9;
+	font-size: 18px;
+	text-align: center;
+	max-width: 500px;
 }

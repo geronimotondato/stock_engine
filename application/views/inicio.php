@@ -5,6 +5,7 @@
 
 <main>
 
+<?PHP if($ordenes): ?>
 
 <?PHP foreach($ordenes as $orden): ?>
 
@@ -34,5 +35,7 @@
  
 <?PHP endforeach ?>
 
-
+<?PHP else: ?>
+<div id="no-hay-ordenes"> No hay ordenes pendientes </div>
+<?PHP endif; ?>
 </main>

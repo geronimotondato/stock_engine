@@ -4,13 +4,6 @@ addLoadEvent(function() {
     orden_data = JSON.parse(document.getElementById("form_data").innerText);
     lista_items = orden_data.items;
 
-    document.getElementById("selector_de_clientes").addEventListener("change", function() {
-
-        var cliente = this.children[0].selectedOptions[0].getAttribute('data-id_cliente');
-        document.getElementById("cliente").value = cliente;
-
-    });
-
     if (orden_data.cliente != 0){
     var children = document.getElementById("selector_de_clientes").children[0].children;
 

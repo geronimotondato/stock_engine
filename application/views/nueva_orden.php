@@ -15,13 +15,14 @@ echo json_encode($orden);
 <p></p>
 <div id="selector_de_clientes" class="form-group">
 
-  <select class="form-select">
+  <select class="form-select" name="cliente">
     <option disabled="disabled">Clientes</option>
     <?PHP foreach ($clientes as $cliente): ?>
-    <option data-id_cliente = <?PHP echo $cliente->id_cliente ?>> <?PHP echo $cliente->nombre ?> </option>
+
+    <option value= <?PHP echo $cliente->id_cliente ?> <?PHP if($cliente->id_cliente == $orden["cliente"]) echo "selected"; ?>> <?PHP echo $cliente->nombre ?> </option>
+    
     <?PHP endforeach ?>
   </select>
-  <input id="cliente" type="hidden" name="cliente">
 </div>
 
 <p></p>
