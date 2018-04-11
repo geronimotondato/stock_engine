@@ -74,7 +74,46 @@ class Orden_model extends CI_Model {
 
 			$this->db->trans_complete();
 		}catch (Exception $e){
-			throw new Exception("No se pudo guardar la orden en la base de datos, avise al administrador");
+			throw new Exception("No se pudo actualizar la orden en la base de datos, avise al administrador");
+		}
+
+	}
+
+
+
+	public function finalizar_orden($id_orden){
+
+		try{
+
+			$this->db->trans_start();
+
+			$this->db->query(
+				"UPDATE orden SET entregado = 1 WHERE id_orden =" . $id_orden
+			);
+
+			$this->db->trans_complete();
+		}catch (Exception $e){
+			throw new Exception("No se pudo finalizar la orden en la base de datos, avise al administrador");
+		}
+
+	}
+
+
+
+	public function eliminar_orden($orden){
+
+		try{
+
+			$this->db->trans_start();
+
+			$this->db->query(
+				"DELETE FROM orden WHERE id_orden =". $orden['id_orden']
+			);
+
+			$this->db->trans_complete();
+
+		}catch (Exception $e){
+			throw new Exception("No se pudo eliminar la orden de la base de datos, avise al administrador");
 		}
 
 	}
@@ -116,7 +155,7 @@ class Orden_model extends CI_Model {
 
 		try{
 
-			$query = $this->db->query("SELECT * FROM orden LEFT JOIN cliente on orden.id_cliente = cliente.id_cliente  ORDER BY fecha_entrega ASC LIMIT ". $desde.",".$hasta );
+			$query = $this->db->query("SELECT * FROM orden LEFT JOIN cliente on orden.id_cliente = cliente.id_cliente WHERE entregado = 0 ORDER BY fecha_entrega ASC LIMIT ". $desde.",".$hasta );
 
 			$query = $query->result_array();
 

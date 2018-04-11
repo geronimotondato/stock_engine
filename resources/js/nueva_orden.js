@@ -13,7 +13,6 @@ addLoadEvent(function() {
         if (children[i].getAttribute("data-id_cliente") == orden_data.cliente) document.getElementById("selector_de_clientes").children[0].selectedIndex = i;
     }
     }else{
-
         document.getElementById("selector_de_clientes").children[0].selectedIndex = 0;
     }
 
@@ -86,11 +85,6 @@ addLoadEvent(function() {
             cerrar_modal();
         }
 
-    });
-
-    document.getElementById("btn_guardar").addEventListener("click", function() {
-
-        document.getElementById("form_nueva_orden").submit();
     });
 
     document.getElementById("cerrar_modal_producto").addEventListener("click", function (){
