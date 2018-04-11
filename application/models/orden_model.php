@@ -168,10 +168,13 @@ class Orden_model extends CI_Model {
 
 				foreach ($ordenes as $key => $orden){
 
-					$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento FROM item LEFT JOIN producto on item.id_producto = producto.id_producto WHERE id_orden = ". $orden["id_orden"]);
+					$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento, precio_venta, cantidad*precio_venta*(1 - descuento/100) as total FROM item LEFT JOIN producto on item.id_producto = producto.id_producto WHERE id_orden = ". $orden["id_orden"]);
 
 					$ordenes[$key]["items"] = $query->result_array();
-
+					$ordenes[$key]["total_orden"] = 0;
+					foreach($ordenes[$key]["items"] as $item){
+						$ordenes[$key]["total_orden"] += $item["total"];
+					}
 				}
 			}else{
 				$ordenes = false;
