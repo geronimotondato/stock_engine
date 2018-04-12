@@ -13,33 +13,34 @@
     <div class="columns">
 
         <div class="cabecera-orden column col-12">
-        <strong>Cliente: </strong><?= $orden["nombre"];?>
-        </div>
-
-        <div class="cabecera-orden column col-12">
-        <strong>Entrega: </strong><?= $orden["fecha_entrega"]; ?>
-        </div>
-
-        <div class="cabecera-orden column col-12">
-        <strong>Ubicación: </strong><?= $orden["ubicacion"]; ?>
+        <table class="table">
+          <thead>
+            <tr>
+              <th width=33%><?= $orden["nombre"];?></th>
+              <th width=33%><?= $orden["fecha_entrega"]; ?></th>
+              <th width=33%><?= $orden["ubicacion"]; ?></th>
+            </tr>
+          </thead>
+        </table>
         </div>
 
       <div class="column col-12">
 
 
-        <table class="table table-striped table-hover">
+
+        <table class="table tabla-productos">
           <thead>
             <tr>
               <th>Prod</th>
               <th>Cant</th>
-              <th>Desc %</th>
+              <th>Desc%</th>
               <th>$</th>
               <th>Total</th>
             </tr>
           </thead>
           <tbody>
             <?PHP foreach($orden["items"] as $item): ?>
-            <tr class="active">
+            <tr>
               <td><?= $item["nombre"] ?></td>
               <td><?= $item["cantidad"]?></td>
               <td><?= $item["descuento"]?></td>
@@ -47,8 +48,8 @@
               <td><?= $item["total"]?></td>
             </tr>
             <?PHP endforeach ?>
-            <tr class="active">
-              <td colspan=5>------</td>
+            <tr >
+              <td colspan=5>######</td>
             </tr>
             <tr>
               <th colspan=3></th>
@@ -65,7 +66,7 @@
          </div>
          <div class="column col-6 acciones">
            <form action="ordenes/finalizar_orden" method="post">
-            <button class="btn btn-link" name="id_orden" value=<?PHP echo $orden['id_orden'];?>><i class='icon icon-2x icon-check'></i></button>
+            <button id="finalizar-orden"class="btn btn-link" name="id_orden" value=<?PHP echo $orden['id_orden'];?>><i class='icon icon-2x icon-check'></i></button>
             </form>
         </div>
 

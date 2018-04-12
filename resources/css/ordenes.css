@@ -1,6 +1,6 @@
 
 .orden{
-	max-width: 90%;
+	max-width: 95%;
 	margin: 20px auto;
 	padding: 8px; 
 	border: 2px solid #5755d9;
@@ -19,6 +19,31 @@
 	max-width: 500px;
 }
 
+.table td, .table th {
+	border-bottom: .05rem solid #e7e9ed;
+	padding: 0px;
+}
+
+.cabecera-orden table{
+	color:#5755d9;
+	text-align: center;
+	margin-bottom: 20px;
+	background-color: #5755d915;
+}
+
+.cabecera-orden table tr{
+	height: 40px;
+}
+
+.tabla-productos{
+	border-top: 1px solid #5755d9;
+	border-radius: 3;
+}
+
+.tabla-productos tbody tr td{
+	border-roght: 1px solid  #444;
+}
+
 .acciones{
 	color:#fff;
 	text-align: center;
@@ -26,13 +51,6 @@
 	margin: 10px 0;
 }
 
-.table td, .table th {
-	border-bottom: .05rem solid #e7e9ed;
-	padding: 0px;
-}
-
-.cabecera-orden{
-	color:#5755d9;
-	padding: 0 10px;
-
+#finalizar-orden{
+	color: green;
 }
