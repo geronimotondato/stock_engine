@@ -123,22 +123,29 @@ class Orden_model extends CI_Model {
 		try{
 
 			$orden = array(
-				"cliente" => "",
-				"fecha"   => "",
-				"items"   => []
+				"id_orden" => 0,
+				"cliente"  => "",
+				"fecha"    => "",
+				"items"    => []
 			);
 
 
-			$query = $this->db->query("SELECT * FROM orden WHERE id_orden = ". $id_orden);
+			$query = $this->db->query("SELECT * FROM orden WHERE id_orden = ". $id_orden. " AND entregado = 0");
 			$row = $query->row();
+			
+			if (isset($row)){
 
-			$orden["id_orden"] = $row->id_orden;
-			$orden["cliente"]  = $row->id_cliente;
-			$orden["fecha"]    = $row->fecha_entrega;
+				$orden["id_orden"] = $row->id_orden;
+				$orden["cliente"]  = $row->id_cliente;
+				$orden["fecha"]    = $row->fecha_entrega;
 
-			$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento FROM item left join producto on item.id_producto = producto.id_producto WHERE id_orden = ". $id_orden);
+				$query = $this->db->query( "SELECT id_item, item.id_producto, nombre, cantidad, descuento FROM item left join producto on item.id_producto = producto.id_producto WHERE id_orden = ". $id_orden);
 
-			$orden["items"] = $query->result_array();
+				$orden["items"] = $query->result_array();
+
+
+			}
+
 
 			return $orden;
 
