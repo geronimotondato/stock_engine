@@ -26,8 +26,6 @@
 
       <div class="column col-12">
 
-
-
         <table class="table tabla-productos">
           <thead>
             <tr>
@@ -65,15 +63,30 @@
            <i class='icon icon-2x icon-edit'></i></a>
          </div>
          <div class="column col-6 acciones">
-           <form action="ordenes/finalizar_orden" method="post">
-            <button id="finalizar-orden"class="btn btn-link" name="id_orden" value=<?PHP echo $orden['id_orden'];?>><i class='icon icon-2x icon-check'></i></button>
-            </form>
+            <button class="btn btn-link finalizar_orden" type="button" value=<?PHP echo $orden['id_orden'];?>><i class='icon icon-2x icon-check'></i></button>
         </div>
 
     </div>
   </div>
 
   <?PHP endforeach ?>
+
+  <!-- MODAL DE FINALIZAR ORDEN -->
+  <div id="finalizar_orden_dialog" class="modal modal-sm">
+    <a class="modal-overlay cerrar_finalizar_orden_dialog" aria-label="Close"></a>
+    <div class="modal-container m-2">
+      <p></p>
+      <div class="m-2">
+        <h5>Finalizar esta orden</h5>
+        <p></p>
+        <p></p>
+        <form id="form_aceptar_finalizar_orden" action="ordenes/finalizar_orden" method="post">
+          <button id="aceptar_finalizar_orden" class="btn btn-primary"  type="submit" name="id_orden" value="" >Aceptar</button>
+        </form>
+        <button class="btn cerrar_finalizar_orden_dialog" type="button" >Cancelar</button>
+      </div>
+    </div>
+  </div> <!--FIN MODAL -->
 
   <?PHP else: ?>
   <div id="no-hay-ordenes"> No hay ordenes pendientes </div>

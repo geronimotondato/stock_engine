@@ -51,6 +51,9 @@
 	margin: 10px 0;
 }
 
-#finalizar-orden{
-	color: green;
+.finalizar_orden{
+	color: green !important;
+}
+#form_aceptar_finalizar_orden{
+	display: inline;
 }

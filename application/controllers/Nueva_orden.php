@@ -78,9 +78,9 @@ class Nueva_orden extends CI_Controller {
 			echo "\n";
 			echo $e->getMessage();
 			echo "\n";
-			echo "<pre>";
+/*		echo "<pre>";
 			var_dump($_POST);
-			echo "</pre>";
+			echo "</pre>";*/
 		}
 
 	}
