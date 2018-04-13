@@ -46,6 +46,18 @@
       </li>
       <!-- menu divider -->
       <li class="divider"></li>
+
+
+      <!-- menu item -->
+      <li class="menu-item">
+        <a href  ="<?PHP echo base_url('Stock') ?>"
+          class ="<?PHP if($this->session->flashdata('side_bar') =="stock") echo 'active' ?>" >
+          <i class="icon icon-stock-black"></i> Stock
+        </a>
+      </li>
+      <!-- menu divider -->
+      <li class="divider"></li>
+
       <!-- menu item -->
       <li class="menu-item">
         <a href="<?PHP echo base_url('') ?>Login/log_out">
