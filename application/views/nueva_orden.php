@@ -93,6 +93,26 @@
 
     <p></p>
 
+
+
+    <div id="eliminar_orden_dialog" class="modal modal-sm">
+      <a class="modal-overlay cerrar_eliminar_orden_dialog" aria-label="Close"></a>
+      
+      <div class="modal-container m-2">
+
+        <p></p>
+        <div class="m-2">
+          <h5>Eliminar esta orden</h5>
+          <p></p>
+          <p></p>
+          <button class="btn" type="input" name="submit_btn" value="Eliminar" >Eliminar</button>
+          <button class="btn btn-primary cerrar_eliminar_orden_dialog" type="button" >Cancelar</button>
+        </div>
+        
+      </div>
+    </div>
+
+
     <?PHP //Si id_orden es distinto de 0 significa que se va a actualizar una orden ya existe
           //por lo cual se crean los botones [descartar][actualizar][eliminar]
           //en el caso que sea 0 se crean los botones [descartar][guardar] ?>
@@ -109,7 +129,7 @@
     <div class="btn-group btn-group-block">
       <button id="btn_descartar" class="btn" type="button" onclick="location.href = <?= base_url(); ?>" >Descartar</button>
       <button id="btn_actualizar" class="btn btn-primary" type="input"  name="submit_btn" value="Actualizar">Actualizar</button>
-      <button id="btn_eliminar" class="btn" type="input" name="submit_btn" value="Eliminar" >Eliminar</button>
+      <button id="btn_eliminar" class="btn" type="button">Eliminar</button>
     </div>
     <?PHP endif; ?>
   </form>

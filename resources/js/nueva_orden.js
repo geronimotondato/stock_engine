@@ -93,7 +93,22 @@ addLoadEvent(function() {
 
 
     imprimir_lista_items();
+    
 
+    document.getElementById("btn_eliminar").addEventListener("click", function() {
+
+        document.getElementById("eliminar_orden_dialog").classList.add("active");
+
+    });
+
+    document.querySelectorAll(".cerrar_eliminar_orden_dialog").forEach( function(element){
+
+        element.addEventListener("click", function() {
+
+            document.getElementById("eliminar_orden_dialog").classList.remove("active");
+
+        });
+    });
 });
 
 
