@@ -84,14 +84,11 @@ class Orden_model extends CI_Model {
 	public function finalizar_orden($id_orden){
 
 		try{
-
-			$this->db->trans_start();
-
+			
 			$this->db->query(
-				"UPDATE orden SET entregado = 1 WHERE id_orden =" . $id_orden
+				"CALL generar_historial_orden(". $id_orden .")"
 			);
 
-			$this->db->trans_complete();
 		}catch (Exception $e){
 			throw new Exception("No se pudo finalizar la orden en la base de datos, avise al administrador");
 		}
@@ -130,7 +127,7 @@ class Orden_model extends CI_Model {
 			);
 
 
-			$query = $this->db->query("SELECT * FROM orden WHERE id_orden = ". $id_orden. " AND entregado = 0");
+			$query = $this->db->query("SELECT * FROM orden WHERE id_orden = ". $id_orden);
 			$row = $query->row();
 			
 			if (isset($row)){
@@ -162,7 +159,7 @@ class Orden_model extends CI_Model {
 
 		try{
 
-			$query = $this->db->query("SELECT * FROM orden LEFT JOIN cliente on orden.id_cliente = cliente.id_cliente WHERE entregado = 0 ORDER BY fecha_entrega ASC LIMIT ". $desde.",".$hasta );
+			$query = $this->db->query("SELECT * FROM orden LEFT JOIN cliente on orden.id_cliente = cliente.id_cliente ORDER BY fecha_entrega ASC LIMIT ". $desde.",".$hasta );
 
 			$query = $query->result_array();
 
