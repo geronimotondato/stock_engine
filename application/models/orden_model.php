@@ -86,7 +86,7 @@ class Orden_model extends CI_Model {
 		try{
 			
 			$this->db->query(
-				"CALL generar_historial_orden(". $id_orden .")"
+				"CALL finalizar_orden(". $id_orden .")"
 			);
 
 		}catch (Exception $e){

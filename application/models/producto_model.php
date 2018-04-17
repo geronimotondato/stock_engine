@@ -18,8 +18,23 @@ class Producto_model extends CI_Model {
 	{
 		$query = $this->db->query("select * from producto;");
 		if(empty($query)){
-			throw new Exception("El usuario no existe");
+			throw new Exception("No hay productos en la tabla productos");
 		}
 		return $query->result();  
 	}
+
+	// ******************************************************************************************
+	// ► Func : consulta a la base de datos en busca de la lista de productos y calcula el stock
+	// ► Obser: devuelve toda la lista de productos y su stock
+	// ► ToDo :
+	// ******************************************************************************************
+	public function get_stock_productos()
+	{
+		$query = $this->db->query("select * from vista_stock;");
+		if(empty($query)){
+			throw new Exception("No hay productos en la tabla productos");
+		}
+		return $query->result();  
+	}
+
 }

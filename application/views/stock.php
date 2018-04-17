@@ -17,30 +17,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>producto</td>
-      <td>5</td>
-      <td>15.5</td>
-      <td>20</td>
-      <td>20</td>
-      <td>40</td>
-    </tr>
-    <tr>
-      <td>producto</td>
-      <td>5</td>
-      <td>15.5</td>
-      <td>20</td>
-      <td>20</td>
-      <td>40</td>
-    </tr>
-    <tr>
-      <td>producto</td>
-      <td>5</td>
-      <td>15.5</td>
-      <td>20</td>
-      <td>20</td>
-      <td>40</td>
-    </tr>
+
+<?PHP foreach ($productos as $row): ?>
+<tr>
+  <td><?= $row->producto?></td>
+  <td><?= $row->unidades?></td>
+  <td><?= $row->precio_venta?></td>
+  <td><?= $row->disponibles?></td>
+  <td><?= $row->comprometidos?></td>
+  <td><?= $row->stock_total?></td>
+</tr>
+<?PHP endforeach; ?>
   </tbody>
 </table>
 
