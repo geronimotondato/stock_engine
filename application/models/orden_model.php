@@ -43,42 +43,28 @@ class Orden_model extends CI_Model {
 	}
 
 
-	public function actualizar_orden($orden){
 
+
+
+
+	public function actualizar_orden($orden){
 		try{
 
-			$this->db->trans_start();
+				$this->db->trans_start();
 
-			$this->db->query(
-				"UPDATE orden SET id_cliente = ".$orden['cliente'].", fecha_entrega =\"".$orden['fecha']."\" WHERE
-				id_orden =" . $orden['id_orden']
-			);
-
-			$this->db->query(
-				"DELETE FROM item WHERE id_orden =". $orden['id_orden']
-			);
-
-			foreach ($orden["items"] as $item){
 				$this->db->query(
+					"DELETE FROM orden WHERE id_orden =". $orden['id_orden']
+				);
 
-					"INSERT INTO item (id_orden, id_producto, cantidad, descuento)VALUES
-					(
-						".$orden['id_orden'].",
-						".$item['id_producto'].",
-						".$item['cantidad'].",
-						".$item['descuento']."
-					)"
+				$this->guardar_orden($orden);
 
-			);
+				$this->db->trans_complete();
+			
+			}catch (Exception $e){
+				throw new Exception("No se pudo actualizar la orden en la base de datos, avise al administrador");
 			}
 
-			$this->db->trans_complete();
-		}catch (Exception $e){
-			throw new Exception("No se pudo actualizar la orden en la base de datos, avise al administrador");
-		}
-
 	}
-
 
 
 	public function finalizar_orden($id_orden){
@@ -152,9 +138,6 @@ class Orden_model extends CI_Model {
 
 	}
 
-
-
-
 	public function get_orden_list($desde, $hasta){
 
 		try{
@@ -192,5 +175,33 @@ class Orden_model extends CI_Model {
 
 	}
 
-
 }
+
+
+	// public function actualizar_orden($orden){
+	// 	try{
+	// 		$this->db->trans_start();
+	// 		$this->db->query(
+	// 			"UPDATE orden SET id_cliente = ".$orden['cliente'].", fecha_entrega =\"".$orden['fecha']."\" WHERE
+	// 			id_orden =" . $orden['id_orden']
+	// 		);
+	// 		$this->db->query(
+	// 			"DELETE FROM item WHERE id_orden =". $orden['id_orden']
+	// 		);
+	// 		foreach ($orden["items"] as $item){
+	// 			$this->db->query(
+	// 				"INSERT INTO item (id_orden, id_producto, cantidad, descuento)VALUES
+	// 				(
+	// 					".$orden['id_orden'].",
+	// 					".$item['id_producto'].",
+	// 					".$item['cantidad'].",
+	// 					".$item['descuento']."
+	// 				)"
+	// 		);
+	// 		}
+	// 		$this->db->trans_complete();
+	// 	}catch (Exception $e){
+	// 		throw new Exception("No se pudo actualizar la orden en la base de datos, avise al administrador");
+	// 	}
+
+	// }

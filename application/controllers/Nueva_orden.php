@@ -45,21 +45,47 @@ class Nueva_orden extends CI_Controller {
 
 			$submit_btn= $this->input->post("submit_btn", TRUE);
 			switch ($submit_btn) {
-				case "Guardar":
+				case "Guardar": //=========GUARDAR===========
 
-				$orden = $this->generar_orden();
-				$this->load->model("orden_model");
-				$this->orden_model->guardar_orden($orden);
+					$orden = $this->generar_orden();
+
+					$this->load->model("producto_model");
+
+					$productos_disponibles = $this->producto_model->get_disponibilidad($orden["items"]);
+			
+					$no_hay_stock = false;
+
+					foreach($orden["items"] as $item){
+
+						$productos_disponibles[$item["id_producto"]] -= $item["cantidad"];
+
+						if ($productos_disponibles[$item["id_producto"]] < 0) $no_hay_stock = true;
+					}
+
+					if($no_hay_stock){
+
+						//TODO
+
+
+						echo "no hay stock";
+
+						exit();
+					}else{
+
+						$this->load->model("orden_model");
+						$this->orden_model->guardar_orden($orden);
+
+					}
 
 				break;
-				case "Actualizar":
+				case "Actualizar": //=========ACTUALIZAR===========
 
 				$orden = $this->generar_orden();
 				$this->load->model("orden_model");
 				$this->orden_model->actualizar_orden($orden);
 
 				break;
-				case "Eliminar" :
+				case "Eliminar" : //=========ELIMINAR===========
 
 				$orden = $this->generar_orden();
 				$this->load->model("orden_model");
@@ -78,9 +104,9 @@ class Nueva_orden extends CI_Controller {
 			echo "\n";
 			echo $e->getMessage();
 			echo "\n";
-/*		echo "<pre>";
-			var_dump($_POST);
-			echo "</pre>";*/
+		// 	echo "<pre>";
+		// 		var_dump($_POST);
+		// 	echo "</pre>";
 		}
 
 	}
