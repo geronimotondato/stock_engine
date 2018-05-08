@@ -35,7 +35,27 @@ class Orden_model extends CI_Model {
 			);
 			}
 
-			$this->db->trans_complete();
+
+			$this->load->model("producto_model");
+			$lista_productos = $this->producto_model->get_disponibilidad($orden["items"]);
+
+			$productos_sin_disponibilidad = array();
+			foreach($lista_productos as $producto){
+
+				if($producto['disponibles'] < 0){
+					$producto['disponibles'] = abs($producto['disponibles']);
+					$productos_sin_disponibilidad[] = $producto;
+				}
+			}
+
+			if (count($productos_sin_disponibilidad) > 0){
+				$this->db->trans_rollback();
+				return $productos_sin_disponibilidad;
+			}else{
+				$this->db->trans_complete();
+				return null;
+			}
+
 		}catch (Exception $e){
 			throw new Exception("No se pudo guardar la orden en la base de datos, avise al administrador");
 		}

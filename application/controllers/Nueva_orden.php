@@ -47,57 +47,41 @@ class Nueva_orden extends CI_Controller {
 			switch ($submit_btn) {
 				case "Guardar": //=========GUARDAR===========
 
-					$orden = $this->generar_orden();
-
-					$this->load->model("producto_model");
-
-					$productos_disponibles = $this->producto_model->get_disponibilidad($orden["items"]);
-			
-					$no_hay_stock = false;
-
-					foreach($orden["items"] as $item){
-
-						$productos_disponibles[$item["id_producto"]] -= $item["cantidad"];
-
-						if ($productos_disponibles[$item["id_producto"]] < 0) $no_hay_stock = true;
-					}
-
-					if($no_hay_stock){
-
-						//TODO
-
-
-						echo "no hay stock";
-
-						exit();
-					}else{
-
+						$orden = $this->generar_orden();
 						$this->load->model("orden_model");
-						$this->orden_model->guardar_orden($orden);
+						$productos_sin_disponibilidad = $this->orden_model->guardar_orden($orden);
 
-					}
+						if(isset($productos_sin_disponibilidad)){
+
+							
+
+
+						}else{
+							redirect('/','refresh');
+						}
+
 
 				break;
 				case "Actualizar": //=========ACTUALIZAR===========
 
-				$orden = $this->generar_orden();
-				$this->load->model("orden_model");
-				$this->orden_model->actualizar_orden($orden);
+					$orden = $this->generar_orden();
+					$this->load->model("orden_model");
+					$this->orden_model->actualizar_orden($orden);
+					redirect('/','refresh');
 
 				break;
 				case "Eliminar" : //=========ELIMINAR===========
 
-				$orden = $this->generar_orden();
-				$this->load->model("orden_model");
-				$this->orden_model->eliminar_orden($orden);
-
+					$orden = $this->generar_orden();
+					$this->load->model("orden_model");
+					$this->orden_model->eliminar_orden($orden);
+					redirect('/','refresh');
 
 				break;
 				default:
 				echo "entrada invalida";
 			}
 			
-			redirect('/','refresh');
 
 		}catch(Exception $e){
 			echo validation_errors();
@@ -160,7 +144,4 @@ class Nueva_orden extends CI_Controller {
 		$this->form_validation->set_message('date_valid', 'The Date field must be yyyy/mm/dd and separated by -');
 		return false;
 	}
-
-
-
 }

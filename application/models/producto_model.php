@@ -60,17 +60,6 @@ class Producto_model extends CI_Model {
 		WHERE p.id_producto in (" . $commaList . ") 
 		GROUP BY p.id_producto;");
 
-		return array_column($query->result_object(), "disponibles" , "id_producto");
-
+		return $query->result_array();
 	}
-
-	function array_column_multi(array $input, array $column_keys) {
-	    $result = array();
-	    $column_keys = array_flip($column_keys);
-	    foreach($input as $key => $el) {
-	        $result[$key] = array_intersect_key($el, $column_keys);
-	    }
-	    return $result;
-	}
-
 }
