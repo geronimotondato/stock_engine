@@ -111,6 +111,59 @@ addLoadEvent(function() {
     });
 });
 
+$( document ).ready(function() {
+
+
+    $(".cerrar_faltantes").click(function(e){
+        $("#faltantes").removeClass("active");
+        $("#lista_faltantes").empty();
+    });
+
+
+    $("#btn_guardar").click(function(event){
+        event.preventDefault();
+        $.post( 
+            /*url*/ "Nueva_orden/guardar", 
+            /*data*/ $("#form_nueva_orden").serialize() + '&submit_btn=' + 'Guardar',
+            /*success*/ function(data){
+                if(data === "success"){
+                    $(location).attr('href', _$_HOME_URL);
+                }else{
+                    
+                    var faltantes = JSON.parse(data);
+                    $.each(faltantes , function(index, faltante){
+                        $("#lista_faltantes").append("<p>Faltan "+ faltante.cantidad +" de "+faltante.nombre+"</p>");
+                    });
+
+                    $("#faltantes").addClass("active");
+                }
+        });
+    });
+
+    $("#btn_actualizar").click(function(event){
+        event.preventDefault();
+        $.post( 
+            /*url*/ "Nueva_orden/guardar", 
+            /*data*/ $("#form_nueva_orden").serialize() + '&submit_btn=' + 'Actualizar',
+            /*success*/ function(data){
+                if(data === "success"){
+                    $(location).attr('href', _$_HOME_URL);
+                }else{
+
+                    var faltantes = JSON.parse(data);
+                    $.each(faltantes, function(index, faltante){
+                        $("#lista_faltantes").append("<p>Faltan "+ faltante.cantidad +" de "+faltante.nombre+"</p>");
+                    });
+
+                    $("#faltantes").addClass("active");
+                }
+        });
+    });
+
+
+
+
+});
 
 
 

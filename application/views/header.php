@@ -4,6 +4,7 @@
   <meta content="text/html; charset=utf-8" http-equiv="Content-type">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <title>Stockeng</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -11,6 +12,7 @@
   <link href= "<?PHP echo base_url( 'resources/css/'. basename(__FILE__, '.php') . '.css'); ?>" rel="stylesheet">
   <!-- llamo a js propio de la vista -->
   <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
+    <SCRIPT src="<?PHP echo base_url( 'resources/js/'. 'global' . '.js'); ?>" type="text/javascript"></SCRIPT>
 </head>
 <body>
   <!-- HEADER -->

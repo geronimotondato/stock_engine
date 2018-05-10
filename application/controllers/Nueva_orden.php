@@ -39,8 +39,6 @@ class Nueva_orden extends CI_Controller {
 
 	public function guardar(){
 
-
-
 		try{
 
 			$submit_btn= $this->input->post("submit_btn", TRUE);
@@ -52,12 +50,11 @@ class Nueva_orden extends CI_Controller {
 						$productos_sin_disponibilidad = $this->orden_model->guardar_orden($orden);
 
 						if(isset($productos_sin_disponibilidad)){
-
 							
-
+							echo json_encode($productos_sin_disponibilidad);
 
 						}else{
-							redirect('/','refresh');
+							echo "success";
 						}
 
 
@@ -66,8 +63,16 @@ class Nueva_orden extends CI_Controller {
 
 					$orden = $this->generar_orden();
 					$this->load->model("orden_model");
-					$this->orden_model->actualizar_orden($orden);
-					redirect('/','refresh');
+					$productos_sin_disponibilidad = $this->orden_model->actualizar_orden($orden);
+
+					if(isset($productos_sin_disponibilidad)){
+
+						echo json_encode($productos_sin_disponibilidad);
+
+					}else{
+						echo "success";
+					}
+
 
 				break;
 				case "Eliminar" : //=========ELIMINAR===========
@@ -79,7 +84,8 @@ class Nueva_orden extends CI_Controller {
 
 				break;
 				default:
-				echo "entrada invalida";
+				var_dump($_POST);
+				// echo "entrada invalida";
 			}
 			
 
@@ -132,8 +138,8 @@ class Nueva_orden extends CI_Controller {
 		return $orden;
 	}
 
-	public function date_valid($date)
-	{
+
+	public function date_valid($date){
 		$parts = explode("-", $date);
 		if (count($parts) == 3) {      
 			if (checkdate($parts[1], $parts[2], $parts[0]))

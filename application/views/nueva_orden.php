@@ -113,6 +113,23 @@
     </div>
 
 
+    <div id="faltantes" class="modal modal-sm">
+      <a class="modal-overlay cerrar_faltantes" aria-label="Close"></a>
+      
+      <div class="modal-container m-2">
+
+        <p></p>
+        <div class="m-2">
+          <h5>Stock Insuficiente</h5>
+          <div id="lista_faltantes">
+          </div>
+          <button class="btn btn-primary cerrar_faltantes" type="button" >Aceptar</button>
+        </div>
+        
+      </div>
+    </div>
+
+
     <?PHP //Si id_orden es distinto de 0 significa que se va a actualizar una orden ya existe
           //por lo cual se crean los botones [descartar][actualizar][eliminar]
           //en el caso que sea 0 se crean los botones [descartar][guardar] ?>

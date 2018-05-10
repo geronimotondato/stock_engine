@@ -35,22 +35,28 @@ class Orden_model extends CI_Model {
 			);
 			}
 
-
 			$this->load->model("producto_model");
 			$lista_productos = $this->producto_model->get_disponibilidad($orden["items"]);
 
-			$productos_sin_disponibilidad = array();
+			$productos_sin_stock = array();
+			$count = 0;
 			foreach($lista_productos as $producto){
 
 				if($producto['disponibles'] < 0){
-					$producto['disponibles'] = abs($producto['disponibles']);
-					$productos_sin_disponibilidad[] = $producto;
+			
+					$productos_sin_stock[] = array(
+
+						"id_producto" => $producto['id_producto'],
+						"nombre"      => $producto['nombre'],
+						"cantidad"   => abs($producto['disponibles'])
+					);
+
 				}
 			}
 
-			if (count($productos_sin_disponibilidad) > 0){
+			if (count($productos_sin_stock) > 0){
 				$this->db->trans_rollback();
-				return $productos_sin_disponibilidad;
+				return $productos_sin_stock;
 			}else{
 				$this->db->trans_complete();
 				return null;
@@ -63,44 +69,69 @@ class Orden_model extends CI_Model {
 	}
 
 
-
-
-
-
 	public function actualizar_orden($orden){
+
 		try{
 
 				$this->db->trans_start();
 
+				// $this->db->query(
+				// 	"DELETE FROM orden WHERE id_orden =". $orden['id_orden']
+				// );
+				// $this->guardar_orden($orden);
+
+
 				$this->db->query(
-					"DELETE FROM orden WHERE id_orden =". $orden['id_orden']
+					"UPDATE orden SET id_cliente = ".$orden['cliente'].", fecha_entrega =\"".$orden['fecha']."\" WHERE
+					id_orden =" . $orden['id_orden']
 				);
+				$this->db->query(
+					"DELETE FROM item WHERE id_orden =". $orden['id_orden']
+				);
+				foreach ($orden["items"] as $item){
+					$this->db->query(
+						"INSERT INTO item (id_orden, id_producto, cantidad, descuento)VALUES
+						(
+							".$orden['id_orden'].",
+							".$item['id_producto'].",
+							".$item['cantidad'].",
+							".$item['descuento']."
+						)"
+					);
+				}
 
-				$this->guardar_orden($orden);
+				$this->load->model("producto_model");
+				$lista_productos = $this->producto_model->get_disponibilidad($orden["items"]);
 
-				$this->db->trans_complete();
+				$productos_sin_stock = array();
+				$count = 0;
+				foreach($lista_productos as $producto){
+
+					if($producto['disponibles'] < 0){
+				
+						$productos_sin_stock[] = array(
+
+							"id_producto" => $producto['id_producto'],
+							"nombre"      => $producto['nombre'],
+							"cantidad"   => abs($producto['disponibles'])
+						);
+
+					}
+				}
+
+				if (count($productos_sin_stock) > 0){
+					$this->db->trans_rollback();
+					return $productos_sin_stock;
+				}else{
+					$this->db->trans_complete();
+					return null;
+				}
 			
 			}catch (Exception $e){
 				throw new Exception("No se pudo actualizar la orden en la base de datos, avise al administrador");
 			}
 
 	}
-
-
-	public function finalizar_orden($id_orden){
-
-		try{
-			
-			$this->db->query(
-				"CALL finalizar_orden(". $id_orden .")"
-			);
-
-		}catch (Exception $e){
-			throw new Exception("No se pudo finalizar la orden en la base de datos, avise al administrador");
-		}
-
-	}
-
 
 
 	public function eliminar_orden($orden){
@@ -120,6 +151,21 @@ class Orden_model extends CI_Model {
 		}
 
 	}
+
+	public function finalizar_orden($id_orden){
+
+		try{
+			
+			$this->db->query(
+				"CALL finalizar_orden(". $id_orden .")"
+			);
+
+		}catch (Exception $e){
+			throw new Exception("No se pudo finalizar la orden en la base de datos, avise al administrador");
+		}
+
+	}
+
 
 	public function get_orden($id_orden){
 
@@ -196,32 +242,3 @@ class Orden_model extends CI_Model {
 	}
 
 }
-
-
-	// public function actualizar_orden($orden){
-	// 	try{
-	// 		$this->db->trans_start();
-	// 		$this->db->query(
-	// 			"UPDATE orden SET id_cliente = ".$orden['cliente'].", fecha_entrega =\"".$orden['fecha']."\" WHERE
-	// 			id_orden =" . $orden['id_orden']
-	// 		);
-	// 		$this->db->query(
-	// 			"DELETE FROM item WHERE id_orden =". $orden['id_orden']
-	// 		);
-	// 		foreach ($orden["items"] as $item){
-	// 			$this->db->query(
-	// 				"INSERT INTO item (id_orden, id_producto, cantidad, descuento)VALUES
-	// 				(
-	// 					".$orden['id_orden'].",
-	// 					".$item['id_producto'].",
-	// 					".$item['cantidad'].",
-	// 					".$item['descuento']."
-	// 				)"
-	// 		);
-	// 		}
-	// 		$this->db->trans_complete();
-	// 	}catch (Exception $e){
-	// 		throw new Exception("No se pudo actualizar la orden en la base de datos, avise al administrador");
-	// 	}
-
-	// }
