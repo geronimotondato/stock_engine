@@ -16,7 +16,7 @@ addLoadEvent(function() {
         document.getElementById("selector_de_clientes").children[0].selectedIndex = 0;
     }
 
-    document.getElementById("fecha").setAttribute("min", getFecha(0));
+    //document.getElementById("fecha").setAttribute("min", getFecha(0));
     document.getElementById("fecha").setAttribute("value", orden_data.fecha);
 
     document.getElementById("selector_de_productos").addEventListener("change", function() {
@@ -111,6 +111,12 @@ addLoadEvent(function() {
     });
 });
 
+
+
+
+
+
+
 $( document ).ready(function() {
 
 
@@ -120,48 +126,45 @@ $( document ).ready(function() {
     });
 
 
-    $("#btn_guardar").click(function(event){
+    $("#btn_guardar, #btn_actualizar").click(function(event){
         event.preventDefault();
         $.post( 
-            /*url*/ "Nueva_orden/guardar", 
-            /*data*/ $("#form_nueva_orden").serialize() + '&submit_btn=' + 'Guardar',
+            /*url*/ "orden/"+ $(this).val(), 
+            /*data*/ $("#form_orden").serialize(),
             /*success*/ function(data){
-                if(data === "success"){
+                var resultado = JSON.parse(data);
+
+                if(resultado.estado === "ok"){
                     $(location).attr('href', _$_HOME_URL);
-                }else{
-                    
-                    var faltantes = JSON.parse(data);
-                    $.each(faltantes , function(index, faltante){
+                }else if(resultado.estado === "sin_stock"){
+                    $.each(resultado.faltantes , function(index, faltante){
                         $("#lista_faltantes").append("<p>Faltan "+ faltante.cantidad +" de "+faltante.nombre+"</p>");
                     });
-
                     $("#faltantes").addClass("active");
+                }else{
+                    alert(resultado.mensaje);
                 }
         });
     });
 
-    $("#btn_actualizar").click(function(event){
+    $("#btn_eliminar_confirmado").click(function(event){
+
         event.preventDefault();
         $.post( 
-            /*url*/ "Nueva_orden/guardar", 
-            /*data*/ $("#form_nueva_orden").serialize() + '&submit_btn=' + 'Actualizar',
+            /*url*/ "orden/eliminar", 
+            /*data*/ {id_orden : $(this).val()},
             /*success*/ function(data){
-                if(data === "success"){
+
+                var resultado = JSON.parse(data);
+                if(resultado.estado === "ok"){
                     $(location).attr('href', _$_HOME_URL);
+
                 }else{
-
-                    var faltantes = JSON.parse(data);
-                    $.each(faltantes, function(index, faltante){
-                        $("#lista_faltantes").append("<p>Faltan "+ faltante.cantidad +" de "+faltante.nombre+"</p>");
-                    });
-
-                    $("#faltantes").addClass("active");
+                    alert(resultado.mensaje);
                 }
-        });
+
+            });
     });
-
-
-
 
 });
 
@@ -265,7 +268,7 @@ function generar_item(item){
       </div>\
       <div class='tile-action'>\
         <button class='btn btn-link editar' type='button' onclick= setModal("+item.id_item+");document.getElementById('modal_producto').classList.add('active');>\
-          <i class='icon icon-edit'></i>\
+          <i class='fas fa-edit'></i>\
         </button>\
       </div>\
         <input type='hidden' name='items["+item.id_item+"][id_producto]' value='"+item.id_producto+"'>\

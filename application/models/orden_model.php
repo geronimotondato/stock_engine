@@ -75,12 +75,6 @@ class Orden_model extends CI_Model {
 
 				$this->db->trans_start();
 
-				// $this->db->query(
-				// 	"DELETE FROM orden WHERE id_orden =". $orden['id_orden']
-				// );
-				// $this->guardar_orden($orden);
-
-
 				$this->db->query(
 					"UPDATE orden SET id_cliente = ".$orden['cliente'].", fecha_entrega =\"".$orden['fecha']."\" WHERE
 					id_orden =" . $orden['id_orden']
@@ -134,14 +128,14 @@ class Orden_model extends CI_Model {
 	}
 
 
-	public function eliminar_orden($orden){
+	public function eliminar_orden($id_orden){
 
 		try{
 
 			$this->db->trans_start();
 
 			$this->db->query(
-				"DELETE FROM orden WHERE id_orden =". $orden['id_orden']
+				"DELETE FROM orden WHERE id_orden =". $id_orden
 			);
 
 			$this->db->trans_complete();
@@ -171,12 +165,7 @@ class Orden_model extends CI_Model {
 
 		try{
 
-			$orden = array(
-				"id_orden" => 0,
-				"cliente"  => "",
-				"fecha"    => "",
-				"items"    => []
-			);
+			$orden = null;
 
 
 			$query = $this->db->query("SELECT * FROM orden WHERE id_orden = ". $id_orden);
@@ -194,8 +183,7 @@ class Orden_model extends CI_Model {
 
 
 			}
-
-
+			
 			return $orden;
 
 		}catch (Exception $e){

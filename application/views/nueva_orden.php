@@ -7,7 +7,7 @@
   <?= json_encode($orden); ?>
 </div>
 <main class="m-2">
-  <form id="form_nueva_orden" action="Nueva_orden/guardar" method="POST">
+  <form id="form_orden">
     <input id="id_orden" class="form-input d-none" type="hidden" name="id_orden" value=<?= $orden["id_orden"] ?> >
     <h5>Nueva Orden</h5>
     <p></p>
@@ -105,7 +105,7 @@
           <h5>Eliminar esta orden</h5>
           <p></p>
           <p></p>
-          <button class="btn" type="input" name="submit_btn" value="Eliminar" >Eliminar</button>
+          <button  id="btn_eliminar_confirmado"class="btn" type="input" name="submit_btn" value=<?= $orden["id_orden"] ?> >Eliminar</button>
           <button class="btn btn-primary cerrar_eliminar_orden_dialog" type="button" >Cancelar</button>
         </div>
         
@@ -138,14 +138,14 @@
 
     <div class="btn-group btn-group-block">
       <button id="btn_descartar" class="btn" type="button" onclick="location.href = <?= base_url(); ?>" >Descartar</button>
-      <button id="btn_guardar" class="btn btn-primary" type="input" name="submit_btn" value="Guardar">Guardar</button>
+      <button id="btn_guardar" class="btn btn-primary" type="input" name="submit_btn" value="guardar">Guardar</button>
     </div>
 
     <?PHP else: ?>
 
     <div class="btn-group btn-group-block">
       <button id="btn_descartar" class="btn" type="button" onclick="location.href = <?= base_url(); ?>" >Descartar</button>
-      <button id="btn_actualizar" class="btn btn-primary" type="input"  name="submit_btn" value="Actualizar">Actualizar</button>
+      <button id="btn_actualizar" class="btn btn-primary" type="input"  name="submit_btn" value="actualizar">Actualizar</button>
       <button id="btn_eliminar" class="btn" type="button">Eliminar</button>
     </div>
     <?PHP endif; ?>

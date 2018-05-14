@@ -58,13 +58,16 @@
         </table>
 
       </div>
-        <div class="column col-6 acciones">
-          <a class='btn btn-link' href="nueva_orden?id_orden=<?PHP echo $orden['id_orden'];?>">
-           <i class='icon icon-2x icon-edit'></i></a>
+         <div class="column col-4 acciones">
+            <button class="btn btn-link expandir_orden" type="button"><i class='far fa-eye'></i><i class='far fa-eye-slash'></i></button>
+         </div>  
+          <div class="column col-4 acciones">
+          <a class='btn btn-link' href="orden?id_orden=<?PHP echo $orden['id_orden'];?>">
+           <i class='fa  fa-edit'></i></a>
          </div>
-         <div class="column col-6 acciones">
-            <button class="btn btn-link finalizar_orden" type="button" value=<?PHP echo $orden['id_orden'];?>><i class='icon icon-2x icon-check'></i></button>
-        </div>
+         <div class="column col-4 acciones">
+            <button class="btn btn-link finalizar_orden" type="button" value=<?PHP echo $orden['id_orden'];?>><i class='fas fa-clipboard-check'></i></button>
+         </div>
 
     </div>
   </div>
@@ -80,9 +83,7 @@
         <h5>Finalizar esta orden</h5>
         <p></p>
         <p></p>
-        <form id="form_aceptar_finalizar_orden" action="ordenes/finalizar_orden" method="post">
           <button id="aceptar_finalizar_orden" class="btn btn-primary"  type="submit" name="id_orden" value="" >Aceptar</button>
-        </form>
         <button class="btn cerrar_finalizar_orden_dialog" type="button" >Cancelar</button>
       </div>
     </div>

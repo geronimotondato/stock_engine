@@ -6,7 +6,7 @@
   <title>Stockeng</title>
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <!-- llamo a css propio de la vista -->
   <link href= "<?= base_url( 'resources/css/'. basename(__FILE__, '.php') . '.css'); ?>" rel="stylesheet">
   <!-- llamo a js propio de la vista -->
@@ -16,7 +16,7 @@
   <main>
     <div id="login-card" class="card">
       <div class="card-header">
-        <div class="card-title h5">StockENG <i class="icon icon-stock"></i></div>
+        <div class="card-title h5">StockENG <i class="fas fa-boxes"></i></div>
         <div class="card-subtitle text-gray">Control de stock by "El Mariskal"</div>
       </div>
       <div class="card-body">

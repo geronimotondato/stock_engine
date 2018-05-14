@@ -1,26 +1,44 @@
-addLoadEvent(function() {
+$(document).ready(function(){
 
 
-	document.querySelectorAll(".finalizar_orden").forEach(function(element){
+	$(".expandir_orden").click(function(){
 
-		element.addEventListener("click", function() {
-
-			document.getElementById("finalizar_orden_dialog").classList.add("active");
-			document.getElementById("aceptar_finalizar_orden").value = element.value;
-
-		});
+		$(this).closest(".orden").find(".tabla-productos").toggle();
+		$(this).find(".fa-eye").toggle();
+		$(this).find(".fa-eye-slash").toggle();
 
 	});
 
 
-	document.querySelectorAll(".cerrar_finalizar_orden_dialog").forEach( function(element){
 
-		element.addEventListener("click", function() {
+	$(".finalizar_orden").click(function(){
 
-			document.getElementById("finalizar_orden_dialog").classList.remove("active");
-			document.getElementById("aceptar_finalizar_orden").value = "";
+		$("#finalizar_orden_dialog").addClass("active");
+		$("#aceptar_finalizar_orden").attr("value", this.value);
 
-		});
+	});
+
+	$(".cerrar_finalizar_orden_dialog").click(function(){
+
+		$("#finalizar_orden_dialog").removeClass("active");
+		$("#aceptar_finalizar_orden").attr("value", "");
+
+	});
+
+	$("#aceptar_finalizar_orden").click(function(event){
+	    event.preventDefault();
+	    $.post( 
+	        /*url*/ "orden/finalizar", 
+	        /*data*/ {id_orden : $(this).val()},
+	        /*success*/ function(data){
+
+	            var resultado = JSON.parse(data);
+	            if(resultado.estado === "ok"){
+	                $(location).attr('href', _$_HOME_URL);
+	            }else{
+	                alert(resultado.mensaje);
+	            }
+	        });
 	});
 
 });
