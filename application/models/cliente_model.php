@@ -15,7 +15,7 @@ class Cliente_model extends CI_Model {
 	// ► ToDo :
 	// ******************************************************************************
 	public function get_lista_clientes(){
-		$query = $this->db->query("select * from cliente;");
+		$query = $this->db->query("select * from cliente where dado_de_baja=0");
 		if(empty($query)){
 			throw new Exception("No hay clientes");
 		}
@@ -45,7 +45,40 @@ class Cliente_model extends CI_Model {
 			$this->db->insert('cliente', $cliente);
 
 			$this->db->trans_complete();
-			}
+
+		}catch (Exception $e){
+			throw new Exception("No se pudo guardar el cliente en la base de datos, avise al administrador");
+		}
+
+	}
+
+	public function actualizar_cliente($cliente){
+
+		try{
+
+			$this->db->trans_start();
+			
+			$this->db->where('nombre', $cliente["nombre"]);
+			$this->db->update('cliente', $cliente);
+
+			$this->db->trans_complete();
+
+		}catch (Exception $e){
+			throw new Exception("No se pudo guardar el cliente en la base de datos, avise al administrador");
+		}
+
+	}
+
+	public function eliminar_cliente($nombre){
+
+		try{
+
+			$this->db->trans_start();
+			$this->db->set('dado_de_baja', "1");
+			$this->db->where('nombre', $nombre);
+			$this->db->update();
+
+			$this->db->trans_complete();
 
 		}catch (Exception $e){
 			throw new Exception("No se pudo guardar el cliente en la base de datos, avise al administrador");

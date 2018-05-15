@@ -18,7 +18,7 @@
             <tr>
               <th width=33%><?= $orden["nombre"];?></th>
               <th width=33%><?= $orden["fecha_entrega"]; ?></th>
-              <th width=33%><?= $orden["ubicacion"]; ?></th>
+              <th width=33%><?= $orden["direccion"]; ?></th>
             </tr>
           </thead>
         </table>

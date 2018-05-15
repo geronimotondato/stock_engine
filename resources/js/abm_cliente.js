@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
-	$("#btn_guardar").click(function(event){
+	$("#btn_guardar, #btn_actualizar, #btn_eliminar").click(function(event){
 	    event.preventDefault();
 	    $.post( 
-	        /*url*/ _$_HOME_URL + "/clientes/guardar", 
+	        /*url*/ _$_HOME_URL + "/clientes/"+$(this).val(), 
 	        /*data*/ $("#form_cliente").serialize(),
 	        /*success*/ function(data){
 
@@ -15,5 +15,6 @@ $(document).ready(function(){
           }
 	    });
 	});
+
 
 });
