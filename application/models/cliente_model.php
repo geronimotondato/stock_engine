@@ -57,14 +57,31 @@ class Cliente_model extends CI_Model {
 		try{
 
 			$this->db->trans_start();
-			
-			$this->db->where('nombre', $cliente["nombre"]);
-			$this->db->update('cliente', $cliente);
 
-			$this->db->trans_complete();
+			$this->db->select('dado_de_baja');
+			$query = $this->db->get_where('cliente', array('id_cliente' => $cliente["id_cliente"]) );
+
+			if ($query->row()->dado_de_baja == FALSE){
+
+				$this->db->where('id_cliente', $cliente["id_cliente"]);
+				$this->db->update('cliente', $cliente);
+
+				$this->db->trans_complete();
+
+			}else{
+
+				$this->db->trans_complete();
+				throw new Exception("No puede actualizar un cliente dado de baja", 1);
+			}
 
 		}catch (Exception $e){
-			throw new Exception("No se pudo guardar el cliente en la base de datos, avise al administrador");
+
+			if($e->getCode() == 1){
+				throw $e;
+			}else{
+				throw new Exception("No se pudo actualizar el cliente en la base de datos, avise al administrador");
+			}
+			
 		}
 
 	}
@@ -74,14 +91,14 @@ class Cliente_model extends CI_Model {
 		try{
 
 			$this->db->trans_start();
-			$this->db->set('dado_de_baja', "1");
+			$this->db->set('dado_de_baja', TRUE);
 			$this->db->where('nombre', $nombre);
-			$this->db->update();
+			$this->db->update('cliente');
 
 			$this->db->trans_complete();
 
 		}catch (Exception $e){
-			throw new Exception("No se pudo guardar el cliente en la base de datos, avise al administrador");
+			throw new Exception("No se pudo eliminar el cliente en la base de datos, avise al administrador");
 		}
 
 	}

@@ -4,7 +4,12 @@
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
 
 <main class="m-2">
-  <form id="form_cliente" method="post" action="/stockeng/clientes/guardar">
+
+  <form id="form_cliente">
+  <fieldset <?= (isset($cliente) && $cliente->dado_de_baja)? "disabled" : "" ?> >
+
+<input type="hidden" id="id_cliente"  name="id_cliente" value='<?= isset($cliente)? $cliente->id_cliente : "0" ?>' >
+
 <div class="form-group">
   <label class="form-label" for="nombre">Nombre</label>
   <input class="form-input" type="text" id="nombre" placeholder="Nombre" name="nombre" value='<?= isset($cliente)? $cliente->nombre : "" ?>' >
@@ -45,6 +50,8 @@
   <label class="form-label" for="saldo_acreedor">Saldo acreedor</label>
   <input class="form-input" type="text" id="saldo_acreedor" placeholder="Saldo acreedor" name="saldo_acreedor" value='<?= isset($cliente)? $cliente->saldo_acreedor : "" ?>'>
 </div>
+
+</fieldset>
 
 <p></p>
 

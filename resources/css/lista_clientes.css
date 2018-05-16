@@ -1,0 +1,61 @@
+
+.cliente{
+	max-width: 95%;
+	margin: 20px auto;
+	padding: 8px; 
+/*	border: 2px solid #5755d9;
+	border-radius: 3px;*/
+background-color: #f4f4f4;
+}
+
+#no-hay-ordenes{
+	color: #fff;
+	margin: 0 auto;
+	margin-top: 30px;
+	padding: 15px 20px;
+	background-color: #5755d9;
+	font-size: 18px;
+	text-align: center;
+	max-width: 500px;
+}
+
+.table td, .table th {
+/*	border-bottom: .05rem solid #e7e9ed;
+	padding: 0px;*/
+}
+
+.cabecera-cliente table{
+	color:#5755d9;
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+.cabecera-cliente table tr{
+	height: 40px;
+}
+
+.tabla-cliente{
+
+	border-radius: 3;
+	display: none;
+}
+
+.tabla-cliente tbody tr td{
+
+}
+
+.acciones{
+	color:#fff;
+	text-align: center;
+	vertical-align: middle;
+	margin: 10px 0;
+}
+.acciones .btn{
+	font-size: 20px;
+}
+
+
+
+.fa-eye-slash{
+	display: none;
+}
