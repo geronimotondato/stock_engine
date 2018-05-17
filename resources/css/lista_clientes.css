@@ -1,14 +1,50 @@
 
 .cliente{
 	max-width: 95%;
-	margin: 20px auto;
-	padding: 8px; 
+	margin: 10px auto;
+	padding: 0px; 
 /*	border: 2px solid #5755d9;
 	border-radius: 3px;*/
-background-color: #f4f4f4;
+	background-color: #f4f4f4;
+	line-height: 40px;
 }
 
-#no-hay-ordenes{
+.cliente-nombre{
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+.acciones{
+	color:#fff;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0px 10px;
+	display: inline-block;
+	float: right;
+}
+
+.acciones .btn{
+	font-size: 20px;
+}
+
+.fa-angle-down{
+	display: none;
+}
+
+
+.datos-cliente{
+	display: none;
+	text-align: left;
+	margin-left:20px;
+	font-weight: normal !important;
+	line-height: 20px;
+	width: 100%;
+	white-space: pre-wrap;
+}
+
+#no-hay-clientes{
 	color: #fff;
 	margin: 0 auto;
 	margin-top: 30px;
@@ -17,45 +53,4 @@ background-color: #f4f4f4;
 	font-size: 18px;
 	text-align: center;
 	max-width: 500px;
-}
-
-.table td, .table th {
-/*	border-bottom: .05rem solid #e7e9ed;
-	padding: 0px;*/
-}
-
-.cabecera-cliente table{
-	color:#5755d9;
-	text-align: left;
-	margin-bottom: 20px;
-}
-
-.cabecera-cliente table tr{
-	height: 40px;
-}
-
-.tabla-cliente{
-
-	border-radius: 3;
-	display: none;
-}
-
-.tabla-cliente tbody tr td{
-
-}
-
-.acciones{
-	color:#fff;
-	text-align: center;
-	vertical-align: middle;
-	margin: 10px 0;
-}
-.acciones .btn{
-	font-size: 20px;
-}
-
-
-
-.fa-eye-slash{
-	display: none;
 }

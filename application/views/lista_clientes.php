@@ -11,66 +11,63 @@
 
 <?PHP foreach($clientes as $cliente): ?>
 
-<div class="container cliente">
-  <div class="columns">
+  <div class="cliente">
 
-      <div class="cabecera-cliente column col-12">
-      <table class="table">
-        <thead>
-          <tr>
-            <th width=80%><?= $cliente->nombre;?></th>
-            <th width=10%>
-            	
-            <a class='btn btn-link' href="<?PHP echo base_url('clientes/abm_cliente?id_cliente='. $cliente->id_cliente) ?>">
-             <i class='fa  fa-edit'></i></a>
+    <div class="cliente-nombre"><?= $cliente->nombre;?>
+    <button class="btn btn-link expandir_cliente" type="button">
+      <i class='fas fa-angle-right'></i>
+      <i class='fas fa-angle-down'></i>
+    </button>
+     </div>
+    <div class="acciones">
+      <a class='btn btn-link' 
+         href="<?PHP echo base_url('clientes/abm_cliente?id_cliente='. $cliente->id_cliente) ?>">
+         <i class='fa  fa-edit'></i>
+      </a>
 
-            </th>
-            <th width=10%>
-            	
-            <button class="btn btn-link expandir_cliente" type="button"><i class='far fa-eye'></i><i class='far fa-eye-slash'></i></button>
-
-            </th>
-          </tr>
-        </thead>
-      </table>
-      </div>
-
-    <div class="column col-12">
-
-      <table class="table tabla-cliente">
-          <tr>
-            <th>Dirección</th>
-            <th><?= $cliente->direccion ?></th>
-          </tr>
-          <tr>
-            <th>Tel movil</th>
-            <th><?= $cliente->tel_movil ?></th>
-          </tr>
-          <tr>
-            <th>Tel fijo</th>
-            <th><?= $cliente->tel_fijo ?></th>
-          </tr>
-          <tr>
-            <th>Email</th>
-            <th><?= $cliente->email ?></th>
-          </tr>
-          <tr>
-            <th>Saldo deudor</th>
-            <th><?= $cliente->saldo_deudor ?></th>
-          </tr>
-          <tr>
-            <th>Saldo acreedor</th>
-            <th><?= $cliente->saldo_acreedor ?></th>
-          </tr>
-      </table>
 
     </div>
+
+     <table class="datos-cliente">
+      <tbody>
+         <tr><td><i>Dirección:  </i><?= $cliente->direccion ?></td></tr>
+         <tr><td><i>Email:  </i><?= $cliente->email ?></td></tr>
+         <tr><td><i>Tel movil:  </i><?= $cliente->tel_movil ?></td></tr>
+         <tr><td><i>Tel fijo:  </i><?= $cliente->tel_fijo ?></td></tr>
+         <tr><td><i>Saldo deudor:  </i><?= $cliente->saldo_deudor ?></td></tr>
+         <tr><td><i>Saldo acreedor:  </i><?= $cliente->saldo_acreedor ?></td></tr>
+    </tbody>
+     </table>
+
   </div>
-</div>
 
 <?PHP endforeach ?>
 
 <?PHP endif ?>
+
+<ul class="pagination">
+  <li class="page-item disabled">
+    <a href="#" tabindex="-1">Previous</a>
+  </li>
+  <li class="page-item active">
+    <a href="#">1</a>
+  </li>
+  <li class="page-item">
+    <a href="#">2</a>
+  </li>
+  <li class="page-item">
+    <a href="#">3</a>
+  </li>
+  <li class="page-item">
+    <span>...</span>
+  </li>
+  <li class="page-item">
+    <a href="#">12</a>
+  </li>
+  <li class="page-item">
+    <a href="#">Next</a>
+  </li>
+</ul>
 
 
 
