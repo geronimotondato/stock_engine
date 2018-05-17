@@ -12,21 +12,48 @@
   <div class="container orden">
     <div class="columns">
 
-        <div class="cabecera-orden column col-12">
-        <table class="table">
+      <div class="cabecera-orden col-10">
+        <table >
           <thead>
             <tr>
-              <th width=33%><?= $orden["nombre"];?></th>
-              <th width=33%><?= $orden["fecha_entrega"]; ?></th>
-              <th width=33%><?= $orden["direccion"]; ?></th>
+              <th>→ <?= $orden["nombre"];?></th>
+            </tr>
+            <tr>
+              <th>→ <?= $orden["fecha_entrega"]; ?></th>
+            </tr>
+            <tr>
+              <th>→ <?= $orden["direccion"]; ?></th>
             </tr>
           </thead>
         </table>
         </div>
 
+      <div class="acciones  col-2">
+        <table>
+          <tbody>
+            <tr><td>
+              <button class="btn btn-link expandir_orden" type="button">
+              <i class='far fa-eye'></i><i class='far fa-eye-slash'></i>
+              </button>
+            </td></tr>
+            <tr><td>
+            <button class='btn btn-link'>
+              <a href="orden?id_orden=<?PHP echo $orden['id_orden'];?>">
+              <i class='fa  fa-edit'></i></a>
+            </button>
+            </td></tr>
+            <tr><td>
+              <button class="btn btn-link finalizar_orden" type="button" value=<?PHP echo $orden['id_orden'];?>>
+              <i class='fas fa-clipboard-check'></i>
+              </button>
+            </td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="column col-12">
 
-        <table class="table tabla-productos">
+        <table class=" table tabla-productos">
           <thead>
             <tr>
               <th>Prod</th>
@@ -46,28 +73,18 @@
               <td><?= $item["total"]?></td>
             </tr>
             <?PHP endforeach ?>
-            <tr >
+            <tr>
               <td colspan=5>######</td>
             </tr>
             <tr>
-              <th colspan=3></th>
-              <th>Total:</th>
-              <th><?= $orden["total_orden"]?></th>
+              <td colspan=3></td>
+              <td>Total:</td>
+              <td><?= $orden["total_orden"]?></td>
             </tr>
           </tbody>
         </table>
 
       </div>
-         <div class="column col-4 acciones">
-            <button class="btn btn-link expandir_orden" type="button"><i class='far fa-eye'></i><i class='far fa-eye-slash'></i></button>
-         </div>  
-          <div class="column col-4 acciones">
-          <a class='btn btn-link' href="orden?id_orden=<?PHP echo $orden['id_orden'];?>">
-           <i class='fa  fa-edit'></i></a>
-         </div>
-         <div class="column col-4 acciones">
-            <button class="btn btn-link finalizar_orden" type="button" value=<?PHP echo $orden['id_orden'];?>><i class='fas fa-clipboard-check'></i></button>
-         </div>
 
     </div>
   </div>

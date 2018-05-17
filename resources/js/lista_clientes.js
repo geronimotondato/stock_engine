@@ -8,4 +8,8 @@ $(document).ready(function(){
 
 	});
 
+	$("#agregar-cliente").click(function(){
+			$(location).attr('href', _$_HOME_URL+"/clientes/abm_cliente");
+	});
+
 });

@@ -34,8 +34,8 @@
          <tr><td><i>Email:  </i><?= $cliente->email ?></td></tr>
          <tr><td><i>Tel movil:  </i><?= $cliente->tel_movil ?></td></tr>
          <tr><td><i>Tel fijo:  </i><?= $cliente->tel_fijo ?></td></tr>
-         <tr><td><i>Saldo deudor:  </i><?= $cliente->saldo_deudor ?></td></tr>
-         <tr><td><i>Saldo acreedor:  </i><?= $cliente->saldo_acreedor ?></td></tr>
+         <tr><td><i>S. deudor:  </i><?= $cliente->saldo_deudor ?></td></tr>
+         <tr><td><i>S. acreedor:  </i><?= $cliente->saldo_acreedor ?></td></tr>
     </tbody>
      </table>
 
@@ -44,31 +44,5 @@
 <?PHP endforeach ?>
 
 <?PHP endif ?>
-
-<ul class="pagination">
-  <li class="page-item disabled">
-    <a href="#" tabindex="-1">Previous</a>
-  </li>
-  <li class="page-item active">
-    <a href="#">1</a>
-  </li>
-  <li class="page-item">
-    <a href="#">2</a>
-  </li>
-  <li class="page-item">
-    <a href="#">3</a>
-  </li>
-  <li class="page-item">
-    <span>...</span>
-  </li>
-  <li class="page-item">
-    <a href="#">12</a>
-  </li>
-  <li class="page-item">
-    <a href="#">Next</a>
-  </li>
-</ul>
-
-
-
+<button id="agregar-cliente" class="btn btn-primary"><i class="fas fa-users"></i> <i class="fas fa-plus"></i></button>
 </main>

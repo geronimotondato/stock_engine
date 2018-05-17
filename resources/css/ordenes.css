@@ -1,11 +1,55 @@
-
 .orden{
 	max-width: 95%;
 	margin: 20px auto;
 	padding: 8px; 
-	border: 2px solid #5755d9;
+	border: 1px solid #ccc;
 	border-radius: 3px;
+	background-color: #f4f4f4;
+}
 
+.cabecera-orden table{
+	color:#5755d9;
+	text-align: left;
+	margin-bottom: 20px;
+	margin-left:10px;
+	line-height: 36px;
+	/*background-color: #5755d915;*/
+}
+
+.acciones table{
+	width:100%;
+}
+
+.acciones table tbody tr td {
+		text-align: center;
+}
+
+.acciones table tbody tr td button{
+	font-size: 20px;
+	width:36px;
+}
+
+.tabla-productos{
+	text-align: left;
+	border-top: 1px solid #5755d9;
+	display: none;
+	width: 100%;
+}
+
+.table tr{
+	border-bottom: 1px solid #eee !important;
+}
+
+.finalizar_orden{
+	color: green !important;
+}
+
+#form_aceptar_finalizar_orden{
+	display: inline;
+}
+
+.fa-eye-slash{
+	display: none;
 }
 
 #no-hay-ordenes{
@@ -17,50 +61,4 @@
 	font-size: 18px;
 	text-align: center;
 	max-width: 500px;
-}
-
-.table td, .table th {
-	border-bottom: .05rem solid #e7e9ed;
-	padding: 0px;
-}
-
-.cabecera-orden table{
-	color:#5755d9;
-	text-align: center;
-	margin-bottom: 20px;
-	background-color: #5755d915;
-}
-
-.cabecera-orden table tr{
-	height: 40px;
-}
-
-.tabla-productos{
-	border-top: 1px solid #5755d9;
-	border-radius: 3;
-	display: none;
-}
-
-.tabla-productos tbody tr td{
-	border-roght: 1px solid  #444;
-}
-
-.acciones{
-	color:#fff;
-	text-align: center;
-	vertical-align: middle;
-	margin: 10px 0;
-}
-.acciones .btn{
-	font-size: 20px;
-}
-.finalizar_orden{
-	color: green !important;
-}
-#form_aceptar_finalizar_orden{
-	display: inline;
-}
-
-.fa-eye-slash{
-	display: none;
 }
