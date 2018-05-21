@@ -21,7 +21,7 @@ body{
 
 .navbar {
 	/*margin-bottom: 20px;*/
-	border-bottom: 1px solid #5755d9;
+	border-bottom: 2px solid #5755d9;
 /*	-webkit-box-shadow: 0px 3px 13px 0px rgba(0,0,0,0.42);
 	-moz-box-shadow: 0px 3px 13px 0px rgba(0,0,0,0.42);
 	box-shadow: 0px 3px 13px 0px rgba(0,0,0,0.42);*/
@@ -34,4 +34,49 @@ body{
 .a-link:hover{
 	color: #fff;
 	text-decoration: none;
+}
+
+.margen{
+	margin: 0px 8px 8px 8px;
+}
+
+.seccion{
+    display:block;
+    text-align: center;
+}
+
+.seccion p{
+	color: #fff;
+	background-color: #5755d9;
+	text-transform: uppercase;
+	font-size: 18px;
+	display: inline-block;
+	margin:0;
+	vertical-align: middle;
+	line-height: 34px;
+
+}
+
+.seccion::before{
+	   content: "";
+     border-right: 17px solid #5755d9;
+     border-top: 17px solid #5755d9;
+     border-left: 17px solid white;
+     border-bottom: 17px solid white;
+     font-size:0;
+     vertical-align: middle;
+     line-height: 34px;
+     
+
+}
+.seccion::after{
+	   content: "";
+     border-right: 17px solid white;
+     border-top: 17px solid #5755d9;
+     border-left: 17px solid #5755d9;
+     border-bottom: 17px solid white;
+     font-size:0;
+     vertical-align: middle;
+     line-height: 34px;
+
 }

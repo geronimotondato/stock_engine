@@ -3,7 +3,9 @@
 <!-- llamo a js propio de la vista -->
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
 
-<main class="m-2">
+<main class="margen">
+
+<div class="seccion"><p>Cliente</p></div>
 
   <form id="form_cliente">
   <fieldset <?= (isset($cliente) && $cliente->dado_de_baja)? "disabled" : "" ?> >
@@ -41,15 +43,11 @@
 
 <!-- form input control -->
 <div class="form-group">
-  <label class="form-label" for="saldo_deudor">Saldo deudor</label>
-  <input class="form-input" type="text" id="saldo_deudor" placeholder="Saldo deudor" name="saldo_deudor" value='<?= isset($cliente)? $cliente->saldo_deudor : "" ?>'>
+  <label class="form-label" for="saldo">Saldo</label>
+  <input class="form-input" type="text" id="saldo" placeholder="Saldo" name="saldo" value='<?= isset($cliente)? $cliente->saldo : "" ?>'>
 </div>
 
-<!-- form input control -->
-<div class="form-group">
-  <label class="form-label" for="saldo_acreedor">Saldo acreedor</label>
-  <input class="form-input" type="text" id="saldo_acreedor" placeholder="Saldo acreedor" name="saldo_acreedor" value='<?= isset($cliente)? $cliente->saldo_acreedor : "" ?>'>
-</div>
+
 
 </fieldset>
 
@@ -58,16 +56,32 @@
 
 <?PHP if(isset($cliente)): ?>
 
+<!-- MODAL DE ELIMINAR CLIENTE -->
+<div id="eliminar_cliente_dialog" class="modal modal-sm">
+  <a class="modal-overlay cerrar_eliminar_cliente_dialog" aria-label="Close"></a>
+  <div class="modal-container m-2">
+    <p></p>
+    <div class="m-2">
+      <h5>Dar de baja a este cliente</h5>
+      <p></p>
+      <p></p>
+      <button id="btn_eliminar" class="btn" type="button" value="eliminar">Eliminar</button>
+      <button class="btn btn-primary cerrar_eliminar_cliente_dialog" type="button" >Cancelar</button>
+    </div>
+  </div>
+</div> <!--FIN MODAL -->
+
 <div class="btn-group btn-group-block">
-  <button id="btn_descartar" class="btn" type="button" onclick="location.href = <?= base_url(); ?>" >Descartar</button>
+  <button id="btn_descartar" class="btn" type="button" onclick="location.href = '<?= base_url("clientes"); ?>'" >Descartar</button>
   <button id="btn_actualizar" class="btn btn-primary" type="input"  name="submit_btn" value="actualizar">Actualizar</button>
-  <button id="btn_eliminar" class="btn" type="button" value="eliminar">Eliminar</button>
+  <button id="eliminar_cliente" class="btn btn-secundary"  type="button">Eliminar</button>
+
 </div>
 
 <?PHP else: ?>
 
 <div class="btn-group btn-group-block">
-  <button id="btn_descartar" class="btn" type="button" onclick="location.href = <?= base_url(); ?>" >Descartar</button>
+  <button id="btn_descartar" class="btn" type="button" onclick="location.href = '<?= base_url("clientes"); ?>'" >Descartar</button>
   <button id="btn_guardar" class="btn btn-primary" type="input" name="submit_btn" value="guardar">Guardar</button>
 </div>
 

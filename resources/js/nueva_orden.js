@@ -152,26 +152,6 @@ $( document ).ready(function() {
             alert(xhr.responseText);
         });
     });
-
-    // $("#btn_eliminar_confirmado").click(function(event){
-
-    //     event.preventDefault();
-    //     $.post( 
-    //         /*url*/ "orden/eliminar", 
-    //         /*data*/ {id_orden : $(this).val()},
-    //         /*success*/ function(data){
-
-    //             var resultado = JSON.parse(data);
-    //             if(resultado.estado === "ok"){
-    //                 $(location).attr('href', _$_HOME_URL);
-
-    //             }else{
-    //                 alert(resultado.mensaje);
-    //             }
-
-    //         });
-    // });
-
 });
 
 

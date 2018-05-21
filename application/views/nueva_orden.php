@@ -6,10 +6,11 @@
 <div id="form_data" class="d-none">
   <?= json_encode($orden); ?>
 </div>
-<main class="m-2">
+<main class="margen">
+<div class="seccion"><p>Orden</p></div>
   <form id="form_orden">
     <input id="id_orden" class="form-input d-none" type="hidden" name="id_orden" value=<?= $orden["id_orden"] ?> >
-    <h5>Nueva Orden</h5>
+    
     <p></p>
     <div id="selector_de_clientes" class="form-group">
 

@@ -63,8 +63,8 @@ class Clientes extends Member_Controller {
 			$tel_movil      = $this->input->post("tel_movil",TRUE);
 			$tel_fijo       = $this->input->post("tel_fijo",TRUE);
 			$email          = $this->input->post("email",TRUE);
-			$saldo_deudor   = $this->input->post("saldo_deudor",TRUE);
-			$saldo_acreedor = $this->input->post("saldo_acreedor",TRUE);
+			$saldo   = $this->input->post("saldo",TRUE);
+
 
 
 			$this->load->library('form_validation');
@@ -74,8 +74,8 @@ class Clientes extends Member_Controller {
 			$this->form_validation->set_rules('tel_movil', 'Tel movil', 'trim|numeric');
 			$this->form_validation->set_rules('tel_fijo', 'Tel fijo', 'trim|numeric');
 			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
-			$this->form_validation->set_rules('saldo_deudor', 'Saldo Deudor', 'trim|greater_than_equal_to[0]');
-			$this->form_validation->set_rules('saldo_acreedor', 'Saldo acreedor', 'trim|greater_than_equal_to[0]');
+			$this->form_validation->set_rules('saldo', 'Saldo Deudor', 'trim|numeric');
+
 
 
 			if(!($this->form_validation->run())){
@@ -83,14 +83,14 @@ class Clientes extends Member_Controller {
 			}
 
 			$cliente = array(
-				"id_cliente"     => $id_cliente,
-				"nombre"         =>$nombre,
-				"direccion"      =>$direccion,
-				"tel_movil"      =>$tel_movil,
-				"tel_fijo"       =>$tel_fijo,
-				"email"          =>$email,
-				"saldo_deudor"   =>$saldo_deudor,
-				"saldo_acreedor" =>$saldo_acreedor,
+				"id_cliente" => $id_cliente,
+				"nombre"     =>$nombre,
+				"direccion"  =>$direccion,
+				"tel_movil"  =>$tel_movil,
+				"tel_fijo"   =>$tel_fijo,
+				"email"      =>$email,
+				"saldo"      =>$saldo,
+
 			);
 
 			$this->load->model('cliente_model');

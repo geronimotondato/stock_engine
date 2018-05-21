@@ -3,7 +3,9 @@
 <!-- llamo a js propio de la vista -->
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
 
-<main>
+<main class="margen">
+
+  <div class="seccion"><p>Lista Ordenes</p></div>
 
   <?PHP if($ordenes): ?>
 

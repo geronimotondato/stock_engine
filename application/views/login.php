@@ -17,7 +17,7 @@
     <div id="login-card" class="card">
       <div class="card-header">
         <div class="card-title h5">StockENG <i class="fas fa-boxes"></i></div>
-        <div class="card-subtitle text-gray">Control de stock by "El Mariskal"</div>
+        <div class="card-subtitle text-gray">Control de stock</div>
       </div>
       <div class="card-body">
         <form action="Login/log_in" method="POST">

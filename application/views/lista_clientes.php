@@ -3,8 +3,9 @@
 <!-- llamo a js propio de la vista -->
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
 
-<main>
+<main class="margen">
 
+<div class="seccion"><p>Lista Clientes</p></div>
 
 
 <?PHP if($clientes): ?>
@@ -34,8 +35,7 @@
          <tr><td><i>Email:</i></td><td><?= $cliente->email ?></td></tr>
          <tr><td><i>Tel movil:</i></td><td><?= $cliente->tel_movil ?></td></tr>
          <tr><td><i>Tel fijo:</i></td><td><?= $cliente->tel_fijo ?></td></tr>
-         <tr><td><i>S. deudor:</i></td><td><?= $cliente->saldo_deudor ?></td></tr>
-         <tr><td><i>S. acreedor:</i></td><td><?= $cliente->saldo_acreedor ?></td></tr>
+         <tr><td><i>Saldo:</i></td><td><?= $cliente->saldo ?></td></tr>
     </tbody>
      </table>
 

@@ -1,5 +1,16 @@
 $(document).ready(function(){
 
+
+
+  $("#eliminar_cliente").click(function(){
+    $("#eliminar_cliente_dialog").addClass("active");
+  });
+
+  $(".cerrar_eliminar_cliente_dialog").click(function(){
+    $("#eliminar_cliente_dialog").removeClass("active");
+  });
+
+
 	$("#btn_guardar, #btn_actualizar, #btn_eliminar").click(function(event){
 	    event.preventDefault();
 
