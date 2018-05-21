@@ -105,7 +105,7 @@
           <h5>Eliminar esta orden</h5>
           <p></p>
           <p></p>
-          <button  id="btn_eliminar_confirmado"class="btn" type="input" name="submit_btn" value=<?= $orden["id_orden"] ?> >Eliminar</button>
+          <button  id="btn_eliminar_confirmado"class="btn" type="input" name="submit_btn" value="eliminar">Eliminar</button>
           <button class="btn btn-primary cerrar_eliminar_orden_dialog" type="button" >Cancelar</button>
         </div>
         

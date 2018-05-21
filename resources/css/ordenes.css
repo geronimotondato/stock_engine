@@ -29,16 +29,26 @@
 	width:36px;
 }
 
-.tabla-productos{
+.table{
 	text-align: left;
-	border-top: 1px solid #5755d9;
+	border: 1px solid #5755d9;
+	border-radius: 3px;
 	display: none;
 	width: 100%;
+	background-color: #fff;
+	line-height: 18px;
+	padding-top:10px;
 }
 
 .table tr{
-	border-bottom: 1px solid #eee !important;
+	border-bottom: 1px dashed #eee;
 }
+
+.table td, .table th{
+	border:0;
+	padding:3px 10px;
+}
+
 
 .finalizar_orden{
 	color: green !important;
@@ -50,15 +60,4 @@
 
 .fa-eye-slash{
 	display: none;
-}
-
-#no-hay-ordenes{
-	color: #fff;
-	margin: 0 auto;
-	margin-top: 30px;
-	padding: 15px 20px;
-	background-color: #5755d9;
-	font-size: 18px;
-	text-align: center;
-	max-width: 500px;
 }

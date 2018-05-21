@@ -126,45 +126,51 @@ $( document ).ready(function() {
     });
 
 
-    $("#btn_guardar, #btn_actualizar").click(function(event){
+    $("#btn_guardar, #btn_actualizar, #btn_eliminar_confirmado").click(function(event){
         event.preventDefault();
         $.post( 
-            /*url*/ "orden/"+ $(this).val(), 
-            /*data*/ $("#form_orden").serialize(),
-            /*success*/ function(data){
-                var resultado = JSON.parse(data);
+        /*url*/ _$_HOME_URL+"/orden/"+ $(this).val(), 
+        /*data*/ $("#form_orden").serialize())
 
-                if(resultado.estado === "ok"){
-                    $(location).attr('href', _$_HOME_URL);
-                }else if(resultado.estado === "sin_stock"){
-                    $.each(resultado.faltantes , function(index, faltante){
-                        $("#lista_faltantes").append("<p>Faltan "+ faltante.cantidad +" de "+faltante.nombre+"</p>");
-                    });
-                    $("#faltantes").addClass("active");
-                }else{
-                    alert(resultado.mensaje);
-                }
+        .done(function(data){
+
+            var resultado = JSON.parse(data);
+
+            if(resultado.estado === "ok"){
+                $(location).attr('href', _$_HOME_URL);
+            }else if(resultado.estado === "sin_stock"){
+                $.each(resultado.faltantes , function(index, faltante){
+                    $("#lista_faltantes").append("<p>Faltan "+ faltante.cantidad +" de "+faltante.nombre+"</p>");
+                });
+                $("#faltantes").addClass("active");
+            }else{
+                alert(resultado.mensaje);
+            }
+        })
+
+        .fail( function(xhr, textStatus, errorThrown){
+            alert(xhr.responseText);
         });
     });
 
-    $("#btn_eliminar_confirmado").click(function(event){
+    // $("#btn_eliminar_confirmado").click(function(event){
 
-        event.preventDefault();
-        $.post( 
-            /*url*/ "orden/eliminar", 
-            /*data*/ {id_orden : $(this).val()},
-            /*success*/ function(data){
+    //     event.preventDefault();
+    //     $.post( 
+    //         /*url*/ "orden/eliminar", 
+    //         /*data*/ {id_orden : $(this).val()},
+    //         /*success*/ function(data){
 
-                var resultado = JSON.parse(data);
-                if(resultado.estado === "ok"){
-                    $(location).attr('href', _$_HOME_URL);
+    //             var resultado = JSON.parse(data);
+    //             if(resultado.estado === "ok"){
+    //                 $(location).attr('href', _$_HOME_URL);
 
-                }else{
-                    alert(resultado.mensaje);
-                }
+    //             }else{
+    //                 alert(resultado.mensaje);
+    //             }
 
-            });
-    });
+    //         });
+    // });
 
 });
 

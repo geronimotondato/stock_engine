@@ -53,7 +53,7 @@
 
       <div class="column col-12">
 
-        <table class=" table tabla-productos">
+        <table class="table tabla-productos">
           <thead>
             <tr>
               <th>Prod</th>
@@ -78,8 +78,8 @@
             </tr>
             <tr>
               <td colspan=3></td>
-              <td>Total:</td>
-              <td><?= $orden["total_orden"]?></td>
+              <td><strong>Total:</strong></td>
+              <td><strong><?= $orden["total_orden"]?></strong></td>
             </tr>
           </tbody>
         </table>
@@ -107,6 +107,15 @@
   </div> <!--FIN MODAL -->
 
   <?PHP else: ?>
-  <div id="no-hay-ordenes"> No hay ordenes pendientes </div>
+  <div class="empty">
+    <div class="empty-icon">
+      <i class="fas fa-truck"></i>
+    </div>
+    <p class="empty-title h5">No hay ordenes</p>
+    <p class="empty-subtitle">Has click en el botón para iniciar una nueva orden</p>
+    <div class="empty-action">
+      <button class="btn btn-primary"><a class="a-link" href="orden">Nueva Orden<a></button>
+    </div>
+  </div>
   <?PHP endif; ?>
 </main>

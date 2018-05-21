@@ -1,10 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Clientes extends CI_Controller {
+class Clientes extends Member_Controller {
 
 	public function index(){
-		if(isset($this->session->logged_in)){
 			
 			$this->load->model('cliente_model');
 			$data["clientes"] = $this->cliente_model->get_lista_clientes();
@@ -13,14 +12,10 @@ class Clientes extends CI_Controller {
 			$this->load->view("lista_clientes.php", $data);
 			$this->load->view("footer.php");
 			
-		}else{
-			$this->load->view("login.php");	
-		}
 	}
 
 
 	public function abm_cliente(){
-		if(isset($this->session->logged_in)){
 
 			$id_cliente  = $this->input->get('id_cliente', TRUE);
 
@@ -44,12 +39,6 @@ class Clientes extends CI_Controller {
 					$this->load->view("abm_cliente.php");
 					$this->load->view("footer.php");
 			}
-
-
-
-		}else{
-			$this->load->view("login.php");	
-		}
 	}
 
 	public function guardar(){
@@ -109,7 +98,7 @@ class Clientes extends CI_Controller {
 			switch ($accion) {
 
 				case 'guardar':
-									$this->cliente_model->guardar_cliente($cliente);
+						$this->cliente_model->guardar_cliente($cliente);
 					break;
 
 				case 'actualizar':
@@ -134,16 +123,16 @@ class Clientes extends CI_Controller {
 	public function eliminar(){
 
 		try{
-			$nombre = $this->input->post("nombre", TRUE);
+			$id_cliente = $this->input->post("id_cliente", TRUE);
 			$this->load->library('form_validation');
-			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
+			$this->form_validation->set_rules('id_cliente', 'id_cliente', 'trim|greater_than[0]|required');
 
 			if(!($this->form_validation->run())){
 				throw new Exception(validation_errors());
 			}
 
 			$this->load->model('cliente_model');
-			$this->cliente_model->eliminar_cliente($nombre);
+			$this->cliente_model->eliminar_cliente($id_cliente);
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);

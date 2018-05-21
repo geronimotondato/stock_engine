@@ -42,8 +42,10 @@
 	margin-left:20px;
 	font-weight: normal !important;
 	line-height: 20px;
-	width: 100%;
 	white-space: pre-wrap;
+}
+.datos-cliente tr td:nth-child(2){
+	padding-left: 20px;
 }
 
 

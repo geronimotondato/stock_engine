@@ -1,15 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Orden extends CI_Controller {
+class Orden extends Member_Controller {
 
 	public function index()	{
 
-		$this->chequear_logueo();
-
 		$this->load->model('producto_model');
 		$this->load->model('cliente_model');
-
 
 		$data["productos"] = $this->producto_model->get_lista_productos();
 		$data["clientes"] = $this->cliente_model->get_lista_clientes();
@@ -30,7 +27,6 @@ class Orden extends CI_Controller {
 				echo "Error 404. Page not found";
 				exit();
 			}
-
 		}
 
 		$this->load->view("header.php", $this->session->set_flashdata('side_bar','orden'));
@@ -40,8 +36,6 @@ class Orden extends CI_Controller {
 
 
 	public function guardar(){
-
-		$this->chequear_logueo();
 
 		try{
 
@@ -68,9 +62,8 @@ class Orden extends CI_Controller {
 		}
 	}
 
-	public function actualizar(){
 
-		$this->chequear_logueo();
+	public function actualizar(){
 
 		try{
 
@@ -99,8 +92,6 @@ class Orden extends CI_Controller {
 
 	public function eliminar(){
 
-		$this->chequear_logueo();
-
 		try{
 
 			$id_orden = $this->input->post("id_orden", TRUE);
@@ -115,7 +106,6 @@ class Orden extends CI_Controller {
 			$this->orden_model->eliminar_orden($id_orden);
 
 			$respuesta["estado"] = "ok";
-
 			echo json_encode($respuesta);
 
 		}catch(Exception $e){
@@ -127,8 +117,6 @@ class Orden extends CI_Controller {
 	}
 
 	public function finalizar(){
-
-		$this->chequear_logueo();
 
 		try{
 
@@ -161,7 +149,6 @@ class Orden extends CI_Controller {
 		$items    = $this->input->post("items",TRUE);
 
 		if( !isset($id_orden ,$cliente, $fecha, $items)){
-
 			throw new Exception("Debe completar todos los campos");
 		}
 
@@ -201,13 +188,4 @@ class Orden extends CI_Controller {
 		$this->form_validation->set_message('date_valid', 'El campo fecha debe tener el formato dd/mm/yyyy separa por -');
 		return false;
 	}
-
-	public function chequear_logueo(){
-
-		if(!(isset($this->session->logged_in))){
-			echo $this->load->view('login.php', '', TRUE);
-			exit();
-		}
-	}
-	
 }

@@ -30,12 +30,12 @@
 
      <table class="datos-cliente">
       <tbody>
-         <tr><td><i>Dirección:  </i><?= $cliente->direccion ?></td></tr>
-         <tr><td><i>Email:  </i><?= $cliente->email ?></td></tr>
-         <tr><td><i>Tel movil:  </i><?= $cliente->tel_movil ?></td></tr>
-         <tr><td><i>Tel fijo:  </i><?= $cliente->tel_fijo ?></td></tr>
-         <tr><td><i>S. deudor:  </i><?= $cliente->saldo_deudor ?></td></tr>
-         <tr><td><i>S. acreedor:  </i><?= $cliente->saldo_acreedor ?></td></tr>
+         <tr><td><i>Dirección:</i></td><td><?= $cliente->direccion ?></td></tr>
+         <tr><td><i>Email:</i></td><td><?= $cliente->email ?></td></tr>
+         <tr><td><i>Tel movil:</i></td><td><?= $cliente->tel_movil ?></td></tr>
+         <tr><td><i>Tel fijo:</i></td><td><?= $cliente->tel_fijo ?></td></tr>
+         <tr><td><i>S. deudor:</i></td><td><?= $cliente->saldo_deudor ?></td></tr>
+         <tr><td><i>S. acreedor:</i></td><td><?= $cliente->saldo_acreedor ?></td></tr>
     </tbody>
      </table>
 
@@ -43,6 +43,20 @@
 
 <?PHP endforeach ?>
 
-<?PHP endif ?>
 <button id="agregar-cliente" class="btn btn-primary"><i class="fas fa-users"></i> <i class="fas fa-plus"></i></button>
 </main>
+
+<?PHP else: ?>
+
+<div class="empty">
+  <div class="empty-icon">
+    <i class="fas fa-users"></i>
+  </div>
+  <p class="empty-title h5">No hay clientes</p>
+  <p class="empty-subtitle">Has click en el botón para crear un cliente nuevo</p>
+  <div class="empty-action">
+    <button class="btn btn-primary"><a class="a-link" href="clientes/abm_cliente">Nuevo Cliente<a></button>
+  </div>
+</div>
+
+<?PHP endif; ?>
