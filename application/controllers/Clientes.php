@@ -4,10 +4,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Clientes extends Member_Controller {
 
 	public function index(){
+
 			
+
+			$this->load->library('form_validation');
+			$this->form_validation->set_data($_GET);
+			$this->form_validation->set_rules('page_num', 'Numero de pagina', 'required|trim|greater_than[0]');
+
+			if($this->form_validation->run() == FALSE){
+				$page_num = 1;
+			}else{
+				$page_num = $this->input->get('page_num', TRUE);
+			}
+
 			$this->load->model('cliente_model');
-			$data["clientes"] = $this->cliente_model->get_lista_clientes();
-			
+			$data["clientes"] = $this->cliente_model->get_lista_clientes_pagina($page_num);
+			$data["cantidad_paginas"] = ceil($this->cliente_model->cantidad_clientes() / 10);	
+				
 			$this->load->view("header.php", $this->session->set_flashdata('side_bar','clientes'));
 			$this->load->view("lista_clientes.php", $data);
 			$this->load->view("footer.php");
@@ -16,8 +29,19 @@ class Clientes extends Member_Controller {
 
 
 	public function abm_cliente(){
+	
+			
 
-			$id_cliente  = $this->input->get('id_cliente', TRUE);
+			$this->load->library('form_validation');
+			$this->form_validation->set_data($_GET);
+			$this->form_validation->set_rules('id_cliente', 'id_cliente', 'required|trim|greater_than_equal_to[0]');
+
+			if($this->form_validation->run() == FALSE){
+				$id_cliente = null;
+			}else{
+				$id_cliente  = $this->input->get('id_cliente', TRUE);
+			}
+		
 
 			if(isset($id_cliente)){
 
@@ -65,8 +89,6 @@ class Clientes extends Member_Controller {
 			$email          = $this->input->post("email",TRUE);
 			$saldo   = $this->input->post("saldo",TRUE);
 
-
-
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('id_cliente', 'id_cliente', 'trim|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
@@ -75,8 +97,6 @@ class Clientes extends Member_Controller {
 			$this->form_validation->set_rules('tel_fijo', 'Tel fijo', 'trim|numeric');
 			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
 			$this->form_validation->set_rules('saldo', 'Saldo Deudor', 'trim|numeric');
-
-
 
 			if(!($this->form_validation->run())){
 				throw new Exception(validation_errors());

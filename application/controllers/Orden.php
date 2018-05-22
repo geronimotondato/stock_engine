@@ -9,7 +9,7 @@ class Orden extends Member_Controller {
 		$this->load->model('cliente_model');
 
 		$data["productos"] = $this->producto_model->get_lista_productos();
-		$data["clientes"] = $this->cliente_model->get_lista_clientes();
+		$data["clientes"] = $this->cliente_model->get_lista_clientes_completa();
 
 		if (null == $this->input->get("id_orden")){
 

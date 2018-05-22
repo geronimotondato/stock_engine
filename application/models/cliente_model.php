@@ -73,11 +73,32 @@ class Cliente_model extends CI_Model {
 		return $query->row();
 	}
 
-	public function get_lista_clientes(){
+	public function get_lista_clientes_completa(){
+
 
 		$query = $this->db->query("select * from cliente where dado_de_baja=0");
 		if(empty($query)){ throw new Exception("No hay clientes");}
 		return $query->result();  
+	}
+
+	public function get_lista_clientes_pagina($page_num){
+
+		$limit = 10;
+		$offset = ($page_num * 10) - 10;
+
+		$query = $this->db->query("select * from cliente where dado_de_baja=0 limit ".$limit." offset ".$offset);
+
+		if(empty($query)){ throw new Exception("No hay clientes");}
+
+		return $query->result();
+
+		return $return;  
+
+	}
+
+	public function cantidad_clientes(){
+		$query = $this->db->query("select count(*) from cliente");
+		return $query->row_array()["count(*)"];
 	}
 
 }

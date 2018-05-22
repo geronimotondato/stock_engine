@@ -43,6 +43,26 @@
 
 <?PHP endforeach ?>
 
+
+<ul class="pagination">
+
+  <li class="page-item disabled">
+    <a href="#">Anterior</a>
+  </li>
+
+  <?PHP for ($i = 1; $i <= $cantidad_paginas; $i++ ): ?>
+
+  <li class="page-item active">
+    <a href="<?= base_url() . 'clientes?page_num='.$i ?>" ><?= $i ?></a>
+  </li>
+
+  <?PHP endfor ?>
+
+  <li class="page-item">
+    <a href="#">Siguiente</a>
+  </li>
+</ul>
+
 <button id="agregar-cliente" class="btn btn-primary"><i class="fas fa-users"></i> <i class="fas fa-plus"></i></button>
 </main>
 
