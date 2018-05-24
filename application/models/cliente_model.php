@@ -100,5 +100,9 @@ class Cliente_model extends CI_Model {
 		$query = $this->db->query("select count(*) from cliente where dado_de_baja=0");
 		return $query->row_array()["count(*)"];
 	}
+	
+	public function cantidad_paginas($clientes_por_pagina){
+		return ceil($this->cantidad_clientes() / $clientes_por_pagina);		
+	}
 
 }

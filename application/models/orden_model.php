@@ -237,9 +237,14 @@ class Orden_model extends CI_Model {
 		}
 
 	}
+
 	public function cantidad_ordenes(){
 		$query = $this->db->query("select count(*) from orden");
 		return $query->row_array()["count(*)"];
+	}
+
+	public function cantidad_paginas($ordenes_por_pagina){
+		return ceil($this->cantidad_ordenes() / $ordenes_por_pagina);		
 	}
 
 }

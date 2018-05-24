@@ -5,41 +5,38 @@ class Clientes extends Member_Controller {
 
 	public function index(){
 
-			$this->load->library('form_validation');
-			$this->form_validation->set_data($_GET);
-			$this->form_validation->set_rules(
-				'numero_pagina', 
-				'Numero de pagina',
-				'required|trim|greater_than[0]'
-			);
+		$this->load->model('cliente_model');
 
-			if($this->form_validation->run() == FALSE){
-				$numero_pagina = 1;
-			}else{
-				$numero_pagina = $this->input->get('numero_pagina', TRUE);
-			}
+		$this->load->library('form_validation');
+		$this->form_validation->set_data($_GET);
+		$this->form_validation->set_rules('pagina_actual', 'Pagina actual', 'required|trim|greater_than[0]');
 
-			$this->load->model('cliente_model');
+		$pagina_actual = ($this->form_validation->run() == FALSE)? 1 : $this->input->get('pagina_actual', TRUE);
 
-			$elementos_por_pagina = 10;
+		$clientes_por_pagina = 10;
 
-			$data["clientes"]  = $this->cliente_model->get_lista_clientes_pagina(
-									$numero_pagina, 
-									$elementos_por_pagina
-								 );
-			$p["seccion"] = "clientes";
-			$p["numero_pagina"]    = $numero_pagina;
-			$p["cantidad_paginas"] = ceil($this->cliente_model->cantidad_clientes()/$elementos_por_pagina);
-			$p["rango"]            = calcular_rango_paginador(
-										$p["numero_pagina"],
-										$p["cantidad_paginas"],
-										7
-									 );	
-			$data["paginador"] = $this->load->view("paginador.php", $p, TRUE);
-				
-			$this->load->view("header.php", $this->session->set_flashdata('side_bar','clientes'));
-			$this->load->view("lista_clientes.php", $data);
-			$this->load->view("footer.php");
+		$cantidad_paginas_totales = $this->cliente_model->cantidad_paginas($clientes_por_pagina);
+
+		$data["clientes"]  = $this->cliente_model->get_lista_clientes_pagina(
+												 		$pagina_actual, 
+														$clientes_por_pagina
+												 );
+
+		$data["paginador"] = $this->load->view(
+			"paginador.php",
+			array (
+					"link"                     => "clientes",
+					"pagina_actual"            => $pagina_actual,
+					"cantidad_paginas_totales" => $cantidad_paginas_totales,
+					"rango"                    => calcular_rango_paginador($pagina_actual, 
+																				$cantidad_paginas_totales, 7)
+			),
+			TRUE
+		);
+			
+		$this->load->view("header.php", $this->session->set_flashdata('side_bar','clientes'));
+		$this->load->view("lista_clientes.php", $data);
+		$this->load->view("footer.php");
 			
 	}
 

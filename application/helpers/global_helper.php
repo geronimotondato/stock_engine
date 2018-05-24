@@ -1,28 +1,32 @@
 <?PHP
-function calcular_rango_paginador($numero_pagina, $cantidad_paginas, $alcance){
-
-	if($alcance%2 == 0) $alcance++;
+function calcular_rango_paginador($pagina_actual, $cantidad_paginas_totales, $paginas_a_mostrar){
 
 
-	if($cantidad_paginas < $alcance){
+//CALCULO EL RANGO DEL PAGINDOR
+
+	//hace que el numero de paginas a mostrar siempre sea impar para que la pagina actual quede en el centro
+	if($paginas_a_mostrar%2 == 0) $paginas_a_mostrar++;
+
+	if($cantidad_paginas_totales < $paginas_a_mostrar){
 		$rango["x1"] = 1;
-		$rango["x2"] = $cantidad_paginas;
+		$rango["x2"] = $cantidad_paginas_totales;
 	}else{
-		if($numero_pagina <= ceil($alcance/2)){
+		if($pagina_actual <= ceil($paginas_a_mostrar/2)){
 			$rango["x1"] = 1;
-			$rango["x2"] = $alcance;
-		}elseif($numero_pagina >= ceil($alcance/2)+1 && 
-				$numero_pagina <= $cantidad_paginas - ceil($alcance/2) ){
+			$rango["x2"] = $paginas_a_mostrar;
+		}elseif($pagina_actual >= ceil($paginas_a_mostrar/2)+1 && 
+				$pagina_actual <= $cantidad_paginas_totales - ceil($paginas_a_mostrar/2) ){
 
-			$rango["x1"] = $numero_pagina - floor($alcance/2);
-			$rango["x2"] = $numero_pagina + floor($alcance/2);
+			$rango["x1"] = $pagina_actual - floor($paginas_a_mostrar/2);
+			$rango["x2"] = $pagina_actual + floor($paginas_a_mostrar/2);
 
 		}else{
-			$rango["x1"] = $numero_pagina - ($alcance-1);
-			$rango["x2"] = $cantidad_paginas;
+			$rango["x1"] = $pagina_actual - ($paginas_a_mostrar-1);
+			$rango["x2"] = $cantidad_paginas_totales;
 		}
 
 	}
+//FIN
 
 	return $rango;
 
