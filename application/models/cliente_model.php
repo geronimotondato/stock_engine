@@ -81,10 +81,10 @@ class Cliente_model extends CI_Model {
 		return $query->result();  
 	}
 
-	public function get_lista_clientes_pagina($page_num){
+	public function get_lista_clientes_pagina($numero_pagina, $elementos_por_pagina){
 
-		$limit = 10;
-		$offset = ($page_num * 10) - 10;
+		$limit = $elementos_por_pagina;
+		$offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
 
 		$query = $this->db->query("select * from cliente where dado_de_baja=0 limit ".$limit." offset ".$offset);
 
@@ -97,7 +97,7 @@ class Cliente_model extends CI_Model {
 	}
 
 	public function cantidad_clientes(){
-		$query = $this->db->query("select count(*) from cliente");
+		$query = $this->db->query("select count(*) from cliente where dado_de_baja=0");
 		return $query->row_array()["count(*)"];
 	}
 

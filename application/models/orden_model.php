@@ -198,11 +198,14 @@ class Orden_model extends CI_Model {
 
 	}
 
-	public function get_orden_list($desde, $hasta){
+	public function get_lista_ordenes_pagina($numero_pagina, $elementos_por_pagina){
+
+		$limit = $elementos_por_pagina;
+		$offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
 
 		try{
 
-			$query = $this->db->query("SELECT * FROM orden LEFT JOIN cliente on orden.id_cliente = cliente.id_cliente ORDER BY fecha_entrega ASC LIMIT ". $desde.",".$hasta );
+			$query = $this->db->query("SELECT * FROM orden LEFT JOIN cliente on orden.id_cliente = cliente.id_cliente ORDER BY fecha_entrega ASC LIMIT ". $limit." offset " . $offset);
 
 			$query = $query->result_array();
 
@@ -233,6 +236,10 @@ class Orden_model extends CI_Model {
 			throw new Exception("No se pudo recuperar la orden de la base de datos");
 		}
 
+	}
+	public function cantidad_ordenes(){
+		$query = $this->db->query("select count(*) from orden");
+		return $query->row_array()["count(*)"];
 	}
 
 }

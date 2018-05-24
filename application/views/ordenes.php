@@ -93,6 +93,8 @@
 
   <?PHP endforeach ?>
 
+  <?= $paginador ?>
+
   <!-- MODAL DE FINALIZAR ORDEN -->
   <div id="finalizar_orden_dialog" class="modal modal-sm">
     <a class="modal-overlay cerrar_finalizar_orden_dialog" aria-label="Close"></a>
