@@ -42,10 +42,38 @@
 </div>
 
 <!-- form input control -->
-<div class="form-group">
-  <label class="form-label" for="saldo">Saldo</label>
-  <input class="form-input" type="text" id="saldo" placeholder="Saldo" name="saldo" value='<?= isset($cliente)? $cliente->saldo : "" ?>'>
-</div>
+
+
+<div class="container">
+ <label class="form-label" for="saldo">Saldo</label>
+  <div class="columns">
+
+    <div class="column col-4">
+      <div class="input-group">
+        <input readonly class="form-input" type="text" id="saldo" placeholder="Saldo" name="saldo" value='<?= isset($cliente)? $cliente->saldo : "" ?>'>
+      </div>
+    </div>
+    <div class="column col-4">
+      <div class="input-group">
+
+        <input id="sumar" class="form-input" type="number" placeholder="+" value="0" min="0" name="sumar">
+        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-plus"></i></button>
+      </div>
+    </div>
+    <div class="column col-4">
+      <div class="input-group">
+
+        <input id="restar" class="form-input" type="number" placeholder="-" value="0" min="0" name="restar">
+        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-minus"></i></button>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
 
 
 

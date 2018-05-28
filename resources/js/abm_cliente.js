@@ -10,6 +10,12 @@ $(document).ready(function(){
     $("#eliminar_cliente_dialog").removeClass("active");
   });
 
+  if ((saldo = $("#saldo")).val() < 0){
+    saldo.addClass("is-error");
+  }else{
+    saldo.addClass("is-success");
+  }
+
 
 	$("#btn_guardar, #btn_actualizar, #btn_eliminar").click(function(event){
 	    event.preventDefault();
