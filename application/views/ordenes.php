@@ -40,7 +40,7 @@
             </td></tr>
             <tr><td>
             <button class='btn btn-link'>
-              <a href="orden?id_orden=<?PHP echo $orden['id_orden'];?>">
+              <a href="ordenes/orden?id_orden=<?PHP echo $orden['id_orden'];?>">
               <i class='fa  fa-edit'></i></a>
             </button>
             </td></tr>

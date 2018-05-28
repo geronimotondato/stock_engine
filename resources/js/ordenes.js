@@ -28,7 +28,7 @@ $(document).ready(function(){
 	    event.preventDefault();
 	    
 	    $.post( 
-	    /*url*/ _$_HOME_URL+"/orden/finalizar", 
+	    /*url*/ _$_HOME_URL+"/ordenes/finalizar", 
 	    /*data*/ {id_orden : $(this).val()})
 
 	    .done(function(data){

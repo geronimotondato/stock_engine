@@ -7,7 +7,6 @@ class Clientes extends Member_Controller {
 
 		$this->load->model('cliente_model');
 
-		$this->load->library('form_validation');
 		$this->form_validation->set_data($_GET);
 		$this->form_validation->set_rules('pagina_actual', 'Pagina actual', 'required|trim|greater_than[0]');
 
@@ -29,7 +28,7 @@ class Clientes extends Member_Controller {
 					"pagina_actual"            => $pagina_actual,
 					"cantidad_paginas_totales" => $cantidad_paginas_totales,
 					"rango"                    => calcular_rango_paginador($pagina_actual, 
-																				$cantidad_paginas_totales, 7)
+																		   $cantidad_paginas_totales, 7)
 			),
 			TRUE
 		);
@@ -43,9 +42,6 @@ class Clientes extends Member_Controller {
 
 	public function abm_cliente(){
 	
-			
-
-			$this->load->library('form_validation');
 			$this->form_validation->set_data($_GET);
 			$this->form_validation->set_rules('id_cliente', 'id_cliente', 'required|trim|greater_than_equal_to[0]');
 
@@ -102,7 +98,6 @@ class Clientes extends Member_Controller {
 			$email          = $this->input->post("email",TRUE);
 			$saldo   = $this->input->post("saldo",TRUE);
 
-			$this->load->library('form_validation');
 			$this->form_validation->set_rules('id_cliente', 'id_cliente', 'trim|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
 			$this->form_validation->set_rules('direccion', 'Dirección', 'trim|alpha_numeric_spaces');

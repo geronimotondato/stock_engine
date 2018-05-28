@@ -129,7 +129,7 @@ $( document ).ready(function() {
     $("#btn_guardar, #btn_actualizar, #btn_eliminar_confirmado").click(function(event){
         event.preventDefault();
         $.post( 
-        /*url*/ _$_HOME_URL+"/orden/"+ $(this).val(), 
+        /*url*/ _$_HOME_URL+"/ordenes/"+ $(this).val(), 
         /*data*/ $("#form_orden").serialize())
 
         .done(function(data){

@@ -5,7 +5,6 @@ class Login extends MY_Controller{
 
 	public function log_in()
 	{
-		$this->load->library('form_validation');
 		$this->form_validation->set_rules('user', 'Usuario', 'trim|required|alpha_numeric');
 		$this->form_validation->set_rules('pass', 'Contraseña', 'trim|required');
 		try{
