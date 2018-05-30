@@ -76,7 +76,30 @@ class Ordenes extends Member_Controller {
 
 		try{
 
-			$orden = $this->generar_orden();
+			$id_cliente = $this->input->post("id_cliente", TRUE);
+			$fecha      = $this->input->post("fecha",TRUE);
+			$items      = $this->input->post("items",TRUE);
+
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('id_cliente', 'id_cliente', 'trim|required|numeric');
+			$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
+
+			foreach($items as $i => $value) {
+				$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
+			}
+
+			if(!($this->form_validation->run())){
+				throw new Exception("No ingresó correctamente la información requerida");
+			}
+
+			$orden = array(
+				"id_cliente" => $id_cliente,
+				"fecha"      => $fecha,
+				"items"      => $items
+			);
+
 			$this->load->model("orden_model");
 			$productos_sin_disponibilidad = $this->orden_model->guardar_orden($orden);
 
@@ -104,7 +127,30 @@ class Ordenes extends Member_Controller {
 
 		try{
 
-			$orden = $this->generar_orden();
+			$id_orden = $this->input->post("id_orden", TRUE);
+			$fecha    = $this->input->post("fecha",TRUE);
+			$items    = $this->input->post("items",TRUE);
+
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('id_orden', 'id_orden', 'trim|required|numeric');
+			$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
+
+			foreach($items as $i => $value) {
+				$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
+				$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
+			}
+
+			if(!($this->form_validation->run())){
+				throw new Exception("No ingresó correctamente la información requerida");
+			}
+
+			$orden = array(
+				"id_orden" =>$id_orden,
+				"fecha"   => $fecha,
+				"items"   => $items
+			);
+
 			$this->load->model("orden_model");
 			$productos_sin_disponibilidad = $this->orden_model->actualizar_orden($orden);
 
@@ -176,42 +222,6 @@ class Ordenes extends Member_Controller {
 			$respuesta["mensaje"] = $e->getMessage();
 			echo json_encode($respuesta);
 		}
-	}
-
-	private function generar_orden(){
-
-		$id_orden = $this->input->post("id_orden", TRUE);
-		$cliente  = $this->input->post("cliente", TRUE);
-		$fecha    = $this->input->post("fecha",TRUE);
-		$items    = $this->input->post("items",TRUE);
-
-		if( !isset($id_orden ,$cliente, $fecha, $items)){
-			throw new Exception("Debe completar todos los campos");
-		}
-
-		$this->load->library('form_validation');
-		$this->form_validation->set_rules('id_orden', 'id_orden', 'trim|required|numeric');
-		$this->form_validation->set_rules('cliente', 'Cliente', 'trim|required|numeric');
-		$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
-
-		foreach($items as $i => $value) {
-			$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
-			$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
-			$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
-		}
-
-		if(!($this->form_validation->run())){
-			throw new Exception("No ingresó correctamente la información requerida");
-		}
-
-		$orden = array(
-			"id_orden" =>$id_orden,
-			"cliente" => $cliente,
-			"fecha"   => $fecha,
-			"items"   => $items
-		);
-
-		return $orden;
 	}
 
 	public function date_valid($date){

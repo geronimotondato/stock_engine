@@ -4,21 +4,6 @@ addLoadEvent(function() {
     orden_data = JSON.parse(document.getElementById("form_data").innerText);
     lista_items = orden_data.items;
 
-    // if (orden_data.cliente != 0){
-    // var children = document.getElementById("selector_de_clientes").children[0].children;
-
-
-    // for (var i = 0; i < children.length; i++) {
-
-    //     if (children[i].getAttribute("data-id_cliente") == orden_data.cliente) document.getElementById("selector_de_clientes").children[0].selectedIndex = i;
-    // }
-    // }else{
-    //     document.getElementById("selector_de_clientes").children[0].selectedIndex = 0;
-    // }
-
-    document.getElementById("selector_de_clientes").children[0].selectedIndex = 0;
-
-    //document.getElementById("fecha").setAttribute("min", getFecha(0));
     document.getElementById("fecha").setAttribute("value", orden_data.fecha);
 
     document.getElementById("selector_de_productos").addEventListener("change", function() {

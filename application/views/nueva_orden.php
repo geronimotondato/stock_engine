@@ -12,22 +12,30 @@
     <input id="id_orden" class="form-input d-none" type="hidden" name="id_orden" value=<?= $orden["id_orden"] ?> >
     
     <p></p>
+
+
     <!-- SELECTOR DE CLIENTES -->
-    <div id="selector_de_clientes" class="form-group">
-
-      <select class="form-select" name="cliente">
-        <option disabled="disabled">Lista de Clientes</option>
-        <?PHP foreach ($clientes as $cliente): ?>
-
-        <option value= <?= $cliente->id_cliente ?>> <?= $cliente->nombre ?> </option>
-
-        <?PHP endforeach ?>
-      </select>
-
-        <p></p>
-      <p><strong>Cliente seleccionado: <?= $orden["cliente"]["nombre"] ?></strong></p>
-
-    </div> <!-- FIN -->
+    <?PHP //Si id_orden es igual a 0 significa que se va a crear una orden nueva
+          //Caso contrario, se trata de una actualizacion de una orden preexistente
+     ?>
+    <?PHP if($orden["id_orden"] == 0 ): ?>
+      <div id="selector_de_clientes" class="form-group">
+        <select class="form-select" name="id_cliente">
+          <option disabled selected>Lista de Clientes</option>
+          <?PHP foreach ($clientes as $cliente): ?>
+            <option value= <?= $cliente->id_cliente ?>> <?= $cliente->nombre ?> </option>
+          <?PHP endforeach ?>
+        </select>
+      </div>
+    <?PHP else: ?>
+        <?PHP if($orden["cliente"]["dado_de_baja"] == 0 ): ?>
+          <strong>Cliente: <a href="<?= base_url('clientes/abm_cliente?id_cliente=' . $orden['cliente']['id_cliente']) ?>" target="_blank" > <?= $orden['cliente']['nombre'] ?> </a></strong>
+        <?PHP else: ?>
+          <strong>Cliente: <?= $orden['cliente']['nombre'] ?></strong>
+        <?PHP endif; ?>
+    <?PHP endif; ?>
+    <!-- FIN -->
+ 
 
     <p></p>
     <!-- SELECTOR DE FECHA DE ENTREGA -->
@@ -137,11 +145,6 @@
         
       </div>
     </div>
-
-
-    <?PHP //Si id_orden es distinto de 0 significa que se va a actualizar una orden ya existe
-          //por lo cual se crean los botones [descartar][actualizar][eliminar]
-          //en el caso que sea 0 se crean los botones [descartar][guardar] ?>
 
     <?PHP if($orden["id_orden"] == 0 ): ?>
 

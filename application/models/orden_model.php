@@ -15,7 +15,7 @@ class Orden_model extends CI_Model {
 		$this->db->trans_start();
 
 		$this->db->query(
-			"INSERT INTO orden (id_cliente, fecha_entrega)VALUES(".$orden['cliente'].",\"".$orden['fecha']."\")"
+			"INSERT INTO orden (id_cliente, fecha_entrega)VALUES(".$orden['id_cliente'].",\"".$orden['fecha']."\")"
 		);
 
 		$id_orden = $this->db->insert_id();
@@ -67,7 +67,7 @@ class Orden_model extends CI_Model {
 		$this->db->trans_start();
 
 		$this->db->query(
-			"UPDATE orden SET id_cliente = ".$orden['cliente'].", fecha_entrega =\"".$orden['fecha']."\" WHERE
+			"UPDATE orden SET fecha_entrega = \"" .$orden['fecha'] ."\" WHERE
 			id_orden =" . $orden['id_orden']
 		);
 		$this->db->query(
