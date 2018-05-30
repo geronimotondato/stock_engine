@@ -12,22 +12,30 @@
     <input id="id_orden" class="form-input d-none" type="hidden" name="id_orden" value=<?= $orden["id_orden"] ?> >
     
     <p></p>
+    <!-- SELECTOR DE CLIENTES -->
     <div id="selector_de_clientes" class="form-group">
 
       <select class="form-select" name="cliente">
-        <option disabled="disabled">Clientes</option>
+        <option disabled="disabled">Lista de Clientes</option>
         <?PHP foreach ($clientes as $cliente): ?>
 
-        <option value= <?= $cliente->id_cliente ?> <?PHP if($cliente->id_cliente == $orden["cliente"]) echo "selected"; ?>> <?= $cliente->nombre ?> </option>
+        <option value= <?= $cliente->id_cliente ?>> <?= $cliente->nombre ?> </option>
 
         <?PHP endforeach ?>
       </select>
-    </div>
+
+        <p></p>
+      <p><strong>Cliente seleccionado: <?= $orden["cliente"]["nombre"] ?></strong></p>
+
+    </div> <!-- FIN -->
 
     <p></p>
+    <!-- SELECTOR DE FECHA DE ENTREGA -->
     <input id="fecha" class="form-input" type="date" name="fecha" value=>
+    <!-- FIN -->
     <p></p>
 
+    <!-- SELECTOR DE PRODUCTOS -->
     <div id="selector_de_productos" class="form-group">
       <select class="form-select">
         <option selected disabled="disabled">Productos</option>
@@ -37,7 +45,7 @@
         <?PHP endforeach; ?>
 
       </select>
-    </div>
+    </div> <!-- FIN -->
 
     <!-- INICIO MODAL PRODUCTO -->
     <div id="modal_producto" class="modal modal-sm" data-modal-index="">

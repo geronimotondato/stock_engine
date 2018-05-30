@@ -1,5 +1,11 @@
 .tile{
-	background-color: #eee;
+	background-color: #5755d91f;
 	padding: 5px;
 	margin-bottom: 15px;
+	border-radius: 3px;
+	border: 1px solid #5755d9;
+}
+
+#panel_productos {
+	background-color: #fff;
 }
