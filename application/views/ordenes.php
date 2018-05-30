@@ -118,7 +118,7 @@
     <p class="empty-title h5">No hay ordenes</p>
     <p class="empty-subtitle">Has click en el botón para iniciar una nueva orden</p>
     <div class="empty-action">
-      <button class="btn btn-primary"><a class="a-link" href="orden">Nueva Orden<a></button>
+      <button class="btn btn-primary"><a class="a-link" href="<?= base_url('ordenes/orden') ?>">Nueva Orden<a></button>
     </div>
   </div>
   <?PHP endif; ?>

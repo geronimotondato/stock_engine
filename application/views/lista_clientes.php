@@ -66,7 +66,7 @@
   <p class="empty-title h5">No hay clientes</p>
   <p class="empty-subtitle">Has click en el botón para crear un cliente nuevo</p>
   <div class="empty-action">
-    <button class="btn btn-primary"><a class="a-link" href="clientes/abm_cliente">Nuevo Cliente<a></button>
+    <button class="btn btn-primary"><a class="a-link" href="<?= base_url('clientes/abm_cliente') ?>">Nuevo Cliente<a></button>
   </div>
 </div>
 
