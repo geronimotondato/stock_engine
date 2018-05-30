@@ -56,15 +56,15 @@
     <div class="column col-4">
       <div class="input-group">
 
-        <input id="sumar" class="form-input" type="number" placeholder="+" value="0" min="0" name="sumar">
         <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-plus"></i></button>
+        <input id="sumar" class="form-input" type="number" placeholder="+" value="0" min="0" name="sumar">
       </div>
     </div>
     <div class="column col-4">
       <div class="input-group">
 
-        <input id="restar" class="form-input" type="number" placeholder="-" value="0" min="0" name="restar">
         <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-minus"></i></button>
+        <input id="restar" class="form-input" type="number" placeholder="-" value="0" min="0" name="restar">
       </div>
 
     </div>
