@@ -180,5 +180,37 @@ class Clientes extends Member_Controller {
 
 	}
 
+	public function buscar_cliente(){
+
+		$texto_busqueda = (isset($_POST["texto_busqueda"]))? $this->input->post("texto_busqueda", TRUE) : "";
+
+		if($texto_busqueda != ""){
+
+			$this->load->model('cliente_model');
+
+			try{
+
+				$resultado = $this->cliente_model->buscar_cliente($texto_busqueda);
+				$data["clientes"]  = $resultado;
+				$data["texto_busqueda"] = $texto_busqueda;
+
+			}catch(Exception $e){
+				$data["clientes"] = NULL;
+				$data["texto_busqueda"] = NULL;
+			}
+			
+			$this->load->view("header.php", $this->session->set_flashdata('side_bar','clientes'));
+			$this->load->view("lista_clientes.php", $data);
+			$this->load->view("footer.php");
+
+		}else{
+
+			$this->index();
+
+		}
+
+
+	}
+
 }
 

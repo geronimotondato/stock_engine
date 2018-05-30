@@ -7,6 +7,15 @@
 
 <div class="seccion"><p>Lista Clientes</p></div>
 
+<p></p>
+<form  action=<?= base_url("Clientes/buscar_cliente") ?> method="POST">
+<div class="input-group">
+  <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="<?= (isset($texto_busqueda))? $texto_busqueda : '' ?>">
+  <button class="btn btn-primary input-group-btn"><i class="fas fa-search"></i></button>
+</div>
+</form>
+
+<p></p>
 
 <?PHP if($clientes): ?>
 
@@ -43,7 +52,7 @@
 
 <?PHP endforeach ?>
 
-<?=$paginador?>
+<?= (isset($paginador))? $paginador : "" ?>
 
 <button id="agregar-cliente" class="btn btn-primary"><i class="fas fa-users"></i> <i class="fas fa-plus"></i></button>
 </main>

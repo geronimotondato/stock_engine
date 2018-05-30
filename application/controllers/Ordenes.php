@@ -78,7 +78,12 @@ class Ordenes extends Member_Controller {
 
 			$id_cliente = $this->input->post("id_cliente", TRUE);
 			$fecha      = $this->input->post("fecha",TRUE);
-			$items      = $this->input->post("items",TRUE);
+
+			if(isset($_POST["items"])){
+					$items = $this->input->post("items",TRUE);
+			}else{
+					throw new Exception("Debe ingresar al menos un producto");
+			}
 
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('id_cliente', 'id_cliente', 'trim|required|numeric');
@@ -104,19 +109,15 @@ class Ordenes extends Member_Controller {
 			$productos_sin_disponibilidad = $this->orden_model->guardar_orden($orden);
 
 			if(!(isset($productos_sin_disponibilidad))){
-
 				$respuesta["estado"] = "ok";
 				echo json_encode($respuesta);
-				
 			}else{
-
-				$respuesta["estado"] = "sin_stock";
+				$respuesta["estado"]    = "sin_stock";
 				$respuesta["faltantes"] = $productos_sin_disponibilidad;
 				echo json_encode($respuesta);
 			}
-
 		}catch(Exception $e){
-			$respuesta["estado"] = "error";
+			$respuesta["estado"]  = "error";
 			$respuesta["mensaje"] = $e->getMessage();
 			echo json_encode($respuesta);
 		}
@@ -129,16 +130,21 @@ class Ordenes extends Member_Controller {
 
 			$id_orden = $this->input->post("id_orden", TRUE);
 			$fecha    = $this->input->post("fecha",TRUE);
-			$items    = $this->input->post("items",TRUE);
+
+			if(isset($_POST["items"])){
+					$items = $this->input->post("items",TRUE);
+			}else{
+					throw new Exception("Debe ingresar al menos un producto");
+			}
 
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('id_orden', 'id_orden', 'trim|required|numeric');
 			$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
 
 			foreach($items as $i => $value) {
-				$this->form_validation->set_rules ('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
-				$this->form_validation->set_rules ('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
-				$this->form_validation->set_rules ('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
+				$this->form_validation->set_rules('items['.$i.'][id_producto]', 'id_producto', 'trim|required|numeric');
+				$this->form_validation->set_rules('items['.$i.'][cantidad]', 'cantidad', 'trim|required|numeric');
+				$this->form_validation->set_rules('items['.$i.'][descuento]', 'descuento', 'trim|required|numeric');
 			}
 
 			if(!($this->form_validation->run())){
@@ -147,27 +153,24 @@ class Ordenes extends Member_Controller {
 
 			$orden = array(
 				"id_orden" =>$id_orden,
-				"fecha"   => $fecha,
-				"items"   => $items
+				"fecha"    => $fecha,
+				"items"    => $items
 			);
 
 			$this->load->model("orden_model");
 			$productos_sin_disponibilidad = $this->orden_model->actualizar_orden($orden);
 
 			if(!(isset($productos_sin_disponibilidad))){
-
 				$respuesta["estado"] = "ok";
 				echo json_encode($respuesta);
-				
 			}else{
-
 				$respuesta["estado"] = "sin_stock";
 				$respuesta["faltantes"] = $productos_sin_disponibilidad;
 				echo json_encode($respuesta);
 			}
 
 		}catch(Exception $e){
-			$respuesta["estado"] = "error";
+			$respuesta["estado"]  = "error";
 			$respuesta["mensaje"] = $e->getMessage();
 			echo json_encode($respuesta);
 		}
@@ -224,7 +227,7 @@ class Ordenes extends Member_Controller {
 		}
 	}
 
-	public function date_valid($date){
+	function date_valid($date){
 		$parts = explode("-", $date);
 		if (count($parts) == 3) {      
 			if (checkdate($parts[1], $parts[2], $parts[0]))
@@ -235,4 +238,5 @@ class Ordenes extends Member_Controller {
 		$this->form_validation->set_message('date_valid', 'El campo fecha debe tener el formato dd/mm/yyyy separa por -');
 		return false;
 	}
+
 }

@@ -31,3 +31,4 @@ function calcular_rango_paginador($pagina_actual, $cantidad_paginas_totales, $pa
 	return $rango;
 
 }
+

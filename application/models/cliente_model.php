@@ -96,6 +96,20 @@ class Cliente_model extends CI_Model {
 
 	}
 
+	public function buscar_cliente($texto_busqueda){
+
+			$query = $this->db->query(
+				"SELECT * FROM cliente
+				 WHERE dado_de_baja=0 
+				 AND MATCH(nombre, direccion, email, tel_movil, tel_fijo) 
+				 AGAINST(\"" . $texto_busqueda . "*\" IN BOOLEAN MODE)" );
+
+				if(empty($query)){ throw new Exception("No se encuentran clientes");}
+
+				return $query->result();
+
+	}
+
 	public function cantidad_clientes(){
 		$query = $this->db->query("select count(*) from cliente where dado_de_baja=0");
 		return $query->row_array()["count(*)"];
