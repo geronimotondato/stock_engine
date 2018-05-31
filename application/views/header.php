@@ -27,7 +27,7 @@
         <div class="btn btn-link">StockENG <i class="fas fa-boxes"></i></div>
       </section>
       <section class="navbar-section">
-        <a href=<?PHP echo base_url('ordenes/orden'); ?> ><button class="btn btn-action btn-primary"><i class="fas fa-truck"></i></button></a>
+        <a href=<?PHP echo base_url('ordenes/abm_orden'); ?> ><button class="btn btn-action btn-primary"><i class="fas fa-truck"></i></button></a>
       </section>
     </header> <!-- FIN HEADER -->
     <!-- DRAWER LATERAL -->
@@ -43,7 +43,7 @@
       <li class="divider"></li>
       <!-- menu item -->
       <li class="menu-item">
-        <a href  ="<?PHP echo base_url('ordenes/orden') ?>"
+        <a href  ="<?PHP echo base_url('ordenes/abm_orden') ?>"
           class ="<?PHP if($this->session->flashdata('side_bar') =="orden") echo 'active' ?>" >
           <i class="fas fa-truck"></i> Orden
         </a>

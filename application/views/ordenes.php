@@ -40,7 +40,7 @@
             </td></tr>
             <tr><td>
             <button class='btn btn-link'>
-              <a href="ordenes/orden?id_orden=<?PHP echo $orden['id_orden'];?>">
+              <a href="ordenes/abm_orden?id_orden=<?PHP echo $orden['id_orden'];?>">
               <i class='fa  fa-edit'></i></a>
             </button>
             </td></tr>
@@ -118,7 +118,7 @@
     <p class="empty-title h5">No hay ordenes</p>
     <p class="empty-subtitle">Has click en el botón para iniciar una nueva orden</p>
     <div class="empty-action">
-      <button class="btn btn-primary"><a class="a-link" href="<?= base_url('ordenes/orden') ?>">Nueva Orden<a></button>
+      <button class="btn btn-primary"><a class="a-link" href="<?= base_url('ordenes/abm_orden') ?>">Nueva Orden<a></button>
     </div>
   </div>
   <?PHP endif; ?>

@@ -40,7 +40,7 @@ class Ordenes extends Member_Controller {
 
 	}
 
-	public function orden()	{
+	public function abm_orden()	{
 
 		$this->load->model('producto_model');
 		$this->load->model('cliente_model');
@@ -67,7 +67,7 @@ class Ordenes extends Member_Controller {
 		}
 
 		$this->load->view("header.php", $this->session->set_flashdata('side_bar','orden'));
-		$this->load->view("nueva_orden.php", $data);
+		$this->load->view("abm_orden.php", $data);
 		$this->load->view("footer.php");
 	}
 
