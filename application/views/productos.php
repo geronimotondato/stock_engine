@@ -4,30 +4,31 @@
 <SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
 
 <main class="margen">
-<div class="seccion"><p>Stock Productos</p></div>
+<div class="seccion"><p>Productos</p></div>
 
 <table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Unidades</th>
-      <th>Precio Venta</th>
-      <th>Disponibles</th>
-      <th>Comprometidos</th>
-      <th>Reales</th>
+      <th>Unid.</th>
+      <th>Precio</th>
+      <th>Disp.</th>
+      <th>Comp.</th>
+      <th>En_total</th>
     </tr>
   </thead>
   <tbody>
 
 <?PHP foreach ($productos as $row): ?>
+
 <tr>
   <td><?= $row->producto?></td>
-  <td><?= $row->unidades?></td>
+  <td><?= (isset($row->stock_total))? $row->unidades : "X"?></td>
   <td><?= $row->precio_venta?></td>
-  <td><?= $row->disponibles?></td>
-  <td><?= $row->comprometidos?></td>
-  <td><?= $row->stock_total?></td>
-</tr>
+  <td><?= (isset($row->stock_total))? $row->disponibles : "X"?></td>
+  <td><?= (isset($row->stock_total))? $row->comprometidos : "X" ?></td>
+  <td><?= (isset($row->stock_total))? $row->stock_total : "X"?></td>
+</tr> 
 <?PHP endforeach; ?>
   </tbody>
 </table>

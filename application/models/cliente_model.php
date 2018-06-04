@@ -27,7 +27,7 @@ class Cliente_model extends CI_Model {
 		$this->db->trans_start();
 
 		//trae el campo "dado_de_baja" del registro cliente que se pretende actualizar
-		$this->db->select('dado_de_baja');
+		$this->db->select('dado_de_baja, saldo');
 		$query = $this->db->get_where('cliente', array('id_cliente' => $cliente["id_cliente"]) );
 
 		//pregunto si el cliente está dado de baja, en cuyo caso finalizo la actualizacion
@@ -35,6 +35,13 @@ class Cliente_model extends CI_Model {
 			$this->db->trans_complete();
 			throw new Exception("No puede actualizar un cliente dado de baja");
 		}
+
+		//actualizo el saldo del cliente sumando el valor "saldo" de la BD 
+		//con el valor "saldo" que viene por el pedido
+		//que es el resultado de $sumar - $restar
+		$cliente["saldo"] = $cliente["saldo"] + $query->row()->saldo;
+
+
 
 		//actualizo el cliente
 		$this->db->where('id_cliente', $cliente["id_cliente"]);

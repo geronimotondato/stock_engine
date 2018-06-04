@@ -1,4 +1,4 @@
-.orden{
+.venta{
 	max-width: 100%;
 	margin: 20px auto;
 	padding: 8px; 
@@ -7,7 +7,7 @@
 	background-color: #fff;
 }
 
-.cabecera-orden table{
+.cabecera-venta table{
 	color:#5755d9;
 	text-align: left;
 	margin-bottom: 20px;
@@ -50,11 +50,11 @@
 }
 
 
-.finalizar_orden{
+.finalizar_venta{
 	color: green !important;
 }
 
-#form_aceptar_finalizar_orden{
+#form_aceptar_finalizar_venta{
 	display: inline;
 }
 

@@ -4,21 +4,21 @@
 <SCRIPT src="<?= base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
 
 <div id="form_data" class="d-none">
-  <?= json_encode($orden); ?>
+  <?= json_encode($venta); ?>
 </div>
 <main class="margen">
-<div class="seccion"><p>Orden</p></div>
-  <form id="form_orden">
-    <input id="id_orden" class="form-input d-none" type="hidden" name="id_orden" value=<?= $orden["id_orden"] ?> >
+<div class="seccion"><p>venta</p></div>
+  <form id="form_venta">
+    <input id="id_venta" class="form-input d-none" type="hidden" name="id_venta" value=<?= $venta["id_venta"] ?> >
     
     <p></p>
 
 
     <!-- SELECTOR DE CLIENTES -->
-    <?PHP //Si id_orden es igual a 0 significa que se va a crear una orden nueva
-          //Caso contrario, se trata de una actualizacion de una orden preexistente
+    <?PHP //Si id_venta es igual a 0 significa que se va a crear una venta nueva
+          //Caso contrario, se trata de una actualizacion de una venta preexistente
      ?>
-    <?PHP if($orden["id_orden"] == 0 ): ?>
+    <?PHP if($venta["id_venta"] == 0 ): ?>
       <div id="selector_de_clientes" class="form-group">
         <select class="form-select" name="id_cliente">
           <option disabled selected>Lista de Clientes</option>
@@ -27,11 +27,16 @@
           <?PHP endforeach ?>
         </select>
       </div>
+      <div id="agregar_nuevo_cliente">
+          <a class="btn btn-primary" href="<?= base_url('clientes/abm_cliente') ?>">
+          <i class="fas fa-users"></i> <i class="fas fa-plus"></i>
+          </a>
+      </div>
     <?PHP else: ?>
-        <?PHP if($orden["cliente"]["dado_de_baja"] == 0 ): ?>
-          <strong>Cliente: <a href="<?= base_url('clientes/abm_cliente?id_cliente=' . $orden['cliente']['id_cliente']) ?>" target="_blank" > <?= $orden['cliente']['nombre'] ?> </a></strong>
+        <?PHP if($venta["cliente"]["dado_de_baja"] == 0 ): ?>
+          <strong>Cliente: <a href="<?= base_url('clientes/abm_cliente?id_cliente=' . $venta['cliente']['id_cliente']) ?>" target="_blank" > <?= $venta['cliente']['nombre'] ?> </a></strong>
         <?PHP else: ?>
-          <strong>Cliente: <?= $orden['cliente']['nombre'] ?></strong>
+          <strong>Cliente: <?= $venta['cliente']['nombre'] ?></strong>
         <?PHP endif; ?>
     <?PHP endif; ?>
     <!-- FIN -->
@@ -112,18 +117,18 @@
 
 
 
-    <div id="eliminar_orden_dialog" class="modal modal-sm">
-      <a class="modal-overlay cerrar_eliminar_orden_dialog" aria-label="Close"></a>
+    <div id="eliminar_venta_dialog" class="modal modal-sm">
+      <a class="modal-overlay cerrar_eliminar_venta_dialog" aria-label="Close"></a>
       
       <div class="modal-container m-2">
 
         <p></p>
         <div class="m-2">
-          <h5>Eliminar esta orden</h5>
+          <h5>Eliminar esta venta</h5>
           <p></p>
           <p></p>
           <button  id="btn_eliminar_confirmado"class="btn" type="input" name="submit_btn" value="eliminar">Eliminar</button>
-          <button class="btn btn-primary cerrar_eliminar_orden_dialog" type="button" >Cancelar</button>
+          <button class="btn btn-primary cerrar_eliminar_venta_dialog" type="button" >Cancelar</button>
         </div>
         
       </div>
@@ -146,7 +151,7 @@
       </div>
     </div>
 
-    <?PHP if($orden["id_orden"] == 0 ): ?>
+    <?PHP if($venta["id_venta"] == 0 ): ?>
 
     <div class="btn-group btn-group-block">
       <button id="btn_descartar" class="btn" type="button" onclick="location.href = <?= base_url(); ?>" >Descartar</button>

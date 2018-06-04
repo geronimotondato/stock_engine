@@ -1,25 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ordenes extends Member_Controller {
+class Ventas extends Member_Controller {
 
 	public function index()
 	{
 
-		$this->load->model('orden_model');
+		$this->load->model('venta_model');
 
 		$this->form_validation->set_data($_GET);
 		$this->form_validation->set_rules('pagina_actual','Pagina actual', 'required|trim|greater_than[0]');
 
 		$pagina_actual = ($this->form_validation->run() == FALSE)? 1 : $this->input->get('pagina_actual', TRUE);
 
-		$ordenes_por_pagina = 10;
+		$ventas_por_pagina = 10;
 
-		$cantidad_paginas_totales = $this->orden_model->cantidad_paginas($ordenes_por_pagina);
+		$cantidad_paginas_totales = $this->venta_model->cantidad_paginas($ventas_por_pagina);
 
-		$data["ordenes"] = $this->orden_model->get_lista_ordenes_pagina(
+		$data["ventas"] = $this->venta_model->get_lista_ventas_pagina(
 													$pagina_actual,
-													$ordenes_por_pagina
+													$ventas_por_pagina
 											 );
 
 		$data["paginador"] = $this->load->view(
@@ -34,13 +34,13 @@ class Ordenes extends Member_Controller {
 			TRUE
 		);
 
-		$this->load->view("header.php", $this->session->set_flashdata('side_bar','ordenes'));
-		$this->load->view("ordenes.php", $data);
+		$this->load->view("header.php", $this->session->set_flashdata('side_bar','ventas'));
+		$this->load->view("ventas.php", $data);
 		$this->load->view("footer.php");
 
 	}
 
-	public function abm_orden()	{
+	public function abm_venta()	{
 
 		$this->load->model('producto_model');
 		$this->load->model('cliente_model');
@@ -48,26 +48,26 @@ class Ordenes extends Member_Controller {
 		$data["productos"] = $this->producto_model->get_lista_productos();
 		$data["clientes"] = $this->cliente_model->get_lista_clientes_completa();
 
-		if (null == $this->input->get("id_orden")){
+		if (null == $this->input->get("id_venta")){
 
-			$data["orden"]["id_orden"] = 0;
-			$data["orden"]["cliente"] = 0;
-			$data["orden"]["fecha"] = date("Y-m-d");
-			$data["orden"]["items"] = [];
+			$data["venta"]["id_venta"] = 0;
+			$data["venta"]["cliente"] = 0;
+			$data["venta"]["fecha"] = date("Y-m-d");
+			$data["venta"]["items"] = [];
 
 		}else{
 
-			$this->load->model('orden_model');
-			$data["orden"] = $this->orden_model->get_orden($this->input->get("id_orden"));
+			$this->load->model('venta_model');
+			$data["venta"] = $this->venta_model->get_venta($this->input->get("id_venta"));
 
-			if(!(isset($data["orden"]))){
+			if(!(isset($data["venta"]))){
 				echo "Error 404. Page not found";
 				exit();
 			}
 		}
 
-		$this->load->view("header.php", $this->session->set_flashdata('side_bar','orden'));
-		$this->load->view("abm_orden.php", $data);
+		$this->load->view("header.php", $this->session->set_flashdata('side_bar','venta'));
+		$this->load->view("abm_venta.php", $data);
 		$this->load->view("footer.php");
 	}
 
@@ -99,14 +99,14 @@ class Ordenes extends Member_Controller {
 				throw new Exception("No ingresó correctamente la información requerida");
 			}
 
-			$orden = array(
+			$venta = array(
 				"id_cliente" => $id_cliente,
 				"fecha"      => $fecha,
 				"items"      => $items
 			);
 
-			$this->load->model("orden_model");
-			$productos_sin_disponibilidad = $this->orden_model->guardar_orden($orden);
+			$this->load->model("venta_model");
+			$productos_sin_disponibilidad = $this->venta_model->guardar_venta($venta);
 
 			if(!(isset($productos_sin_disponibilidad))){
 				$respuesta["estado"] = "ok";
@@ -128,7 +128,7 @@ class Ordenes extends Member_Controller {
 
 		try{
 
-			$id_orden = $this->input->post("id_orden", TRUE);
+			$id_venta = $this->input->post("id_venta", TRUE);
 			$fecha    = $this->input->post("fecha",TRUE);
 
 			if(isset($_POST["items"])){
@@ -138,7 +138,7 @@ class Ordenes extends Member_Controller {
 			}
 
 			$this->load->library('form_validation');
-			$this->form_validation->set_rules('id_orden', 'id_orden', 'trim|required|numeric');
+			$this->form_validation->set_rules('id_venta', 'id_venta', 'trim|required|numeric');
 			$this->form_validation->set_rules('fecha', 'fecha', 'trim|required|callback_date_valid');
 
 			foreach($items as $i => $value) {
@@ -151,14 +151,14 @@ class Ordenes extends Member_Controller {
 				throw new Exception("No ingresó correctamente la información requerida");
 			}
 
-			$orden = array(
-				"id_orden" =>$id_orden,
+			$venta = array(
+				"id_venta" =>$id_venta,
 				"fecha"    => $fecha,
 				"items"    => $items
 			);
 
-			$this->load->model("orden_model");
-			$productos_sin_disponibilidad = $this->orden_model->actualizar_orden($orden);
+			$this->load->model("venta_model");
+			$productos_sin_disponibilidad = $this->venta_model->actualizar_venta($venta);
 
 			if(!(isset($productos_sin_disponibilidad))){
 				$respuesta["estado"] = "ok";
@@ -180,16 +180,16 @@ class Ordenes extends Member_Controller {
 
 		try{
 
-			$id_orden = $this->input->post("id_orden", TRUE);
+			$id_venta = $this->input->post("id_venta", TRUE);
 			$this->load->library('form_validation');
-			$this->form_validation->set_rules('id_orden', 'id_orden', 'trim|required|numeric');
+			$this->form_validation->set_rules('id_venta', 'id_venta', 'trim|required|numeric');
 
 			if(!($this->form_validation->run())){
-				throw new Exception("No se pudo finalizar esta orden, vuelva a intentarlo mas tarde");
+				throw new Exception("No se pudo finalizar esta venta, vuelva a intentarlo mas tarde");
 			}
 
-			$this->load->model("orden_model");
-			$this->orden_model->eliminar_orden($id_orden);
+			$this->load->model("venta_model");
+			$this->venta_model->eliminar_venta($id_venta);
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
@@ -206,16 +206,16 @@ class Ordenes extends Member_Controller {
 
 		try{
 
-			$id_orden = $this->input->post("id_orden", TRUE);
+			$id_venta = $this->input->post("id_venta", TRUE);
 			$this->load->library('form_validation');
-			$this->form_validation->set_rules('id_orden', 'id_orden', 'trim|required|numeric');
+			$this->form_validation->set_rules('id_venta', 'id_venta', 'trim|required|numeric');
 
 			if(!($this->form_validation->run())){
-				throw new Exception("No se pudo finalizar esta orden, vuelva a intentarlo mas tarde");
+				throw new Exception("No se pudo finalizar esta venta, vuelva a intentarlo mas tarde");
 			}
 
-			$this->load->model('orden_model');
-			$this->orden_model->finalizar_orden($id_orden);
+			$this->load->model('venta_model');
+			$this->venta_model->finalizar_venta($id_venta);
 			
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);	

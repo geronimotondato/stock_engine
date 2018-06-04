@@ -27,7 +27,7 @@
         <div class="btn btn-link">StockENG <i class="fas fa-boxes"></i></div>
       </section>
       <section class="navbar-section">
-        <a href=<?PHP echo base_url('ordenes/abm_orden'); ?> ><button class="btn btn-action btn-primary"><i class="fas fa-truck"></i></button></a>
+        <a href=<?PHP echo base_url('ventas/abm_venta'); ?> ><button class="btn btn-action btn-primary"><i class="fas fa-shopping-cart"></i></button></a>
       </section>
     </header> <!-- FIN HEADER -->
     <!-- DRAWER LATERAL -->
@@ -35,28 +35,28 @@
       <!-- menu item -->
       <li class="menu-item">
         <a href  ="<?PHP echo base_url('') ?>"
-          class ="<?PHP if($this->session->flashdata('side_bar') =="ordenes") echo 'active' ?>" >
-          <i class="fas fa-clipboard-list"></i> Lista Ordenes
+          class ="<?PHP if($this->session->flashdata('side_bar') =="ventas") echo 'active' ?>" >
+          <i class="fas fa-clipboard-list"></i> Ventas
         </a>
       </li>
       <!-- menu divider -->
-      <li class="divider"></li>
+      <!-- <li class="divider"></li> -->
       <!-- menu item -->
-      <li class="menu-item">
-        <a href  ="<?PHP echo base_url('ordenes/abm_orden') ?>"
-          class ="<?PHP if($this->session->flashdata('side_bar') =="orden") echo 'active' ?>" >
-          <i class="fas fa-truck"></i> Orden
+<!--       <li class="menu-item">
+        <a href  ="<?PHP // echo base_url('ventas/abm_venta') ?>"
+          class ="<?PHP // if($this->session->flashdata('side_bar') =="venta") echo 'active' ?>" >
+          <i class="fas fa-shopping-cart"></i> Venta
         </a>
-      </li>
+      </li> -->
       <!-- menu divider -->
       <li class="divider"></li>
 
 
       <!-- menu item -->
       <li class="menu-item">
-        <a href  ="<?PHP echo base_url('stock') ?>"
+        <a href  ="<?PHP echo base_url('productos') ?>"
           class ="<?PHP if($this->session->flashdata('side_bar') =="stock") echo 'active' ?>" >
-          <i class="fas fa-boxes"></i> Stock
+          <i class="fas fa-box-open"></i> Productos
         </a>
       </li>
 
@@ -69,6 +69,46 @@
         <a href  ="<?PHP echo base_url('clientes') ?>"
           class ="<?PHP if($this->session->flashdata('side_bar') =="clientes") echo 'active' ?>" >
           <i class="fas fa-users"></i> Clientes
+        </a>
+      </li>
+      <!-- menu divider -->
+      <li class="divider"></li>
+
+      <!-- menu item -->
+      <li class="menu-item">
+        <a href  ="<?PHP echo base_url('categorias') ?>"
+          class ="<?PHP if($this->session->flashdata('side_bar') =="categorias") echo 'active' ?>" >
+          <i class="fas fa-clipboard-list"></i> Categorías
+        </a>
+      </li>
+      <!-- menu divider -->
+      <li class="divider"></li>
+
+      <!-- menu item -->
+      <li class="menu-item">
+        <a href  ="<?PHP echo base_url('almacenes') ?>"
+          class ="<?PHP if($this->session->flashdata('side_bar') =="almacenes") echo 'active' ?>" >
+          <i class="fas fa-warehouse"></i> Almacenes
+        </a>
+      </li>
+      <!-- menu divider -->
+      <li class="divider"></li>
+
+      <!-- menu item -->
+      <li class="menu-item">
+        <a href  ="<?PHP echo base_url('cuentas') ?>"
+          class ="<?PHP if($this->session->flashdata('side_bar') =="cuentas") echo 'active' ?>" >
+          <i class="fas fa-money-bill"></i> Cuentas
+        </a>
+      </li>
+      <!-- menu divider -->
+      <li class="divider"></li>
+
+      <!-- menu item -->
+      <li class="menu-item">
+        <a href  ="<?PHP echo base_url('estadisticas') ?>"
+          class ="<?PHP if($this->session->flashdata('side_bar') =="estadisticas") echo 'active' ?>" >
+          <i class="fas fa-chart-pie"></i> Estadistícas
         </a>
       </li>
       <!-- menu divider -->

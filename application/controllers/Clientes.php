@@ -34,7 +34,7 @@ class Clientes extends Member_Controller {
 		);
 			
 		$this->load->view("header.php", $this->session->set_flashdata('side_bar','clientes'));
-		$this->load->view("lista_clientes.php", $data);
+		$this->load->view("clientes.php", $data);
 		$this->load->view("footer.php");
 			
 	}
@@ -96,9 +96,8 @@ class Clientes extends Member_Controller {
 			$tel_movil  = $this->input->post("tel_movil",TRUE);
 			$tel_fijo   = $this->input->post("tel_fijo",TRUE);
 			$email      = $this->input->post("email",TRUE);
-			$saldo      = $this->input->post("saldo",TRUE);
 			$sumar      = $this->input->post("sumar",TRUE);
-			$restar      = $this->input->post("restar",TRUE);
+			$restar     = $this->input->post("restar",TRUE);
 
 			$this->form_validation->set_rules('id_cliente', 'id_cliente', 'trim|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
@@ -106,7 +105,6 @@ class Clientes extends Member_Controller {
 			$this->form_validation->set_rules('tel_movil', 'Tel movil', 'trim|numeric');
 			$this->form_validation->set_rules('tel_fijo', 'Tel fijo', 'trim|numeric');
 			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
-			$this->form_validation->set_rules('saldo', 'Saldo', 'trim|numeric');
 			$this->form_validation->set_rules('sumar', 'Sumar', 'trim|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('restar', 'Restar', 'trim|greater_than_equal_to[0]');
 
@@ -121,7 +119,7 @@ class Clientes extends Member_Controller {
 				"tel_movil"  =>$tel_movil,
 				"tel_fijo"   =>$tel_fijo,
 				"email"      =>$email,
-				"saldo"      =>$saldo + ($sumar - $restar),
+				"saldo"      =>($sumar - $restar)
 
 			);
 
@@ -200,7 +198,7 @@ class Clientes extends Member_Controller {
 			}
 			
 			$this->load->view("header.php", $this->session->set_flashdata('side_bar','clientes'));
-			$this->load->view("lista_clientes.php", $data);
+			$this->load->view("clientes.php", $data);
 			$this->load->view("footer.php");
 
 		}else{

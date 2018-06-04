@@ -1,10 +1,10 @@
 addLoadEvent(function() {
 
 
-    orden_data = JSON.parse(document.getElementById("form_data").innerText);
-    lista_items = orden_data.items;
+    venta_data = JSON.parse(document.getElementById("form_data").innerText);
+    lista_items = venta_data.items;
 
-    document.getElementById("fecha").setAttribute("value", orden_data.fecha);
+    document.getElementById("fecha").setAttribute("value", venta_data.fecha);
 
     document.getElementById("selector_de_productos").addEventListener("change", function() {
 
@@ -84,15 +84,15 @@ addLoadEvent(function() {
 
     document.getElementById("btn_eliminar").addEventListener("click", function() {
 
-        document.getElementById("eliminar_orden_dialog").classList.add("active");
+        document.getElementById("eliminar_venta_dialog").classList.add("active");
 
     });
 
-    document.querySelectorAll(".cerrar_eliminar_orden_dialog").forEach( function(element){
+    document.querySelectorAll(".cerrar_eliminar_venta_dialog").forEach( function(element){
 
         element.addEventListener("click", function() {
 
-            document.getElementById("eliminar_orden_dialog").classList.remove("active");
+            document.getElementById("eliminar_venta_dialog").classList.remove("active");
 
         });
     });
@@ -116,8 +116,8 @@ $( document ).ready(function() {
     $("#btn_guardar, #btn_actualizar, #btn_eliminar_confirmado").click(function(event){
         event.preventDefault();
         $.post( 
-        /*url*/ _$_HOME_URL+"/ordenes/"+ $(this).val(), 
-        /*data*/ $("#form_orden").serialize())
+        /*url*/ _$_HOME_URL+"/ventas/"+ $(this).val(), 
+        /*data*/ $("#form_venta").serialize())
 
         .done(function(data){
 
