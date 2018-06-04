@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `stock_engine` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `stock_engine`;
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
--- Host: localhost    Database: stock_engine
+-- Host: 127.0.0.1    Database: stock_engine
 -- ------------------------------------------------------
--- Server version	5.7.22-log
+-- Server version	5.6.24
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -46,30 +46,30 @@ INSERT INTO `almacen` VALUES (1,'almacen1','calle 1 monte grande','4343455');
 UNLOCK TABLES;
 
 --
--- Table structure for table `categoria_producto`
+-- Table structure for table `categoria`
 --
 
-DROP TABLE IF EXISTS `categoria_producto`;
+DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `categoria_producto` (
-  `id_categoria_producto` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categoria` (
+  `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   `descripcion` text,
-  PRIMARY KEY (`id_categoria_producto`),
+  PRIMARY KEY (`id_categoria`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
-  UNIQUE KEY `id_categoria_producto_UNIQUE` (`id_categoria_producto`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `id_categoria_producto_UNIQUE` (`id_categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `categoria_producto`
+-- Dumping data for table `categoria`
 --
 
-LOCK TABLES `categoria_producto` WRITE;
-/*!40000 ALTER TABLE `categoria_producto` DISABLE KEYS */;
-INSERT INTO `categoria_producto` VALUES (1,'categoria1','mi categoria de productos'),(2,'categoria2','mi secunga categoria de productos');
-/*!40000 ALTER TABLE `categoria_producto` ENABLE KEYS */;
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES (5,'perfume','todo tipo de perfume');
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('kmo6eaemjve6jip42bds8php11m3ev8v','::1',1528082785,'__ci_last_regenerate|i:1528082782;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
+INSERT INTO `ci_sessions` VALUES ('25it3psic1mt15nrfgd27238qi49bvkq','::1',1528145726,'__ci_last_regenerate|i:1528145647;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;'),('kmo6eaemjve6jip42bds8php11m3ev8v','::1',1528082785,'__ci_last_regenerate|i:1528082782;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,7 +242,7 @@ CREATE TABLE `producto` (
   KEY `id_categoria_idx` (`id_categoria`),
   KEY `id_almacen_idx` (`id_almacen`),
   CONSTRAINT `id_almacen` FOREIGN KEY (`id_almacen`) REFERENCES `almacen` (`id_almacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_producto` (`id_categoria_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -252,7 +252,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'producto1',1,10,12,'2018-06-01 19:10:58',975,NULL,NULL),(2,'producto2',1,20,24,'2018-06-01 19:10:58',1993,NULL,NULL),(3,'producto3',1,30,36,'2018-06-01 19:10:58',2994,NULL,NULL),(4,'5 minutos',1,0,10,'2018-06-01 23:42:43',1000,NULL,NULL),(5,'1 hora',1,0,120,'2018-06-01 23:46:27',10000,NULL,NULL),(7,'servicio2',0,0,300,'2018-06-03 23:27:44',NULL,NULL,NULL);
+INSERT INTO `producto` VALUES (1,'producto1',1,10,12,'2018-06-01 19:10:58',975,NULL,NULL),(2,'producto2',1,20,24,'2018-06-01 19:10:58',1993,NULL,NULL),(3,'producto3',1,30,36,'2018-06-01 19:10:58',2994,NULL,NULL),(4,'5 minutos',1,0,10,'2018-06-01 23:42:43',1000,NULL,NULL),(5,'1 hora',1,0,120,'2018-06-01 23:46:27',10000,5,NULL),(7,'servicio2',0,0,300,'2018-06-03 23:27:44',NULL,5,NULL);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,4 +407,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-04  0:35:26
+-- Dump completed on 2018-06-04 18:01:00
