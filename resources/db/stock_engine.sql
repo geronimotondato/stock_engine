@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `stock_engine` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `stock_engine`;
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
--- Host: localhost    Database: stock_engine
+-- Host: 127.0.0.1    Database: stock_engine
 -- ------------------------------------------------------
--- Server version	5.7.22-log
+-- Server version	5.6.24
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -31,8 +31,9 @@ CREATE TABLE `almacen` (
   `telefono` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_almacen`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
-  UNIQUE KEY `id_almacen_UNIQUE` (`id_almacen`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `id_almacen_UNIQUE` (`id_almacen`),
+  FULLTEXT KEY `busqueda_almacen` (`nombre`,`direccion`,`telefono`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +42,7 @@ CREATE TABLE `almacen` (
 
 LOCK TABLES `almacen` WRITE;
 /*!40000 ALTER TABLE `almacen` DISABLE KEYS */;
-INSERT INTO `almacen` VALUES (1,'almacen1','calle 1 monte grande','4343455');
+INSERT INTO `almacen` VALUES (1,'almacen1','calle 1 monte grande','4343455'),(3,'Martins','av simpre viva','222222');
 /*!40000 ALTER TABLE `almacen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +70,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (7,'mi categoria','categoria nueva'),(8,'2','mi descripcion'),(9,'3',''),(10,'4',''),(11,'5',''),(12,'6',''),(13,'7',''),(15,'9',''),(16,'10',''),(17,'11','');
+INSERT INTO `categoria` VALUES (7,'gaseosas','descripcion 1'),(8,'galletitas','descripcion 2'),(9,'alfajores','Descripcion 3'),(10,'chocolates','descripcion 4'),(11,'caramelos','descripcion 5');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +97,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('25it3psic1mt15nrfgd27238qi49bvkq','::1',1528145726,'__ci_last_regenerate|i:1528145647;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;'),('kmo6eaemjve6jip42bds8php11m3ev8v','::1',1528082785,'__ci_last_regenerate|i:1528082782;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('p7qmpeavecaj9lrvii3k5s47g12k53os','::1',1528177992,'__ci_last_regenerate|i:1528177833;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
+INSERT INTO `ci_sessions` VALUES ('25it3psic1mt15nrfgd27238qi49bvkq','::1',1528145726,'__ci_last_regenerate|i:1528145647;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;'),('76581mg5781sopu15giku8odqs0uplr9','::1',1528232948,'__ci_last_regenerate|i:1528232649;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:10:\"categorias\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('99uofrbgoo07iu8ki3dvbq397sd9v2u0','::1',1528221589,'__ci_last_regenerate|i:1528221589;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:10:\"categorias\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('kmo6eaemjve6jip42bds8php11m3ev8v','::1',1528082785,'__ci_last_regenerate|i:1528082782;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('p7qmpeavecaj9lrvii3k5s47g12k53os','::1',1528177992,'__ci_last_regenerate|i:1528177833;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +121,7 @@ CREATE TABLE `cliente` (
   UNIQUE KEY `id_cliente_UNIQUE` (`id_cliente`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   FULLTEXT KEY `busqueda_cliente` (`nombre`,`direccion`,`email`,`tel_movil`,`tel_fijo`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +130,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (26,'geronimo','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(29,'Geronimo Tondato','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(41,'juan','Belgrano 851 Monte grande','','','',-60,0),(42,'antonio','','','','',60,0),(43,'Juana','Belgrano 851 Monte grande','1163602918','','geronimo.tondato@gmail.com',-200,0),(44,'domingo','','','','',0,0),(45,'mesa 1','','','','',0,0),(46,'juana mazza','','','','',0,0);
+INSERT INTO `cliente` VALUES (26,'geronimo','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(29,'Geronimo Tondato','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(41,'juan','Belgrano 851 Monte grande','','','',-60,0),(42,'antonio','','','','',60,0),(43,'Juana','Belgrano 851 Monte grande','1163602918','','geronimo.tondato@gmail.com',-200,0),(44,'domingo','','','','',0,0),(45,'mesa 1','','','','',0,1),(46,'juana mazza','','','','',0,1),(48,'laura','','','','',0,0),(49,'sebastian','','','','',0,0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +153,7 @@ CREATE TABLE `historial_item` (
   PRIMARY KEY (`id_item`),
   KEY `id_venta_idx` (`id_venta`),
   CONSTRAINT `id_venta` FOREIGN KEY (`id_venta`) REFERENCES `historial_venta` (`id_venta`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,7 +162,7 @@ CREATE TABLE `historial_item` (
 
 LOCK TABLES `historial_item` WRITE;
 /*!40000 ALTER TABLE `historial_item` DISABLE KEYS */;
-INSERT INTO `historial_item` VALUES (16,8,'producto1',1,10,12,10,0),(17,8,'producto2',1,20,24,7,0),(19,9,'producto1',1,10,12,4,0),(20,9,'producto1',1,10,12,6,0),(21,9,'producto3',1,30,36,1,0),(22,10,'producto3',1,30,36,5,0),(23,11,'servicio',1,0,400,9,0),(24,12,'producto1',1,10,12,5,0),(25,12,'servicio',1,0,400,3,0),(27,13,'servicio2',0,0,300,8,0);
+INSERT INTO `historial_item` VALUES (16,8,'producto1',1,10,12,10,0),(17,8,'producto2',1,20,24,7,0),(19,9,'producto1',1,10,12,4,0),(20,9,'producto1',1,10,12,6,0),(21,9,'producto3',1,30,36,1,0),(22,10,'producto3',1,30,36,5,0),(23,11,'servicio',1,0,400,9,0),(24,12,'producto1',1,10,12,5,0),(25,12,'servicio',1,0,400,3,0),(27,13,'servicio2',0,0,300,8,0),(28,14,'producto3',1,30,36,5,0),(29,14,'producto1',1,10,12,2,0);
 /*!40000 ALTER TABLE `historial_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +179,7 @@ CREATE TABLE `historial_venta` (
   `fecha_alta` datetime NOT NULL,
   `fecha_venta` date NOT NULL,
   PRIMARY KEY (`id_venta`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +188,7 @@ CREATE TABLE `historial_venta` (
 
 LOCK TABLES `historial_venta` WRITE;
 /*!40000 ALTER TABLE `historial_venta` DISABLE KEYS */;
-INSERT INTO `historial_venta` VALUES (8,41,'2018-06-01 19:11:24','2018-06-02'),(9,45,'2018-06-01 23:34:25','2018-06-02'),(10,41,'2018-06-02 16:39:23','2018-07-01'),(11,42,'2018-06-03 23:14:44','2018-06-04'),(12,41,'2018-06-03 23:19:00','2018-06-04'),(13,45,'2018-06-03 23:30:23','2018-06-04');
+INSERT INTO `historial_venta` VALUES (8,41,'2018-06-01 19:11:24','2018-06-02'),(9,45,'2018-06-01 23:34:25','2018-06-02'),(10,41,'2018-06-02 16:39:23','2018-07-01'),(11,42,'2018-06-03 23:14:44','2018-06-04'),(12,41,'2018-06-03 23:19:00','2018-06-04'),(13,45,'2018-06-03 23:30:23','2018-06-04'),(14,43,'2018-06-04 00:22:58','2018-06-04');
 /*!40000 ALTER TABLE `historial_venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +210,7 @@ CREATE TABLE `item` (
   KEY `fk_item_venta1_idx` (`id_venta`),
   CONSTRAINT `fk_item_id_venta` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_producto_has_venta_producto1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +219,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES (65,22,3,5,0),(66,22,1,2,0);
+INSERT INTO `item` VALUES (68,24,2,5,0),(69,25,2,6,0);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +254,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'producto1',1,10,12,'2018-06-01 19:10:58',975,NULL,NULL),(2,'producto2',1,20,24,'2018-06-01 19:10:58',1993,NULL,NULL),(3,'producto3',1,30,36,'2018-06-01 19:10:58',2994,NULL,NULL),(4,'5 minutos',1,0,10,'2018-06-01 23:42:43',1000,NULL,NULL),(5,'1 hora',1,0,120,'2018-06-01 23:46:27',10000,NULL,NULL),(7,'servicio2',0,0,300,'2018-06-03 23:27:44',NULL,NULL,NULL);
+INSERT INTO `producto` VALUES (1,'producto1',1,10,12,'2018-06-01 19:10:58',973,NULL,NULL),(2,'producto2',1,20,24,'2018-06-01 19:10:58',1993,NULL,NULL),(3,'producto3',1,30,36,'2018-06-01 19:10:58',2989,NULL,NULL),(4,'5 minutos',1,0,10,'2018-06-01 23:42:43',1000,NULL,NULL),(5,'1 hora',1,0,120,'2018-06-01 23:46:27',10000,NULL,NULL),(7,'servicio2',0,0,300,'2018-06-03 23:27:44',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +300,7 @@ CREATE TABLE `venta` (
   PRIMARY KEY (`id_venta`),
   KEY `id_cliente` (`id_cliente`),
   CONSTRAINT `id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +309,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (22,43,'2018-06-04 00:22:58','2018-06-04');
+INSERT INTO `venta` VALUES (24,43,'2018-06-05 13:41:27','2018-06-05'),(25,48,'2018-06-05 16:38:28','2018-06-05');
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,4 +409,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-05  2:54:27
+-- Dump completed on 2018-06-05 18:10:03

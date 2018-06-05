@@ -78,7 +78,7 @@
       <li class="menu-item">
         <a href  ="<?PHP echo base_url('categorias') ?>"
           class ="<?PHP if($this->session->flashdata('side_bar') =="categorias") echo 'active' ?>" >
-          <i class="fas fa-clipboard-list"></i> Categorías
+          <i class="fas fa-tags"></i> Categorías
         </a>
       </li>
       <!-- menu divider -->
@@ -98,7 +98,7 @@
       <li class="menu-item">
         <a href  ="<?PHP echo base_url('cuentas') ?>"
           class ="<?PHP if($this->session->flashdata('side_bar') =="cuentas") echo 'active' ?>" >
-          <i class="fas fa-money-bill"></i> Cuentas
+          <i class="fas fa-credit-card"></i> Cuentas
         </a>
       </li>
       <!-- menu divider -->
