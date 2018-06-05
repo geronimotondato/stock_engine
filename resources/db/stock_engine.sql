@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `stock_engine` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `stock_engine`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: stock_engine
+-- Host: localhost    Database: stock_engine
 -- ------------------------------------------------------
--- Server version	5.6.24
+-- Server version	5.7.22-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -58,8 +58,9 @@ CREATE TABLE `categoria` (
   `descripcion` text,
   PRIMARY KEY (`id_categoria`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
-  UNIQUE KEY `id_categoria_producto_UNIQUE` (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `id_categoria_producto_UNIQUE` (`id_categoria`),
+  FULLTEXT KEY `busqueda_categoria` (`nombre`,`descripcion`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +69,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (5,'perfume','todo tipo de perfume');
+INSERT INTO `categoria` VALUES (7,'mi categoria','categoria nueva'),(8,'2','mi descripcion'),(9,'3',''),(10,'4',''),(11,'5',''),(12,'6',''),(13,'7',''),(15,'9',''),(16,'10',''),(17,'11','');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +96,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('25it3psic1mt15nrfgd27238qi49bvkq','::1',1528145726,'__ci_last_regenerate|i:1528145647;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;'),('kmo6eaemjve6jip42bds8php11m3ev8v','::1',1528082785,'__ci_last_regenerate|i:1528082782;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
+INSERT INTO `ci_sessions` VALUES ('25it3psic1mt15nrfgd27238qi49bvkq','::1',1528145726,'__ci_last_regenerate|i:1528145647;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;'),('kmo6eaemjve6jip42bds8php11m3ev8v','::1',1528082785,'__ci_last_regenerate|i:1528082782;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('p7qmpeavecaj9lrvii3k5s47g12k53os','::1',1528177992,'__ci_last_regenerate|i:1528177833;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,7 +129,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (26,'geronimo','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(29,'Geronimo Tondato','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(41,'juan','','','','',-60,0),(42,'antonio','','','','',60,0),(43,'juana','','','','',-200,0),(44,'domingo','','','','',0,0),(45,'mesa 1','','','','',0,0),(46,'juana mazza','','','','',0,0);
+INSERT INTO `cliente` VALUES (26,'geronimo','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(29,'Geronimo Tondato','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(41,'juan','Belgrano 851 Monte grande','','','',-60,0),(42,'antonio','','','','',60,0),(43,'Juana','Belgrano 851 Monte grande','1163602918','','geronimo.tondato@gmail.com',-200,0),(44,'domingo','','','','',0,0),(45,'mesa 1','','','','',0,0),(46,'juana mazza','','','','',0,0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +253,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'producto1',1,10,12,'2018-06-01 19:10:58',975,NULL,NULL),(2,'producto2',1,20,24,'2018-06-01 19:10:58',1993,NULL,NULL),(3,'producto3',1,30,36,'2018-06-01 19:10:58',2994,NULL,NULL),(4,'5 minutos',1,0,10,'2018-06-01 23:42:43',1000,NULL,NULL),(5,'1 hora',1,0,120,'2018-06-01 23:46:27',10000,5,NULL),(7,'servicio2',0,0,300,'2018-06-03 23:27:44',NULL,5,NULL);
+INSERT INTO `producto` VALUES (1,'producto1',1,10,12,'2018-06-01 19:10:58',975,NULL,NULL),(2,'producto2',1,20,24,'2018-06-01 19:10:58',1993,NULL,NULL),(3,'producto3',1,30,36,'2018-06-01 19:10:58',2994,NULL,NULL),(4,'5 minutos',1,0,10,'2018-06-01 23:42:43',1000,NULL,NULL),(5,'1 hora',1,0,120,'2018-06-01 23:46:27',10000,NULL,NULL),(7,'servicio2',0,0,300,'2018-06-03 23:27:44',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,4 +408,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-04 18:01:00
+-- Dump completed on 2018-06-05  2:54:27
