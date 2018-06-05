@@ -3,41 +3,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Categorias extends Member_Controller {
 
-	// public function index(){
+	public function index(){
 
-	// 	$this->load->model('categoria_model');
+		$this->load->model('categoria_model');
 
-	// 	$this->form_validation->set_data($_GET);
-	// 	$this->form_validation->set_rules('pagina_actual', 'Pagina actual', 'required|trim|greater_than[0]');
+		$this->form_validation->set_data($_GET);
+		$this->form_validation->set_rules('pagina_actual', 'Pagina actual', 'required|trim|greater_than[0]');
 
-	// 	$pagina_actual = ($this->form_validation->run() == FALSE)? 1 : $this->input->get('pagina_actual', TRUE);
+		$pagina_actual = ($this->form_validation->run() == FALSE)? 1 : $this->input->get('pagina_actual', TRUE);
 
-	// 	$categorias_por_pagina = 10;
+		$categorias_por_pagina = 10;
 
-	// 	$cantidad_paginas_totales = $this->categoria_model->cantidad_paginas($categorias_por_pagina);
+		$cantidad_paginas_totales = $this->categoria_model->cantidad_paginas($categorias_por_pagina);
 
-	// 	$data["categorias"]  = $this->categoria_model->get_lista_categorias_pagina(
-	// 											 		$pagina_actual, 
-	// 													$categorias_por_pagina
-	// 											 );
+		$data["categorias"]  = $this->categoria_model->get_lista_categorias_pagina(
+												 		$pagina_actual, 
+														$categorias_por_pagina
+												 );
 
-	// 	$data["paginador"] = $this->load->view(
-	// 		"paginador.php",
-	// 		array (
-	// 				"link"                     => "categorias",
-	// 				"pagina_actual"            => $pagina_actual,
-	// 				"cantidad_paginas_totales" => $cantidad_paginas_totales,
-	// 				"rango"                    => calcular_rango_paginador($pagina_actual, 
-	// 																	   $cantidad_paginas_totales, 7)
-	// 		),
-	// 		TRUE
-	// 	);
+		$data["paginador"] = $this->load->view(
+			"paginador.php",
+			array (
+					"link"                     => "categorias",
+					"pagina_actual"            => $pagina_actual,
+					"cantidad_paginas_totales" => $cantidad_paginas_totales,
+					"rango"                    => calcular_rango_paginador($pagina_actual, 
+																		   $cantidad_paginas_totales, 7)
+			),
+			TRUE
+		);
 			
-	// 	$this->load->view("header.php", $this->session->set_flashdata('side_bar','categorias'));
-	// 	$this->load->view("categorias.php", $data);
-	// 	$this->load->view("footer.php");
+		$this->load->view("header.php", $this->session->set_flashdata('side_bar','categorias'));
+		$this->load->view("categorias.php", $data);
+		$this->load->view("footer.php");
 			
-	// }
+	}
 
 
 	public function abm_categoria(){
@@ -177,36 +177,36 @@ class Categorias extends Member_Controller {
 
 	}
 
-	// public function buscar_categoria(){
+	public function buscar_categoria(){
 
-	// 	$texto_busqueda = (isset($_POST["texto_busqueda"]))? $this->input->post("texto_busqueda", TRUE) : "";
+		$texto_busqueda = (isset($_POST["texto_busqueda"]))? $this->input->post("texto_busqueda", TRUE) : "";
 
-	// 	if($texto_busqueda != ""){
+		if($texto_busqueda != ""){
 
-	// 		$this->load->model('categoria_model');
+			$this->load->model('categoria_model');
 
-	// 		try{
+			try{
 
-	// 			$resultado = $this->categoria_model->buscar_categoria($texto_busqueda);
-	// 			$data["categorias"]  = $resultado;
-	// 			$data["texto_busqueda"] = $texto_busqueda;
+				$resultado = $this->categoria_model->buscar_categoria($texto_busqueda);
+				$data["categorias"]  = $resultado;
+				$data["texto_busqueda"] = $texto_busqueda;
 
-	// 		}catch(Exception $e){
-	// 			$data["categorias"] = NULL;
-	// 			$data["texto_busqueda"] = NULL;
-	// 		}
+			}catch(Exception $e){
+				$data["categorias"] = NULL;
+				$data["texto_busqueda"] = NULL;
+			}
 			
-	// 		$this->load->view("header.php", $this->session->set_flashdata('side_bar','categorias'));
-	// 		$this->load->view("categorias.php", $data);
-	// 		$this->load->view("footer.php");
+			$this->load->view("header.php", $this->session->set_flashdata('side_bar','categorias'));
+			$this->load->view("categorias.php", $data);
+			$this->load->view("footer.php");
 
-	// 	}else{
+		}else{
 
-	// 		$this->index();
+			$this->index();
 
-	// 	}
+		}
 
 
-	// }
+	}
 
 }

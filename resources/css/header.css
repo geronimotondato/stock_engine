@@ -82,3 +82,8 @@ body{
      line-height: 34px;
 
 }
+
+/*reescribo clase del framework*/
+.empty{
+	background: none !important;
+}

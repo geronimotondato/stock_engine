@@ -23,7 +23,7 @@
 
   <div class="cliente">
 
-    <div class="cliente-nombre"><?= $cliente->nombre;?>
+    <div class="cliente-nombre"><i class="fas fa-user"></i> <?= $cliente->nombre;?>
     <button class="btn btn-link expandir_cliente" type="button">
       <i class='fas fa-angle-right'></i>
       <i class='fas fa-angle-down'></i>

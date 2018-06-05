@@ -68,50 +68,49 @@ class categoria_model extends CI_Model {
 		return $query->row();
 	}
 
-	// public function get_lista_categorias_completa(){
+	public function get_lista_categorias_completa(){
 
 
-	// 	$query = $this->db->query("select * from categoria where dado_de_baja=0");
-	// 	if(empty($query)){ throw new Exception("No hay categorias");}
-	// 	return $query->result();  
-	// }
+		$query = $this->db->query("select * from categoria");
+		if(empty($query)){ throw new Exception("No hay categorias");}
+		return $query->result();  
+	}
 
-	// public function get_lista_categorias_pagina($numero_pagina, $elementos_por_pagina){
+	public function get_lista_categorias_pagina($numero_pagina, $elementos_por_pagina){
 
-	// 	$limit = $elementos_por_pagina;
-	// 	$offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
+		$limit = $elementos_por_pagina;
+		$offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
 
-	// 	$query = $this->db->query("select * from categoria where dado_de_baja=0 limit ".$limit." offset ".$offset);
+		$query = $this->db->query("select * from categoria limit ".$limit." offset ".$offset);
 
-	// 	if(empty($query)){ throw new Exception("No hay categorias");}
+		if(empty($query)){ throw new Exception("No hay categorias");}
 
-	// 	return $query->result();
+		return $query->result();
 
-	// 	return $return;  
+		return $return;  
 
-	// }
+	}
 
-	// public function buscar_categoria($texto_busqueda){
+	public function buscar_categoria($texto_busqueda){
 
-	// 		$query = $this->db->query(
-	// 			"SELECT * FROM categoria
-	// 			 WHERE dado_de_baja=0 
-	// 			 AND MATCH(nombre, direccion, email, tel_movil, tel_fijo) 
-	// 			 AGAINST(\"" . $texto_busqueda . "*\" IN BOOLEAN MODE)" );
+		$query = $this->db->query(
+			"SELECT * FROM categoria WHERE
+			 MATCH(nombre, descripcion) 
+			 AGAINST(\"" . $texto_busqueda . "*\" IN BOOLEAN MODE)" );
 
-	// 			if(empty($query)){ throw new Exception("No se encuentran categorias");}
+			if(empty($query)){ throw new Exception("No se encuentran categorias");}
 
-	// 			return $query->result();
+			return $query->result();
 
-	// }
+	}
 
-	// public function cantidad_categorias(){
-	// 	$query = $this->db->query("select count(*) from categoria where dado_de_baja=0");
-	// 	return $query->row_array()["count(*)"];
-	// }
+	public function cantidad_categorias(){
+		$query = $this->db->query("select count(*) from categoria");
+		return $query->row_array()["count(*)"];
+	}
 	
-	// public function cantidad_paginas($categorias_por_pagina){
-	// 	return ceil($this->cantidad_categorias() / $categorias_por_pagina);		
-	// }
+	public function cantidad_paginas($categorias_por_pagina){
+		return ceil($this->cantidad_categorias() / $categorias_por_pagina);		
+	}
 
 }
