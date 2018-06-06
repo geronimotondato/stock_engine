@@ -8,7 +8,7 @@
 <div class="seccion"><p>Lista almacenes</p></div>
 
 <p></p>
-<form  action=<?= base_url("almacenes/buscar_elemento") ?> method="POST">
+<form  action=<?= base_url("almacenes/buscar_almacen") ?> method="POST">
 <div class="input-group">
   <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="<?= (isset($texto_busqueda))? $texto_busqueda : '' ?>">
   <button class="btn btn-primary input-group-btn"><i class="fas fa-search"></i></button>
@@ -31,7 +31,7 @@
      </div>
     <div class="acciones">
       <a class='btn btn-link' 
-         href="<?PHP echo base_url('almacenes/abm?id_almacen='. $almacen->id_almacen) ?>">
+         href="<?PHP echo base_url('almacenes/abm_almacen?id_almacen='. $almacen->id_almacen) ?>">
          <i class='fa  fa-edit'></i>
       </a>
 
@@ -63,7 +63,7 @@
   <p class="empty-title h5">No hay almacenes</p>
   <p class="empty-subtitle">Has click en el botón para crear una categoría nueva</p>
   <div class="empty-action">
-    <button class="btn btn-primary"><a class="a-link" href="<?= base_url('almacenes/abm') ?>">Nueva categoría<a></button>
+    <button class="btn btn-primary"><a class="a-link" href="<?= base_url('almacenes/abm_almacen') ?>">Nueva categoría<a></button>
   </div>
 </div>
 

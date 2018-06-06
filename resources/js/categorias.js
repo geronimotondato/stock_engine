@@ -9,7 +9,7 @@ $(document).ready(function(){
 	});
 
 	$("#agregar-categoria").click(function(){
-			$(location).attr('href', _$_HOME_URL+"/categorias/abm_categoria");
+			$(location).attr('href', _$_HOME_URL+"/categorias/abm");
 	});
 
 });

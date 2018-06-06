@@ -4,86 +4,92 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class almacen_model extends CI_Model {
 
+	var $tabla;
+	var $id_column;
+
 	public function __construct(){
+
+		$this->tabla = "almacen";
+		$this->id_column = "id_almacen";
 
 		parent::__construct(); 
 	}
 
-	public function guardar_almacen($almacen){
+	public function guardar_elemento($elemento){
 
 		$this->db->trans_start();
 		
-		$this->db->insert('almacen', $almacen);
+		$this->db->insert($this->tabla, $elemento);
 
 		$this->db->trans_complete();
 
 		if($this->db->trans_status() === FALSE){
-		   throw new Exception("No se pudo guardar el almacen en la base de datos");
+		   throw new Exception("No se pudo guardar {$this->tabla} en la base de datos");
 		}
 	}
 
-	public function actualizar_almacen($almacen){
+	public function actualizar_elemento($elemento){
 
 		$this->db->trans_start();
 
-		$this->db->where('id_almacen', $almacen["id_almacen"]);
-		$this->db->update('almacen', $almacen);
+		$this->db->where($this->id_column, $elemento[$this->id_column]);
+		$this->db->update($this->tabla, $elemento);
 
 		$this->db->trans_complete();
 
 
 		//chequeo si la transaccion falló en cuyo caso lanzo una excepcion
 		if($this->db->trans_status() === FALSE){
-			throw new Exception("No se pudo actualizar la almacen en la base de datos");
+			throw new Exception("No se pudo actualizar {$this->tabla} en la base de datos");
 		}
 	}
 
-	public function eliminar_almacen($id_almacen){
+	public function eliminar_elemento($id_elemento){
 
 		$this->db->trans_start();
 
-		//pongo en null el id_almacen de los productos que pertenecen a la almacen que va a ser elimina
-		$this->db->set('id_almacen', NULL);
-		$this->db->where('id_almacen', $id_almacen);
+		//pongo en null el id_elemento de los productos que pertenecen a la elemento que va a ser elimina
+		$this->db->set($this->id_column, NULL);
+		$this->db->where($this->id_column, $id_elemento);
 		$this->db->update('producto');
 
-		//Elimino el almacen
-		$this->db->where('id_almacen', $id_almacen);
-		$this->db->delete('almacen');
+		//Elimino el elemento
+		$this->db->where($this->id_column, $id_elemento);
+		$this->db->delete($this->tabla);
 
 
 		$this->db->trans_complete();
 
 		if($this->db->trans_status() === FALSE){
-		throw new Exception("No se pudo eliminar el almacen de la base de datos");
+		throw new Exception("No se pudo eliminar {$this->tabla} de la base de datos");
 		}
 	}
 
-	public function get_almacen($id_almacen){
+	public function get_elemento($id_elemento){
 
-		$query = $this->db->query("SELECT * FROM almacen WHERE id_almacen = " . $id_almacen);
+		$query = $this->db->query("SELECT * FROM {$this->tabla} WHERE {$this->id_column} = " . $id_elemento);
 
-		if(empty($query->row())){ throw new Exception("La almacen no existe"); }
+		if(empty($query->row())){ throw new Exception("No existe {$this->tabla}"); }
 
 		return $query->row();
 	}
 
-	public function get_lista_almacenes_completa(){
+	public function get_lista_elementos_completa(){
 
 
-		$query = $this->db->query("select * from almacen");
-		if(empty($query)){ throw new Exception("No hay almacenes");}
+		$query = $this->db->query("select * from {$this->tabla}");
+		if(empty($query)){ throw new Exception("No hay registros de {$this->tabla}");}
 		return $query->result();  
 	}
 
-	public function get_lista_almacenes_pagina($numero_pagina, $elementos_por_pagina){
+	public function get_lista_elementos_pagina($numero_pagina, $elementos_por_pagina){
 
 		$limit = $elementos_por_pagina;
 		$offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
 
-		$query = $this->db->query("select * from almacen limit ".$limit." offset ".$offset);
+		$query = $this->db->query("select * from {$this->tabla} limit ".$limit." offset ".$offset);
 
-		if(empty($query)){ throw new Exception("No hay almacenes");}
+		if(empty($query)){ throw new Exception("No hay registros de {$this->tabla}");}
 
 		return $query->result();
 
@@ -91,26 +97,26 @@ class almacen_model extends CI_Model {
 
 	}
 
-	public function buscar_almacen($texto_busqueda){
+	public function buscar_elemento($texto_busqueda){
 
 		$query = $this->db->query(
-			"SELECT * FROM almacen WHERE
+			"SELECT * FROM {$this->tabla} WHERE
 			 MATCH(nombre, direccion, telefono) 
 			 AGAINST(\"" . $texto_busqueda . "*\" IN BOOLEAN MODE)" );
 
-			if(empty($query)){ throw new Exception("No se encuentran almacenes");}
+			if(empty($query)){ throw new Exception("No se encuentra {$this->tabla}");}
 
 			return $query->result();
 
 	}
 
-	public function cantidad_almacenes(){
-		$query = $this->db->query("select count(*) from almacen");
+	public function cantidad_elementos(){
+		$query = $this->db->query("select count(*) from {$this->tabla}");
 		return $query->row_array()["count(*)"];
 	}
 	
-	public function cantidad_paginas($almacenes_por_pagina){
-		return ceil($this->cantidad_almacenes() / $almacenes_por_pagina);		
+	public function cantidad_paginas($elementos_por_pagina){
+		return ceil($this->cantidad_elementos() / $elementos_por_pagina);		
 	}
 
 }

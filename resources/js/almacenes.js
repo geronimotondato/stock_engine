@@ -9,7 +9,7 @@ $(document).ready(function(){
 	});
 
 	$("#agregar-almacen").click(function(){
-			$(location).attr('href', _$_HOME_URL+"/almacenes/abm_almacen");
+			$(location).attr('href', _$_HOME_URL+"/almacenes/abm");
 	});
 
 });
