@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Categorias extends Member_Controller {
 
-
 	var $nombre_plural;
 	var $nombre_singular;
 	var $vista_listado;
@@ -11,145 +10,157 @@ class Categorias extends Member_Controller {
 	var $elemento;
 	var $id_elemento;
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 
 		$this->load->model('categoria_model', 'model');
 
-		$this->nombre_plural   = "categorias";
+		$this->nombre_plural = "categorias";
 		$this->nombre_singular = "categoria";
-		$this->vista_listado   = "categorias.php";
-		$this->vista_abm       = "abm_categoria.php";
+		$this->vista_listado = "categorias.php";
+		$this->vista_abm = "abm_categoria.php";
 
-		switch ($this->router->fetch_method()) {
+		try {
 
-		case 'guardar': // <<<---------
+			switch ($this->router->fetch_method()) {
 
-			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
-			$this->form_validation->set_rules('descripcion', 'Descripcion', 'trim|alpha_numeric_spaces');
+			case 'guardar': // <<<---------
 
-			$this->elemento = array(
-				"nombre"    => $this->input->post("nombre", TRUE),
-				"descripcion" => $this->input->post("descripcion",TRUE)
-			);
-			
-		break;
+				$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
+				$this->form_validation->set_rules('descripcion', 'Descripcion', 'trim|alpha_numeric_spaces');
 
-		case 'actualizar': // <<<---------
+				if (!($this->form_validation->run())) {
+					throw new Exception(validation_errors());
+				}
 
-			$this->form_validation->set_rules('id_categoria', 'id_categoria', 'trim|greater_than_equal_to[0]');
-			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
-			$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|alpha_numeric_spaces');
-			
-			$this->elemento = array(
-				"id_categoria" => $this->input->post("id_categoria", TRUE),
-				"nombre"       => $this->input->post("nombre", TRUE),
-				"descripcion"  => $this->input->post("descripcion",TRUE)
-			);
+				$this->elemento = array(
+					"nombre" => $this->input->post("nombre", TRUE),
+					"descripcion" => $this->input->post("descripcion", TRUE),
+				);
 
-		break;
+				break;
 
-		case 'eliminar': // <<<---------
+			case 'actualizar': // <<<---------
 
-			$this->form_validation->set_rules('id_categoria', 'id_categoria', 'trim|greater_than[0]|required');
+				$this->form_validation->set_rules('id_categoria', 'id_categoria', 'trim|greater_than_equal_to[0]');
+				$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
+				$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|alpha_numeric_spaces');
 
-			$this->id_elemento = $this->input->post("id_categoria", TRUE);
-			
-		break;
+				if (!($this->form_validation->run())) {
+					throw new Exception(validation_errors());
+				}
 
-		case 'abm': // <<<---------
+				$this->elemento = array(
+					"id_categoria" => $this->input->post("id_categoria", TRUE),
+					"nombre" => $this->input->post("nombre", TRUE),
+					"descripcion" => $this->input->post("descripcion", TRUE),
+				);
 
-			$this->form_validation->set_data($_GET);
-			$this->form_validation->set_rules("id_categoria", "id_categoria", 
-											  "required|trim|greater_than_equal_to[0]");
+				break;
 
-			$this->id_elemento = ($this->form_validation->run())? $this->input->get("id_categoria", TRUE) : null;
+			case 'eliminar': // <<<---------
 
+				$this->form_validation->set_rules('id_categoria', 'id_categoria', 'trim|greater_than[0]|required');
 
-		break;
-		default:
-			
-		break;
+				if (!($this->form_validation->run())) {
+					throw new Exception(validation_errors());
+				}
+
+				$this->id_elemento = $this->input->post("id_categoria", TRUE);
+
+				break;
+
+			case 'abm': // <<<---------
+
+				$this->form_validation->set_data($_GET);
+				$this->form_validation->set_rules("id_categoria", "id_categoria",
+					"required|trim|greater_than_equal_to[0]");
+
+				$this->id_elemento = ($this->form_validation->run()) ? $this->input->get("id_categoria", TRUE) : null;
+
+				break;
+			default:
+
+				break;
+			}
+
+		} catch (Exception $e) {
+			$respuesta["estado"] = "error";
+			$respuesta["mensaje"] = $e->getMessage();
+			echo json_encode($respuesta);
+			exit();
+
 		}
-		
+
 	}
 
-
-
-	public function index(){
-
+	public function index() {
 
 		$this->form_validation->set_data($_GET);
 		$this->form_validation->set_rules('pagina_actual', 'Pagina actual', 'required|trim|greater_than[0]');
 
-		$pagina_actual = ($this->form_validation->run() == FALSE)? 1 : $this->input->get('pagina_actual', TRUE);
+		$pagina_actual = ($this->form_validation->run() == FALSE) ? 1 : $this->input->get('pagina_actual', TRUE);
 
 		$elementos_por_pagina = 10;
 
 		$cantidad_paginas_totales = $this->model->cantidad_paginas($elementos_por_pagina);
 
-		$data[$this->nombre_plural]  = $this->model->get_lista_elementos_pagina(
-												 		$pagina_actual, 
-														$elementos_por_pagina
-												 );
+		$data[$this->nombre_plural] = $this->model->get_lista_elementos_pagina(
+			$pagina_actual,
+			$elementos_por_pagina
+		);
 
 		$data["paginador"] = $this->load->view(
 			"paginador.php",
-			array (
-					"link"                     => $this->nombre_plural,
-					"pagina_actual"            => $pagina_actual,
-					"cantidad_paginas_totales" => $cantidad_paginas_totales,
-					"rango"                    => calcular_rango_paginador(
-												  $pagina_actual, $cantidad_paginas_totales, 7)
+			array(
+				"link" => $this->nombre_plural,
+				"pagina_actual" => $pagina_actual,
+				"cantidad_paginas_totales" => $cantidad_paginas_totales,
+				"rango" => calcular_rango_paginador(
+					$pagina_actual, $cantidad_paginas_totales, 7),
 			),
 			TRUE
 		);
-			
-		$this->load->view("header.php", $this->session->set_flashdata('side_bar',$this->nombre_plural ));
+
+		$this->load->view("header.php", $this->session->set_flashdata('side_bar', $this->nombre_plural));
 		$this->load->view($this->vista_listado, $data);
 		$this->load->view("footer.php");
-			
+
 	}
 
+	public function abm() {
 
-	public function abm(){
-	
-			if(isset($this->id_elemento)){
-				try{
+		if (isset($this->id_elemento)) {
 
-					$data[$this->nombre_singular] = $this->model->get_elemento($this->id_elemento);
+			try {
+				$data[$this->nombre_singular] = $this->model->get_elemento($this->id_elemento);
 
-					$this->load->view("header.php");
-					$this->load->view($this->vista_abm, $data);
-					$this->load->view("footer.php");
+				$this->load->view("header.php");
+				$this->load->view($this->vista_abm, $data);
+				$this->load->view("footer.php");
 
-				}catch(Exception $e){
-					echo $e->getMessage();
-				}
-
-			}else{
-					$this->load->view("header.php");
-					$this->load->view($this->vista_abm);
-					$this->load->view("footer.php");
+			} catch (Exception $e) {
+				echo $e->getMessage();
+				exit();
 			}
+
+		} else {
+			$this->load->view("header.php");
+			$this->load->view($this->vista_abm);
+			$this->load->view("footer.php");
+		}
 	}
 
+	public function guardar() {
 
-	public function guardar(){
-
-		try{
-
-			if(!($this->form_validation->run())){
-				throw new Exception(validation_errors());
-			}
+		try {
 
 			$this->model->guardar_elemento($this->elemento);
-		
+
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
 
-		}catch(Exception $e){
+		} catch (Exception $e) {
 
 			$respuesta["estado"] = "error";
 			$respuesta["mensaje"] = $e->getMessage();
@@ -158,21 +169,16 @@ class Categorias extends Member_Controller {
 		}
 	}
 
+	public function actualizar() {
 
-	public function actualizar(){
-
-		try{
-
-			if(!($this->form_validation->run())){
-				throw new Exception(validation_errors());
-			}
+		try {
 
 			$this->model->actualizar_elemento($this->elemento);
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
 
-		}catch(Exception $e){
+		} catch (Exception $e) {
 
 			$respuesta["estado"] = "error";
 			$respuesta["mensaje"] = $e->getMessage();
@@ -182,22 +188,16 @@ class Categorias extends Member_Controller {
 
 	}
 
+	public function eliminar() {
 
-	public function eliminar(){
-
-		try{
-
-			if(!($this->form_validation->run())){
-				throw new Exception(validation_errors());
-			}
+		try {
 
 			$this->model->eliminar_elemento($this->id_elemento);
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
 
-
-		}catch(Exception $e){
+		} catch (Exception $e) {
 
 			$respuesta["estado"] = "error";
 			$respuesta["mensaje"] = $e->getMessage();
@@ -207,33 +207,32 @@ class Categorias extends Member_Controller {
 
 	}
 
-	public function buscar_elemento(){
+	public function buscar_elemento() {
 
-		$texto_busqueda = (isset($_POST["texto_busqueda"]))? $this->input->post("texto_busqueda", TRUE) : "";
+		$texto_busqueda = (isset($_POST["texto_busqueda"])) ? $this->input->post("texto_busqueda", TRUE) : "";
 
-		if($texto_busqueda != ""){
+		if ($texto_busqueda != "") {
 
-			try{
+			try {
 
 				$resultado = $this->model->buscar_elemento($texto_busqueda);
-				$data[$this->nombre_plural]  = $resultado;
+				$data[$this->nombre_plural] = $resultado;
 				$data["texto_busqueda"] = $texto_busqueda;
 
-			}catch(Exception $e){
+			} catch (Exception $e) {
 				$data[$this->nombre_plural] = NULL;
 				$data["texto_busqueda"] = NULL;
 			}
-			
+
 			$this->load->view("header.php", $this->session->set_flashdata('side_bar', $this->nombre_plural));
 			$this->load->view($this->vista_listado, $data);
 			$this->load->view("footer.php");
 
-		}else{
+		} else {
 
 			$this->index();
 
 		}
-
 
 	}
 

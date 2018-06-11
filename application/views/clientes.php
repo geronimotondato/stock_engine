@@ -8,7 +8,7 @@
 <div class="seccion"><p>Lista Clientes</p></div>
 
 <p></p>
-<form  action=<?= base_url("Clientes/buscar_cliente") ?> method="POST">
+<form  action=<?= base_url("Clientes/buscar_elemento") ?> method="POST">
 <div class="input-group">
   <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="<?= (isset($texto_busqueda))? $texto_busqueda : '' ?>">
   <button class="btn btn-primary input-group-btn"><i class="fas fa-search"></i></button>
@@ -31,7 +31,7 @@
      </div>
     <div class="acciones">
       <a class='btn btn-link' 
-         href="<?PHP echo base_url('clientes/abm_cliente?id_cliente='. $cliente->id_cliente) ?>">
+         href="<?PHP echo base_url('clientes/abm?id_cliente='. $cliente->id_cliente) ?>">
          <i class='fa  fa-edit'></i>
       </a>
 
@@ -45,6 +45,7 @@
          <tr><td><i>Tel movil:</i></td><td><?= $cliente->tel_movil ?></td></tr>
          <tr><td><i>Tel fijo:</i></td><td><?= $cliente->tel_fijo ?></td></tr>
          <tr><td><i>Saldo:</i></td><td><?= $cliente->saldo ?></td></tr>
+         <tr><td><i>Codigo:</i></td><td><?= $cliente->codigo ?></td></tr>
     </tbody>
      </table>
 
@@ -66,7 +67,7 @@
   <p class="empty-title h5">No hay clientes</p>
   <p class="empty-subtitle">Has click en el botón para crear un cliente nuevo</p>
   <div class="empty-action">
-    <button class="btn btn-primary"><a class="a-link" href="<?= base_url('clientes/abm_cliente') ?>">Nuevo Cliente<a></button>
+    <button class="btn btn-primary"><a class="a-link" href="<?= base_url('clientes/abm') ?>">Nuevo Cliente<a></button>
   </div>
 </div>
 

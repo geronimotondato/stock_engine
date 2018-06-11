@@ -5,12 +5,14 @@
 
 <main class="margen">
 
-<div class="seccion"><p>Cliente</p></div>
+<div class="seccion"><p>Cliente<?= isset($cliente)? " {$cliente->codigo}" : "" ?></p></div>
 
   <form id="form_cliente">
   <fieldset <?= (isset($cliente) && $cliente->dado_de_baja)? "disabled" : "" ?> >
 
-<input type="hidden" id="id_cliente"  name="id_cliente" value='<?= isset($cliente)? $cliente->id_cliente : "0" ?>' >
+  <?PHP if(isset($cliente)): ?>
+    <input type="hidden" id="id_cliente"  name="id_cliente" value='<?= $cliente->id_cliente ?>' >
+  <?PHP endif; ?>
 
 <div class="form-group">
   <label class="form-label" for="nombre">Nombre</label>

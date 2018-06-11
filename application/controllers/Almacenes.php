@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Almacenes extends Member_Controller {
 
-
 	var $nombre_plural;
 	var $nombre_singular;
 	var $vista_listado;
@@ -11,149 +10,160 @@ class Almacenes extends Member_Controller {
 	var $elemento;
 	var $id_elemento;
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 
 		$this->load->model('almacen_model', 'model');
 
-		$this->nombre_plural   = "almacenes";
+		$this->nombre_plural = "almacenes";
 		$this->nombre_singular = "almacen";
-		$this->vista_listado   = "almacenes.php";
-		$this->vista_abm       = "abm_almacen.php";
+		$this->vista_listado = "almacenes.php";
+		$this->vista_abm = "abm_almacen.php";
 
-		switch ($this->router->fetch_method()) {
+		try {
+			switch ($this->router->fetch_method()) {
 
-		case 'guardar': // <<<---------
+			case 'guardar': // <<<---------
 
-			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
-			$this->form_validation->set_rules('direccion', 'direccion', 'trim|alpha_numeric_spaces');
-			$this->form_validation->set_rules('telefono', 'telefono', 'trim|alpha_numeric_spaces');
+				$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
+				$this->form_validation->set_rules('direccion', 'direccion', 'trim|alpha_numeric_spaces');
+				$this->form_validation->set_rules('telefono', 'telefono', 'trim|alpha_numeric_spaces');
 
-			$this->elemento = array(
-				"nombre"    => $this->input->post("nombre", TRUE),
-				"direccion" => $this->input->post("direccion",TRUE),
-				"telefono"  => $this->input->post("telefono",TRUE),
-			);
-			
-		break;
+				if (!($this->form_validation->run())) {
+					throw new Exception(validation_errors());
+				}
 
-		case 'actualizar': // <<<---------
+				$this->elemento = array(
+					"nombre" => $this->input->post("nombre", TRUE),
+					"direccion" => $this->input->post("direccion", TRUE),
+					"telefono" => $this->input->post("telefono", TRUE),
+				);
 
-			$this->form_validation->set_rules('id_almacen', 'id_almacen', 'trim|greater_than_equal_to[0]');
-			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
-			$this->form_validation->set_rules('direccion', 'Descripción', 'trim|alpha_numeric_spaces');
-			$this->form_validation->set_rules('telefono', 'telefono', 'trim|alpha_numeric_spaces');
-			
-			$this->elemento = array(
-				"id_almacen" => $this->input->post("id_almacen", TRUE),
-				"nombre"     => $this->input->post("nombre", TRUE),
-				"direccion"  => $this->input->post("direccion",TRUE),
-				"telefono"   => $this->input->post("telefono",TRUE),
-			);
+				break;
 
-		break;
+			case 'actualizar': // <<<---------
 
-		case 'eliminar': // <<<---------
+				$this->form_validation->set_rules('id_almacen', 'id_almacen', 'trim|greater_than_equal_to[0]');
+				$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
+				$this->form_validation->set_rules('direccion', 'Descripción', 'trim|alpha_numeric_spaces');
+				$this->form_validation->set_rules('telefono', 'telefono', 'trim|alpha_numeric_spaces');
 
-			$this->form_validation->set_rules('id_almacen', 'id_almacen', 'trim|greater_than[0]|required');
+				if (!($this->form_validation->run())) {
+					throw new Exception(validation_errors());
+				}
 
-			$this->id_elemento = $this->input->post("id_almacen", TRUE);
-			
-		break;
+				$this->elemento = array(
+					"id_almacen" => $this->input->post("id_almacen", TRUE),
+					"nombre" => $this->input->post("nombre", TRUE),
+					"direccion" => $this->input->post("direccion", TRUE),
+					"telefono" => $this->input->post("telefono", TRUE),
+				);
 
-		case 'abm': // <<<---------
+				break;
 
-			$this->form_validation->set_data($_GET);
-			$this->form_validation->set_rules("id_almacen", "id_almacen", 
-											  "required|trim|greater_than_equal_to[0]");
+			case 'eliminar': // <<<---------
 
-			$this->id_elemento = ($this->form_validation->run())? $this->input->get("id_almacen", TRUE) : null;
+				$this->form_validation->set_rules('id_almacen', 'id_almacen', 'trim|greater_than[0]|required');
 
+				if (!($this->form_validation->run())) {
+					throw new Exception(validation_errors());
+				}
 
-		break;
-		default:
-			
-		break;
+				$this->id_elemento = $this->input->post("id_almacen", TRUE);
+
+				break;
+
+			case 'abm': // <<<---------
+
+				$this->form_validation->set_data($_GET);
+				$this->form_validation->set_rules("id_almacen", "id_almacen",
+					"required|trim|greater_than_equal_to[0]");
+
+				$this->id_elemento = ($this->form_validation->run()) ? $this->input->get("id_almacen", TRUE) : null;
+
+				break;
+			default:
+
+				break;
+			}
+		} catch (Exception $e) {
+
+			$respuesta["estado"] = "error";
+			$respuesta["mensaje"] = $e->getMessage();
+			echo json_encode($respuesta);
+			exit();
+
 		}
-		
+
 	}
 
-
-
-	public function index(){
-
+	public function index() {
 
 		$this->form_validation->set_data($_GET);
 		$this->form_validation->set_rules('pagina_actual', 'Pagina actual', 'required|trim|greater_than[0]');
 
-		$pagina_actual = ($this->form_validation->run() == FALSE)? 1 : $this->input->get('pagina_actual', TRUE);
+		$pagina_actual = ($this->form_validation->run() == FALSE) ? 1 : $this->input->get('pagina_actual', TRUE);
 
 		$elementos_por_pagina = 10;
 
 		$cantidad_paginas_totales = $this->model->cantidad_paginas($elementos_por_pagina);
 
-		$data[$this->nombre_plural]  = $this->model->get_lista_elementos_pagina(
-												 		$pagina_actual, 
-														$elementos_por_pagina
-												 );
+		$data[$this->nombre_plural] = $this->model->get_lista_elementos_pagina(
+			$pagina_actual,
+			$elementos_por_pagina
+		);
 
 		$data["paginador"] = $this->load->view(
 			"paginador.php",
-			array (
-					"link"                     => $this->nombre_plural,
-					"pagina_actual"            => $pagina_actual,
-					"cantidad_paginas_totales" => $cantidad_paginas_totales,
-					"rango"                    => calcular_rango_paginador(
-												  $pagina_actual, $cantidad_paginas_totales, 7)
+			array(
+				"link" => $this->nombre_plural,
+				"pagina_actual" => $pagina_actual,
+				"cantidad_paginas_totales" => $cantidad_paginas_totales,
+				"rango" => calcular_rango_paginador(
+					$pagina_actual, $cantidad_paginas_totales, 7),
 			),
 			TRUE
 		);
-			
-		$this->load->view("header.php", $this->session->set_flashdata('side_bar',$this->nombre_plural ));
+
+		$this->load->view("header.php", $this->session->set_flashdata('side_bar', $this->nombre_plural));
 		$this->load->view($this->vista_listado, $data);
 		$this->load->view("footer.php");
-			
+
 	}
 
+	public function abm() {
 
-	public function abm(){
-	
-			if(isset($this->id_elemento)){
-				try{
+		if (isset($this->id_elemento)) {
+			try {
 
-					$data[$this->nombre_singular] = $this->model->get_elemento($this->id_elemento);
+				$data[$this->nombre_singular] = $this->model->get_elemento($this->id_elemento);
 
-					$this->load->view("header.php");
-					$this->load->view($this->vista_abm, $data);
-					$this->load->view("footer.php");
+				$this->load->view("header.php");
+				$this->load->view($this->vista_abm, $data);
+				$this->load->view("footer.php");
 
-				}catch(Exception $e){
-					echo $e->getMessage();
-				}
-
-			}else{
-					$this->load->view("header.php");
-					$this->load->view($this->vista_abm);
-					$this->load->view("footer.php");
+			} catch (Exception $e) {
+				echo $e->getMessage();
+				exit();
 			}
+
+		} else {
+			$this->load->view("header.php");
+			$this->load->view($this->vista_abm);
+			$this->load->view("footer.php");
+		}
 	}
 
+	public function guardar() {
 
-	public function guardar(){
-
-		try{
-
-			if(!($this->form_validation->run())){
-				throw new Exception(validation_errors());
-			}
+		try {
 
 			$this->model->guardar_elemento($this->elemento);
-		
+
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
 
-		}catch(Exception $e){
+		} catch (Exception $e) {
 
 			$respuesta["estado"] = "error";
 			$respuesta["mensaje"] = $e->getMessage();
@@ -162,21 +172,16 @@ class Almacenes extends Member_Controller {
 		}
 	}
 
+	public function actualizar() {
 
-	public function actualizar(){
-
-		try{
-
-			if(!($this->form_validation->run())){
-				throw new Exception(validation_errors());
-			}
+		try {
 
 			$this->model->actualizar_elemento($this->elemento);
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
 
-		}catch(Exception $e){
+		} catch (Exception $e) {
 
 			$respuesta["estado"] = "error";
 			$respuesta["mensaje"] = $e->getMessage();
@@ -186,22 +191,16 @@ class Almacenes extends Member_Controller {
 
 	}
 
+	public function eliminar() {
 
-	public function eliminar(){
-
-		try{
-
-			if(!($this->form_validation->run())){
-				throw new Exception(validation_errors());
-			}
+		try {
 
 			$this->model->eliminar_elemento($this->id_elemento);
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
 
-
-		}catch(Exception $e){
+		} catch (Exception $e) {
 
 			$respuesta["estado"] = "error";
 			$respuesta["mensaje"] = $e->getMessage();
@@ -211,33 +210,32 @@ class Almacenes extends Member_Controller {
 
 	}
 
-	public function buscar_elemento(){
+	public function buscar_elemento() {
 
-		$texto_busqueda = (isset($_POST["texto_busqueda"]))? $this->input->post("texto_busqueda", TRUE) : "";
+		$texto_busqueda = (isset($_POST["texto_busqueda"])) ? $this->input->post("texto_busqueda", TRUE) : "";
 
-		if($texto_busqueda != ""){
+		if ($texto_busqueda != "") {
 
-			try{
+			try {
 
 				$resultado = $this->model->buscar_elemento($texto_busqueda);
-				$data[$this->nombre_plural]  = $resultado;
+				$data[$this->nombre_plural] = $resultado;
 				$data["texto_busqueda"] = $texto_busqueda;
 
-			}catch(Exception $e){
+			} catch (Exception $e) {
 				$data[$this->nombre_plural] = NULL;
 				$data["texto_busqueda"] = NULL;
 			}
-			
+
 			$this->load->view("header.php", $this->session->set_flashdata('side_bar', $this->nombre_plural));
 			$this->load->view($this->vista_listado, $data);
 			$this->load->view("footer.php");
 
-		}else{
+		} else {
 
 			$this->index();
 
 		}
-
 
 	}
 

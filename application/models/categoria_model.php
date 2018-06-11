@@ -101,7 +101,7 @@ class categoria_model extends CI_Model {
 
 		$query = $this->db->query(
 			"SELECT * FROM {$this->tabla} WHERE
-			 MATCH(nombre, descripcion) 
+			 MATCH(nombre, descripcion, codigo) 
 			 AGAINST(\"" . $texto_busqueda . "*\" IN BOOLEAN MODE)" );
 
 			if(empty($query)){ throw new Exception("No se encuentra {$this->tabla}");}

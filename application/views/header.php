@@ -96,6 +96,17 @@
 
       <!-- menu item -->
       <li class="menu-item">
+        <a href  ="<?PHP echo base_url('movimientos') ?>"
+          class ="<?PHP if($this->session->flashdata('side_bar') =="movimientos") echo 'active' ?>" >
+          <i class="fas fa-exchange-alt"></i> Movimientos
+        </a>
+      </li>
+      <!-- menu divider -->
+
+      <li class="divider"></li>
+
+      <!-- menu item -->
+      <li class="menu-item">
         <a href  ="<?PHP echo base_url('cuentas') ?>"
           class ="<?PHP if($this->session->flashdata('side_bar') =="cuentas") echo 'active' ?>" >
           <i class="fas fa-credit-card"></i> Cuentas

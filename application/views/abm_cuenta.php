@@ -1,0 +1,100 @@
+<!-- llamo a css propio de la vista -->
+<link href= "<?PHP echo base_url( 'resources/css/'. basename(__FILE__, '.php') . '.css'); ?>" rel="stylesheet">
+<!-- llamo a js propio de la vista -->
+<SCRIPT src="<?PHP echo base_url( 'resources/js/'. basename(__FILE__, '.php') . '.js'); ?>" type="text/javascript"></SCRIPT>
+
+<main class="margen">
+
+<div class="seccion"><p>cuenta<?= isset($cuenta)? " {$cuenta->codigo}" : "" ?></p></div>
+
+  <form id="form_cuenta">
+  <fieldset <?= (isset($cuenta) && $cuenta->dado_de_baja)? "disabled" : "" ?> >
+
+  <?PHP if(isset($cuenta)): ?>
+    <input type="hidden" id="id_cuenta"  name="id_cuenta" value='<?= $cuenta->id_cuenta ?>' >
+  <?PHP endif; ?>
+
+<div class="form-group">
+  <label class="form-label" for="nombre">Nombre</label>
+  <input class="form-input" type="text" id="nombre" placeholder="Nombre" name="nombre" value='<?= isset($cuenta)? $cuenta->nombre : "" ?>' >
+</div>
+
+<!-- form input control -->
+<div class="form-group">
+  <label class="form-label" for="direccion">Descripción</label>
+  <textarea class="form-input" type="text" id="direccion" placeholder="Descripcion" name="descripcion" rows="3"><?= isset($cuenta)? $cuenta->descripcion : ""?></textarea>
+</div>
+
+
+<!-- form input control -->
+
+
+<div class="container">
+ <label class="form-label" for="saldo">Saldo</label>
+  <div class="columns">
+
+    <div class="column col-4">
+      <div class="input-group">
+        <input readonly class="form-input" type="text" id="saldo" placeholder="Saldo" name="saldo" value='<?= isset($cuenta)? $cuenta->saldo : "" ?>'>
+      </div>
+    </div>
+    <div class="column col-4">
+      <div class="input-group">
+
+        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-plus"></i></button>
+        <input id="sumar" class="form-input" type="number" placeholder="+" value="0" min="0" name="sumar">
+      </div>
+    </div>
+    <div class="column col-4">
+      <div class="input-group">
+
+        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-minus"></i></button>
+        <input id="restar" class="form-input" type="number" placeholder="-" value="0" min="0" name="restar">
+      </div>
+
+    </div>
+  </div>
+
+
+
+</fieldset>
+
+<p></p>
+
+
+<?PHP if(isset($cuenta)): ?>
+
+<!-- MODAL DE ELIMINAR cuenta -->
+<div id="eliminar_cuenta_dialog" class="modal modal-sm">
+  <a class="modal-overlay cerrar_eliminar_cuenta_dialog" aria-label="Close"></a>
+  <div class="modal-container m-2">
+    <p></p>
+    <div class="m-2">
+      <h5>Dar de baja esta cuenta</h5>
+      <p></p>
+      <p></p>
+      <button id="btn_eliminar" class="btn" type="button" value="eliminar">Eliminar</button>
+      <button class="btn btn-primary cerrar_eliminar_cuenta_dialog" type="button" >Cancelar</button>
+    </div>
+  </div>
+</div> <!--FIN MODAL -->
+
+<div class="btn-group btn-group-block">
+  <button id="btn_descartar" class="btn" type="button" onclick="location.href = '<?= base_url("cuentas"); ?>'" >Descartar</button>
+  <button id="btn_actualizar" class="btn btn-primary" type="input"  name="submit_btn" value="actualizar">Actualizar</button>
+  <button id="eliminar_cuenta" class="btn btn-secundary"  type="button">Eliminar</button>
+
+</div>
+
+<?PHP else: ?>
+
+<div class="btn-group btn-group-block">
+  <button id="btn_descartar" class="btn" type="button" onclick="location.href = '<?= base_url("cuentas"); ?>'" >Descartar</button>
+  <button id="btn_guardar" class="btn btn-primary" type="input" name="submit_btn" value="guardar">Guardar</button>
+</div>
+
+<?PHP endif; ?>
+
+</form>
+
+</main>

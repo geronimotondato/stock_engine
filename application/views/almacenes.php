@@ -61,9 +61,9 @@
     <i class="fas fa-warehouse"></i>
   </div>
   <p class="empty-title h5">No hay almacenes</p>
-  <p class="empty-subtitle">Has click en el botón para crear una categoría nueva</p>
+  <p class="empty-subtitle">Has click en el botón para crear un almacen nuevo</p>
   <div class="empty-action">
-    <button class="btn btn-primary"><a class="a-link" href="<?= base_url('almacenes/abm') ?>">Nueva categoría<a></button>
+    <button class="btn btn-primary"><a class="a-link" href="<?= base_url('almacenes/abm') ?>">Nuevo almacen<a></button>
   </div>
 </div>
 

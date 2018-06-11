@@ -87,3 +87,7 @@ body{
 .empty{
 	background: none !important;
 }
+
+.fa-exchange-alt{
+	transform: rotate(90deg);
+}

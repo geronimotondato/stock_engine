@@ -2,7 +2,7 @@
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class cuenta_model extends CI_Model {
+class Cuenta_model extends CI_Model {
 
 	var $tabla;
 	var $id_column;
@@ -28,10 +28,27 @@ class cuenta_model extends CI_Model {
 		}
 	}
 
+
 	public function actualizar_elemento($elemento){
 
 		$this->db->trans_start();
 
+		//trae el campo "dado_de_baja" y "saldo" del cuenta que se pretende actualizar
+		$this->db->select('dado_de_baja, saldo');
+		$query = $this->db->get_where($this->tabla, array($this->id_column => $elemento[$this->id_column]) );
+
+		//pregunto si el cuenta está dado de baja, en cuyo caso finalizo la actualizacion
+		if ($query->row()->dado_de_baja == TRUE){
+			$this->db->trans_complete();
+			throw new Exception("No puede actualizar una {$this->tabla} dada de baja");
+		}
+
+		//actualizo el saldo de la cuenta sumando el valor "saldo" de la BD 
+		//con el valor "saldo" que viene por el pedido
+		//que es el resultado de $sumar - $restar
+		$elemento["saldo"] = $elemento["saldo"] + $query->row()->saldo;
+
+		//actualizo la cuenta
 		$this->db->where($this->id_column, $elemento[$this->id_column]);
 		$this->db->update($this->tabla, $elemento);
 
@@ -48,15 +65,9 @@ class cuenta_model extends CI_Model {
 
 		$this->db->trans_start();
 
-		//pongo en null el id_elemento de los productos que pertenecen a la elemento que va a ser elimina
-		$this->db->set($this->id_column, NULL);
-		$this->db->where($this->id_column, $id_elemento);
-		$this->db->update('producto');
-
-		//Elimino el elemento
-		$this->db->where($this->id_column, $id_elemento);
-		$this->db->delete($this->tabla);
-
+			$this->db->set('dado_de_baja', TRUE);
+			$this->db->where($this->id_column, $id_elemento);
+			$this->db->update($this->tabla);
 
 		$this->db->trans_complete();
 
@@ -77,7 +88,7 @@ class cuenta_model extends CI_Model {
 	public function get_lista_elementos_completa(){
 
 
-		$query = $this->db->query("select * from {$this->tabla}");
+		$query = $this->db->query("select * from {$this->tabla} WHERE dado_de_baja=0");
 		if(empty($query)){ throw new Exception("No hay registros de {$this->tabla}");}
 		return $query->result();  
 	}
@@ -87,7 +98,7 @@ class cuenta_model extends CI_Model {
 		$limit = $elementos_por_pagina;
 		$offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
 
-		$query = $this->db->query("select * from {$this->tabla} limit ".$limit." offset ".$offset);
+		$query = $this->db->query("select * from {$this->tabla} where dado_de_baja=0 limit ".$limit." offset ".$offset);
 
 		if(empty($query)){ throw new Exception("No hay registros de {$this->tabla}");}
 
@@ -100,8 +111,9 @@ class cuenta_model extends CI_Model {
 	public function buscar_elemento($texto_busqueda){
 
 		$query = $this->db->query(
-			"SELECT * FROM {$this->tabla} WHERE
-			 MATCH(nombre, direccion, telefono) 
+			"SELECT * FROM {$this->tabla}
+			 WHERE dado_de_baja=0 AND
+			 MATCH(nombre, descripcion, codigo) 
 			 AGAINST(\"" . $texto_busqueda . "*\" IN BOOLEAN MODE)" );
 
 			if(empty($query)){ throw new Exception("No se encuentra {$this->tabla}");}
@@ -111,10 +123,10 @@ class cuenta_model extends CI_Model {
 	}
 
 	public function cantidad_elementos(){
-		$query = $this->db->query("select count(*) from {$this->tabla}");
+		$query = $this->db->query("select count(*) from {$this->tabla} where dado_de_baja=0");
 		return $query->row_array()["count(*)"];
 	}
-	
+
 	public function cantidad_paginas($elementos_por_pagina){
 		return ceil($this->cantidad_elementos() / $elementos_por_pagina);		
 	}
