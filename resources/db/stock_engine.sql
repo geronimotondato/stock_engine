@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `stock_engine` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `stock_engine`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: stock_engine
+-- Host: localhost    Database: stock_engine
 -- ------------------------------------------------------
--- Server version	5.6.24
+-- Server version	5.7.22-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,14 +26,16 @@ DROP TABLE IF EXISTS `almacen`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `almacen` (
   `id_almacen` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
   `direccion` varchar(255) DEFAULT NULL,
   `telefono` varchar(45) DEFAULT NULL,
+  `codigo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_almacen`),
-  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   UNIQUE KEY `id_almacen_UNIQUE` (`id_almacen`),
-  FULLTEXT KEY `busqueda_almacen` (`nombre`,`direccion`,`telefono`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`),
+  FULLTEXT KEY `busqueda_almacen` (`nombre`,`direccion`,`telefono`,`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,9 +44,29 @@ CREATE TABLE `almacen` (
 
 LOCK TABLES `almacen` WRITE;
 /*!40000 ALTER TABLE `almacen` DISABLE KEYS */;
-INSERT INTO `almacen` VALUES (1,'almacen 1','calle 1 monte grande','4343455'),(5,'almacen 2','mi segunda direccion ','57348957934'),(6,'grande','bla bla bal','47389274');
 /*!40000 ALTER TABLE `almacen` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `stock_engine`.`almacen_BEFORE_INSERT` BEFORE INSERT ON `almacen` FOR EACH ROW
+BEGIN
+	SET NEW.codigo = CONCAT((SELECT `auto_increment` 
+	 FROM INFORMATION_SCHEMA.TABLES
+	 WHERE table_name = 'almacen'), 
+     LEFT(NEW.nombre, 2));
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `categoria`
@@ -57,11 +79,13 @@ CREATE TABLE `categoria` (
   `id_categoria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
   `descripcion` text,
+  `codigo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_categoria`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   UNIQUE KEY `id_categoria_producto_UNIQUE` (`id_categoria`),
-  FULLTEXT KEY `busqueda_categoria` (`nombre`,`descripcion`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`),
+  FULLTEXT KEY `busqueda_categoria` (`nombre`,`descripcion`,`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,9 +94,30 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (7,'gaseosas','descripcion 1'),(8,'galletitas','descripcion 2'),(9,'alfajores','Descripcion 3'),(10,'chocolatess','descripcion 4'),(11,'caramelos','descripcion 5');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `stock_engine`.`categoria_BEFORE_INSERT` BEFORE INSERT ON `categoria` FOR EACH ROW
+BEGIN
+	SET NEW.codigo = CONCAT((SELECT `auto_increment` 
+	 FROM INFORMATION_SCHEMA.TABLES
+	 WHERE table_name = 'categoria'), 
+     LEFT(NEW.nombre, 2));
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `ci_sessions`
@@ -97,7 +142,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('25it3psic1mt15nrfgd27238qi49bvkq','::1',1528145726,'__ci_last_regenerate|i:1528145647;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;'),('99uofrbgoo07iu8ki3dvbq397sd9v2u0','::1',1528221589,'__ci_last_regenerate|i:1528221589;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:10:\"categorias\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('h7hrp19a27apour7eept2rfmrllh9jho','::1',1528325988,'__ci_last_regenerate|i:1528325980;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"almacenes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('hgalsnqj615566iq8gar9dqj6kb9p6uu','::1',1528401949,'__ci_last_regenerate|i:1528401938;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('kmo6eaemjve6jip42bds8php11m3ev8v','::1',1528082785,'__ci_last_regenerate|i:1528082782;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('lrpicevr3egb2k6tmgi8bcgod619mvrd','::1',1528393158,'__ci_last_regenerate|i:1528393158;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:8:\"clientes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('p7qmpeavecaj9lrvii3k5s47g12k53os','::1',1528177992,'__ci_last_regenerate|i:1528177833;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('sq9i7c6oti2eesfe49f90ui6o57825kj','::1',1528233806,'__ci_last_regenerate|i:1528233656;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
+INSERT INTO `ci_sessions` VALUES ('25it3psic1mt15nrfgd27238qi49bvkq','::1',1528145726,'__ci_last_regenerate|i:1528145647;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;'),('99uofrbgoo07iu8ki3dvbq397sd9v2u0','::1',1528221589,'__ci_last_regenerate|i:1528221589;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:10:\"categorias\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('dhj4qm94niemksqtkhq22l62q83l12nd','::1',1528538030,'__ci_last_regenerate|i:1528537996;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('h7hrp19a27apour7eept2rfmrllh9jho','::1',1528325988,'__ci_last_regenerate|i:1528325980;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"almacenes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('hgalsnqj615566iq8gar9dqj6kb9p6uu','::1',1528401949,'__ci_last_regenerate|i:1528401938;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('kmo6eaemjve6jip42bds8php11m3ev8v','::1',1528082785,'__ci_last_regenerate|i:1528082782;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('lrpicevr3egb2k6tmgi8bcgod619mvrd','::1',1528393158,'__ci_last_regenerate|i:1528393158;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:8:\"clientes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('ngg5lar9vn762bbfl2jqctquqc315qen','::1',1528424253,'__ci_last_regenerate|i:1528424240;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"almacenes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('p7qmpeavecaj9lrvii3k5s47g12k53os','::1',1528177992,'__ci_last_regenerate|i:1528177833;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('pq5al91pbto0ijkqmv6d201g86nckuec','::1',1528693654,'__ci_last_regenerate|i:1528693606;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:7:\"cuentas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('q9f5533harsvdhk4ufbqep30qia4cfjn','::1',1528579346,'__ci_last_regenerate|i:1528579313;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"almacenes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('qo0u7bv4kct1ek2l0hdh5jj7ld9j4r23','::1',1528530940,'__ci_last_regenerate|i:1528530840;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('qsrgknnllrf830opqlj2a4rtuj4pihae','::1',1528682115,'__ci_last_regenerate|i:1528682096;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:7:\"cuentas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('sgt2jdqqcft93ujn0n5sc01q6ippp8pb','::1',1528530997,'__ci_last_regenerate|i:1528530997;'),('sq9i7c6oti2eesfe49f90ui6o57825kj','::1',1528233806,'__ci_last_regenerate|i:1528233656;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,12 +161,13 @@ CREATE TABLE `cliente` (
   `tel_fijo` varchar(45) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `saldo` float DEFAULT '0',
+  `codigo` varchar(45) DEFAULT NULL,
   `dado_de_baja` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `id_cliente_UNIQUE` (`id_cliente`),
-  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
-  FULLTEXT KEY `busqueda_cliente` (`nombre`,`direccion`,`email`,`tel_movil`,`tel_fijo`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`),
+  FULLTEXT KEY `busqueda_cliente` (`nombre`,`direccion`,`email`,`tel_movil`,`tel_fijo`,`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,9 +176,29 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (26,'geronimo','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(29,'Geronimo Tondato','Belgrano 851','1163602918','42902986','geronimo.tondato@gmail.com',0,1),(41,'juan','Belgrano 851 Monte grande','','','',-60,0),(42,'antonio','','','','',60,0),(43,'Juana','Belgrano 851 Monte grande','1163602918','','geronimo.tondato@gmail.com',-200,0),(44,'domingo','','','','',0,0),(45,'mesa 1','','','','',0,1),(46,'juana mazza','','','','',0,1),(48,'laura','','','','',0,0),(49,'sebastian','','','','',0,0);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `stock_engine`.`cliente_BEFORE_INSERT` BEFORE INSERT ON `cliente` FOR EACH ROW
+BEGIN
+ 	SET NEW.codigo = CONCAT((SELECT `auto_increment` 
+	 FROM INFORMATION_SCHEMA.TABLES
+	 WHERE table_name = 'cliente'), 
+     LEFT(NEW.nombre, 2));
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `cuenta`
@@ -146,10 +212,13 @@ CREATE TABLE `cuenta` (
   `nombre` varchar(255) NOT NULL,
   `descripcion` text,
   `saldo` float NOT NULL DEFAULT '0',
+  `dado_de_baja` tinyint(4) NOT NULL DEFAULT '0',
+  `codigo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_cuenta`),
-  UNIQUE KEY `Nombre_UNIQUE` (`nombre`),
-  UNIQUE KEY `id_cuenta_UNIQUE` (`id_cuenta`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  UNIQUE KEY `id_cuenta_UNIQUE` (`id_cuenta`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`),
+  FULLTEXT KEY `busqueda_cuenta` (`nombre`,`codigo`,`descripcion`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,8 +227,30 @@ CREATE TABLE `cuenta` (
 
 LOCK TABLES `cuenta` WRITE;
 /*!40000 ALTER TABLE `cuenta` DISABLE KEYS */;
+INSERT INTO `cuenta` VALUES (1,'caja','dinero en efectivo',0,1,'1ca'),(2,'caja','otro lugar con dinero en efectivo',110,1,'2ca'),(3,'debito','pagos realizados con tarjeta de debito',0,1,'3de'),(4,'credito','dabate',60,1,'4cr');
 /*!40000 ALTER TABLE `cuenta` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `stock_engine`.`cuenta_BEFORE_INSERT` BEFORE INSERT ON `cuenta` FOR EACH ROW
+BEGIN
+ 	SET NEW.codigo = CONCAT((SELECT `auto_increment` 
+	 FROM INFORMATION_SCHEMA.TABLES
+	 WHERE table_name = 'cuenta'), 
+     LEFT(NEW.nombre, 2));
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `historial_item`
@@ -237,7 +328,7 @@ CREATE TABLE `item` (
   KEY `fk_item_venta1_idx` (`id_venta`),
   CONSTRAINT `fk_item_id_venta` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_producto_has_venta_producto1` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -246,7 +337,6 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES (68,24,2,5,0),(69,25,2,6,0);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +454,6 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (24,43,'2018-06-05 13:41:27','2018-06-05'),(25,48,'2018-06-05 16:38:28','2018-06-05');
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -464,4 +553,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-07 17:40:31
+-- Dump completed on 2018-06-11  2:08:37
