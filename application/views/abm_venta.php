@@ -34,7 +34,7 @@
       </div>
     <?PHP else: ?>
         <?PHP if($venta["cliente"]["dado_de_baja"] == 0 ): ?>
-          <strong>Cliente: <a href="<?= base_url('clientes/abm_cliente?id_cliente=' . $venta['cliente']['id_cliente']) ?>" target="_blank" > <?= $venta['cliente']['nombre'] ?> </a></strong>
+          <strong>Cliente: <a href="<?= base_url('clientes/abm?id_cliente=' . $venta['cliente']['id_cliente']) ?>" target="_blank" > <?= $venta['cliente']['nombre'] ?> </a></strong>
         <?PHP else: ?>
           <strong>Cliente: <?= $venta['cliente']['nombre'] ?></strong>
         <?PHP endif; ?>
