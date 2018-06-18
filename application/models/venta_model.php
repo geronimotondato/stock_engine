@@ -28,6 +28,11 @@ class venta_model extends CI_Model {
 		}
 
 		$this->load->model("producto_model");
+
+		foreach ($venta["items"] as $item) {
+			$this->producto_model->actualizar_stock($item['id_producto'], -$item['cantidad']);
+		}
+
 		$lista_productos = $this->producto_model->get_disponibilidad($venta["items"]);
 
 		$productos_sin_stock = array();
@@ -61,26 +66,36 @@ class venta_model extends CI_Model {
 
 		$this->db->trans_start();
 
+		//actualizo la fecha de la venta por la recientemente proporcionada
 		$this->db->query(
-			"UPDATE venta SET fecha_venta = \"" . $venta['fecha'] . "\" WHERE
-			id_venta =" . $venta['id_venta']
+			"UPDATE venta SET fecha = \"{$venta['fecha']}\" WHERE id_venta = {$venta['id_venta']}"
 		);
+
+		//vuelvo a agregar los items de la venta al stock de productos
+		$this->load->model("producto_model");
+		$this->producto_model->recuperar_stock_venta($venta['id_venta']);
+
+
+		//Elimino los items de la venta
 		$this->db->query(
-			"DELETE FROM item WHERE id_venta =" . $venta['id_venta']
+			"DELETE FROM item_venta WHERE id_venta = {$venta['id_venta']}"
 		);
+
+		//Agrego los nuevos items
 		foreach ($venta["items"] as $item) {
 			$this->db->query(
-				"INSERT INTO item (id_venta, id_producto, cantidad, descuento)VALUES
-				(
-					" . $venta['id_venta'] . ",
-					" . $item['id_producto'] . ",
-					" . $item['cantidad'] . ",
-					" . $item['descuento'] . "
-				)"
+				"INSERT INTO item_venta (id_venta, id_producto, cantidad, descuento)VALUES
+				({$venta['id_venta']}, {$item['id_producto']}, {$item['cantidad']}, {$item['descuento']})"
 			);
 		}
 
-		$this->load->model("producto_model");
+		//actualizo el stock de productos
+		foreach ($venta["items"] as $item) {
+			$this->producto_model->actualizar_stock($item['id_producto'], -$item['cantidad']);
+		}
+
+
+		//chequeo que haya suficientes productos como para llevar acabo la actualizacion
 		$lista_productos = $this->producto_model->get_disponibilidad($venta["items"]);
 
 		$productos_sin_stock = array();
@@ -90,10 +105,9 @@ class venta_model extends CI_Model {
 			if ($producto['disponibles'] < 0) {
 
 				$productos_sin_stock[] = array(
-
 					"id_producto" => $producto['id_producto'],
-					"nombre" => $producto['nombre'],
-					"cantidad" => abs($producto['disponibles']),
+					"nombre"      => $producto['nombre'],
+					"cantidad"    => abs($producto['disponibles']),
 				);
 
 			}
@@ -115,8 +129,13 @@ class venta_model extends CI_Model {
 
 		$this->db->trans_start();
 
+		//vuelvo a agregar los items de la venta al stock de productos
+		$this->load->model('producto_model');
+		$this->producto_model->recuperar_stock_venta($id_venta);
+
+		//Elimino la venta
 		$this->db->query(
-			"DELETE FROM venta WHERE id_venta =" . $id_venta
+			"DELETE FROM venta WHERE id_venta = {$id_venta}"
 		);
 
 		$this->db->trans_complete();
@@ -182,20 +201,20 @@ class venta_model extends CI_Model {
 
 				//recupero la info relacionada al cliente
 				$cliente = $this->db->query("
-				SELECT * FROM cliente cl LEFT JOIN cuenta cu
+				SELECT * FROM cliente cl LEFT JOIN cuenta cu             
 				ON cl.id_cuenta = cu.id_cuenta
-				WHERE id_cuenta = " . $row->id_cuenta);
+				WHERE cl.id_cuenta = {$row->id_cuenta}");
 
 				//recupero la info relacionada a los items
 				$items = $this->db->query(
 					"SELECT id_item, i.id_producto, nombre, cantidad, descuento
-					FROM item i LEFT JOIN producto p
+					FROM item_venta i LEFT JOIN producto p
 					ON i.id_producto = p.id_producto
 					WHERE i.id_venta = {$id_venta}");
 
 				//genero el array con toda la info de la venta
 				$venta["id_venta"] = $row->id_venta;
-				$venta["fecha"] = $row->fecha_venta;
+				$venta["fecha"] = $row->fecha;
 				$venta["cliente"] = $cliente->row_array();
 				$venta["items"] = $items->result_array();
 			}

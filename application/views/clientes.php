@@ -31,7 +31,7 @@
      </div>
     <div class="acciones">
       <a class='btn btn-link' 
-         href="<?PHP echo base_url('clientes/abm?id_cliente='. $cliente->id_cliente) ?>">
+         href="<?PHP echo base_url('clientes/abm?id_cuenta='. $cliente->id_cuenta) ?>">
          <i class='fa  fa-edit'></i>
       </a>
 
@@ -45,7 +45,6 @@
          <tr><td><i>Tel movil:</i></td><td><?= $cliente->tel_movil ?></td></tr>
          <tr><td><i>Tel fijo:</i></td><td><?= $cliente->tel_fijo ?></td></tr>
          <tr><td><i>Saldo:</i></td><td><?= $cliente->saldo ?></td></tr>
-         <tr><td><i>Codigo:</i></td><td><?= $cliente->codigo ?></td></tr>
     </tbody>
      </table>
 

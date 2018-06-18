@@ -51,7 +51,7 @@ class Clientes extends Member_Controller {
 
 			case 'actualizar': // <<<---------
 
-				$this->form_validation->set_rules('id_cliente', 'id_cliente', 'trim|greater_than_equal_to[0]');
+				$this->form_validation->set_rules('id_cuenta', 'id_cuenta', 'trim|greater_than_equal_to[0]');
 				$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
 				$this->form_validation->set_rules('direccion', 'Dirección', 'trim|alpha_numeric_spaces');
 				$this->form_validation->set_rules('tel_movil', 'Tel movil', 'trim|numeric');
@@ -65,7 +65,7 @@ class Clientes extends Member_Controller {
 				}
 
 				$this->elemento = array(
-					'id_cliente' => $this->input->post("id_cliente", TRUE),
+					'id_cuenta' => $this->input->post("id_cuenta", TRUE),
 					'nombre' => $this->input->post("nombre", TRUE),
 					'direccion' => $this->input->post("direccion", TRUE),
 					'tel_movil' => $this->input->post("tel_movil", TRUE),
@@ -78,23 +78,23 @@ class Clientes extends Member_Controller {
 
 			case 'eliminar': // <<<---------
 
-				$this->form_validation->set_rules('id_cliente', 'id_cliente', 'trim|greater_than[0]|required');
+				$this->form_validation->set_rules('id_cuenta', 'id_cuenta', 'trim|greater_than[0]|required');
 
 				if (!($this->form_validation->run())) {
 					throw new Exception(validation_errors());
 				}
 
-				$this->id_elemento = $this->input->post("id_cliente", TRUE);
+				$this->id_elemento = $this->input->post("id_cuenta", TRUE);
 
 				break;
 
 			case 'abm': // <<<---------
 
 				$this->form_validation->set_data($_GET);
-				$this->form_validation->set_rules("id_cliente", "id_cliente",
+				$this->form_validation->set_rules("id_cuenta", "id_cuenta",
 					"required|trim|greater_than_equal_to[0]");
 
-				$this->id_elemento = ($this->form_validation->run()) ? $this->input->get("id_cliente", TRUE) : null;
+				$this->id_elemento = ($this->form_validation->run()) ? $this->input->get("id_cuenta", TRUE) : null;
 
 				break;
 			default:

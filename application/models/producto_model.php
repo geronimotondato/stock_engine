@@ -10,11 +10,6 @@ class Producto_model extends CI_Model {
 		parent::__construct();
 	}
 
-	// ******************************************************************************
-	// ► Func : consulta a la base de datos en busca de la lista de productos
-	// ► Obser: devuelve toda la lista de productos
-	// ► ToDo :
-	// ******************************************************************************
 	public function get_lista_productos() {
 		$query = $this->db->query("SELECT * FROM producto");
 		if (empty($query)) {
@@ -23,18 +18,47 @@ class Producto_model extends CI_Model {
 		return $query->result();
 	}
 
-	// ******************************************************************************************
-	// ► Func : consulta a la base de datos en busca de la lista de productos y calcula el stock
-	// ► Obser: devuelve toda la lista de productos y su stock
-	// ► ToDo :
-	// ******************************************************************************************
-	public function get_stock_productos() {
-		$query = $this->db->query("SELECT * from vista_stock;");
-		if (empty($query)) {
-			throw new Exception("No hay productos en la tabla productos");
+	public function get_disponibilidad($items) {
+
+		$ids_producto = array();
+
+		foreach ($items as $item) {
+			if (!in_array($item["id_producto"], $ids_producto)) {
+				$ids_producto[] = $item["id_producto"];
+			}
 		}
-		return $query->result_object();
+
+		$commaList = implode(',', $ids_producto);
+
+		$query = $this->db->query("SELECT p.id_producto, p.nombre, p.stock as disponibles
+		FROM producto p
+		WHERE p.id_producto in ({$commaList})");
+
+		return $query->result_array();
 	}
+
+	public function actualizar_stock($id_producto, $cantidad){
+
+		$this->db->query("UPDATE producto SET stock = stock + {$cantidad} WHERE id_producto = {$id_producto}");
+
+	}
+
+	public function recuperar_stock_venta($id_venta){
+
+			$this->db->query(
+			"UPDATE producto dest,
+				(SELECT i.id_producto, sum(i.cantidad) AS suma 
+				FROM item_venta i 
+				WHERE i.id_venta ={$id_venta} 
+				GROUP BY i.id_producto) src
+
+				SET dest.stock = dest.stock + src.suma
+				WHERE dest.id_producto = src.id_producto"
+		);
+
+	}
+}
+
 
 	// ******************************************************************************************
 	// ► Func : recibe un array de items y devuelve una tabla con la forma [id_producto, disponibilidad]
@@ -60,23 +84,3 @@ class Producto_model extends CI_Model {
 
 	// 	return $query->result_array();
 	// }
-
-	public function get_disponibilidad($items) {
-
-		$ids_producto = array();
-
-		foreach ($items as $item) {
-			if (!in_array($item["id_producto"], $ids_producto)) {
-				$ids_producto[] = $item["id_producto"];
-			}
-		}
-
-		$commaList = implode(',', $ids_producto);
-
-		$query = $this->db->query("SELECT p.id_producto, p.nombre, p.stock as disponibles
-		FROM producto p
-		WHERE p.id_producto in ({$commaList})");
-
-		return $query->result_array();
-	}
-}

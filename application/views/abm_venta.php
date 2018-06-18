@@ -20,10 +20,10 @@
      ?>
     <?PHP if($venta["id_venta"] == 0 ): ?>
       <div id="selector_de_clientes" class="form-group">
-        <select class="form-select" name="id_cliente">
+        <select class="form-select" name="id_cuenta">
           <option disabled selected>Lista de Clientes</option>
           <?PHP foreach ($clientes as $cliente): ?>
-            <option value= <?= $cliente->id_cliente ?>> <?= $cliente->nombre ?> </option>
+            <option value= <?= $cliente->id_cuenta ?>> <?= $cliente->nombre ?> </option>
           <?PHP endforeach ?>
         </select>
       </div>
@@ -34,7 +34,7 @@
       </div>
     <?PHP else: ?>
         <?PHP if($venta["cliente"]["dado_de_baja"] == 0 ): ?>
-          <strong>Cliente: <a href="<?= base_url('clientes/abm?id_cliente=' . $venta['cliente']['id_cliente']) ?>" target="_blank" > <?= $venta['cliente']['nombre'] ?> </a></strong>
+          <strong>Cliente: <a href="<?= base_url('clientes/abm?id_cuenta=' . $venta['cliente']['id_cuenta']) ?>" target="_blank" > <?= $venta['cliente']['nombre'] ?> </a></strong>
         <?PHP else: ?>
           <strong>Cliente: <?= $venta['cliente']['nombre'] ?></strong>
         <?PHP endif; ?>

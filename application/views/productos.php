@@ -12,9 +12,7 @@
       <th>Nombre</th>
       <th>Unid.</th>
       <th>Precio</th>
-      <th>Disp.</th>
-      <th>Comp.</th>
-      <th>En_total</th>
+      <th>Stock</th>
     </tr>
   </thead>
   <tbody>
@@ -22,12 +20,10 @@
 <?PHP foreach ($productos as $row): ?>
 
 <tr>
-  <td><?= $row->producto?></td>
-  <td><?= (isset($row->stock_total))? $row->unidades : "X"?></td>
+  <td><?= $row->nombre?></td>
+  <td><?= (isset($row->stock))? $row->unidades : "X"?></td>
   <td><?= $row->precio_venta?></td>
-  <td><?= (isset($row->stock_total))? $row->disponibles : "X"?></td>
-  <td><?= (isset($row->stock_total))? $row->comprometidos : "X" ?></td>
-  <td><?= (isset($row->stock_total))? $row->stock_total : "X"?></td>
+  <td><?= (isset($row->stock))? $row->stock : "X"?></td>
 </tr> 
 <?PHP endforeach; ?>
   </tbody>

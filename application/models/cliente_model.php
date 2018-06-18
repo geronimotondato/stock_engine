@@ -80,7 +80,8 @@ class Cliente_model extends CI_Model {
 
 	public function get_elemento($id_elemento) {
 
-		$query = $this->db->query("SELECT * FROM {$this->tabla1} WHERE {$this->id_column} = " . $id_elemento);
+		$query = $this->db->query("SELECT * FROM {$this->tabla1} t1 LEFT JOIN {$this->tabla2} t2 ON
+		t1.{$this->id_column} = t2.{$this->id_column} WHERE t2.{$this->id_column} = {$id_elemento}");
 
 		if (empty($query->row())) {throw new Exception("No existe {$this->tabla1}");}
 
@@ -101,7 +102,9 @@ class Cliente_model extends CI_Model {
 		$limit = $elementos_por_pagina;
 		$offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
 
-		$query = $this->db->query("SELECT * FROM {$this->tabla1} where dado_de_baja=0 limit " . $limit . " offset " . $offset);
+		$query = $this->db->query("SELECT * FROM {$this->tabla1} t1 JOIN {$this->tabla2} t2
+		 ON t1.id_cuenta = t2.id_cuenta
+		 WHERE t2.dado_de_baja=0 LIMIT {$limit} OFFSET {$offset}");
 
 		if (empty($query)) {throw new Exception("No hay registros de {$this->tabla1}");}
 
@@ -126,8 +129,8 @@ class Cliente_model extends CI_Model {
 	}
 
 	public function cantidad_elementos() {
-		$query = $this->db->query("SELECT count(*) FROM {$this->tabla1} where dado_de_baja=0");
-		return $query->row_array()["count(*)"];
+		$query = $this->db->query("SELECT coalesce(count(*),0) as count FROM {$this->tabla1} t1 join {$this->tabla2} t2 ON t1.id_cuenta = t2.id_cuenta  WHERE t2.dado_de_baja=0");
+		return $query->row_array()["count"];
 	}
 
 	public function cantidad_paginas($elementos_por_pagina) {

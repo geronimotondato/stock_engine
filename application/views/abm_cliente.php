@@ -5,7 +5,7 @@
 
 <main class="margen">
 
-<div class="seccion"><p>Cliente<?= isset($cliente)? " {$cliente->codigo}" : "" ?></p></div>
+<div class="seccion"><p>Cliente</p></div>
 
   <form id="form_cliente">
   <fieldset <?= (isset($cliente) && $cliente->dado_de_baja)? "disabled" : "" ?> >

@@ -7,7 +7,7 @@ class Productos extends Member_Controller {
 	{
 			
 			$this->load->model('producto_model');
-			$data["productos"] = $this->producto_model->get_stock_productos();
+			$data["productos"] = $this->producto_model->get_lista_productos();
 			
 			$this->load->view("header.php", $this->session->set_flashdata('side_bar','productos'));
 			$this->load->view("productos.php", $data);
