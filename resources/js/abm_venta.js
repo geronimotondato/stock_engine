@@ -178,7 +178,7 @@ function setModal(id_item, id_producto, nombre){
         document.getElementById("modal_producto_titulo").innerHTML = item.nombre;
         document.getElementById("modal_producto_titulo").setAttribute("data-id_item", item.id_item);
         document.getElementById("modal_producto_titulo").setAttribute("data-id_producto" ,item.id_producto);
-        document.getElementById("modal_producto_titulo").setAttribute("data-nombre" ,item.nombre);
+        document.getElementById("modal_producto_titulo").setAttribute("data-nombre", item.nombre);
         document.getElementById("cantidad").setAttribute('value', item.cantidad);
         document.getElementById("cantidad").value                  = item.cantidad;
         document.getElementById("cantidad-slider").setAttribute('value', item.cantidad);
@@ -234,7 +234,7 @@ function generar_item(item){
     "<div class='tile tile-centered item' \
         data-id_item     ="+item.id_item+" \
         data-id_producto ="+item.id_producto+" \
-        data-nombre      ="+item.nombre+" >\
+        data-nombre      ="+"\""+item.nombre+"\""+" >\
       <div class='tile-content'>\
         <div class='tile-title'>"+item.nombre+"</div>\
         <div class='tile-subtitle text-gray'>Cant: "+item.cantidad+" | Desc: "+item.descuento+"</div>\

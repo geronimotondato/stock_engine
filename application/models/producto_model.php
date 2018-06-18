@@ -1,11 +1,12 @@
 <?php
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASEPATH')) {
+	exit('No direct script access allowed');
+}
 
 class Producto_model extends CI_Model {
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 	}
 
@@ -14,13 +15,12 @@ class Producto_model extends CI_Model {
 	// ► Obser: devuelve toda la lista de productos
 	// ► ToDo :
 	// ******************************************************************************
-	public function get_lista_productos()
-	{
-		$query = $this->db->query("select * from producto;");
-		if(empty($query)){
+	public function get_lista_productos() {
+		$query = $this->db->query("SELECT * FROM producto");
+		if (empty($query)) {
 			throw new Exception("No hay productos en la tabla productos");
 		}
-		return $query->result();  
+		return $query->result();
 	}
 
 	// ******************************************************************************************
@@ -28,37 +28,54 @@ class Producto_model extends CI_Model {
 	// ► Obser: devuelve toda la lista de productos y su stock
 	// ► ToDo :
 	// ******************************************************************************************
-	public function get_stock_productos()
-	{
+	public function get_stock_productos() {
 		$query = $this->db->query("SELECT * from vista_stock;");
-		if(empty($query)){
+		if (empty($query)) {
 			throw new Exception("No hay productos en la tabla productos");
 		}
-		return $query->result_object();  
+		return $query->result_object();
 	}
-
 
 	// ******************************************************************************************
 	// ► Func : recibe un array de items y devuelve una tabla con la forma [id_producto, disponibilidad]
-	// ► Obser: 
+	// ► Obser:
 	// ► ToDo :
 	// ******************************************************************************************
-	public function get_disponibilidad($items){
+	// public function get_disponibilidad($items) {
+
+	// 	$ids_producto = array();
+
+	// 	foreach ($items as $item) {
+	// 		if (!in_array($item["id_producto"], $ids_producto)) {
+	// 			$ids_producto[] = $item["id_producto"];
+	// 		}
+	// 	}
+
+	// 	$commaList = implode(',', $ids_producto);
+
+	// 	$query = $this->db->query("SELECT p.id_producto, p.nombre, p.stock - COALESCE(SUM(i.cantidad),0) as disponibles
+	// 	FROM producto p LEFT JOIN item i ON p.id_producto = i.id_producto
+	// 	WHERE p.id_producto in (" . $commaList . ")
+	// 	GROUP BY p.id_producto;");
+
+	// 	return $query->result_array();
+	// }
+
+	public function get_disponibilidad($items) {
 
 		$ids_producto = array();
 
-		foreach ($items as $item){
-			if (!in_array($item["id_producto"], $ids_producto)){
+		foreach ($items as $item) {
+			if (!in_array($item["id_producto"], $ids_producto)) {
 				$ids_producto[] = $item["id_producto"];
 			}
 		}
 
 		$commaList = implode(',', $ids_producto);
 
-		$query = $this->db->query("SELECT p.id_producto, p.nombre, p.stock - COALESCE(SUM(i.cantidad),0) as disponibles 
-		FROM producto p LEFT JOIN item i ON p.id_producto = i.id_producto 
-		WHERE p.id_producto in (" . $commaList . ") 
-		GROUP BY p.id_producto;");
+		$query = $this->db->query("SELECT p.id_producto, p.nombre, p.stock as disponibles
+		FROM producto p
+		WHERE p.id_producto in ({$commaList})");
 
 		return $query->result_array();
 	}
