@@ -11,7 +11,7 @@
   <fieldset <?= (isset($cliente) && $cliente->dado_de_baja)? "disabled" : "" ?> >
 
   <?PHP if(isset($cliente)): ?>
-    <input type="hidden" id="id_cliente"  name="id_cliente" value='<?= $cliente->id_cliente ?>' >
+    <input type="hidden" id="id_cuenta"  name="id_cuenta" value='<?= $cliente->id_cuenta ?>' >
   <?PHP endif; ?>
 
 <div class="form-group">

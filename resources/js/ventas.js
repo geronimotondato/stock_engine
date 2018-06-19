@@ -32,6 +32,7 @@ $(document).ready(function(){
 	    /*data*/ {id_venta : $(this).val()})
 
 	    .done(function(data){
+	    	alert(data);
 			var resultado = JSON.parse(data);
 			if(resultado.estado === "ok"){
 			  $(location).attr('href', _$_HOME_URL);

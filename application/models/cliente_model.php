@@ -23,7 +23,18 @@ class Cliente_model extends CI_Model {
 
 		$this->db->trans_start();
 
-		$this->db->insert($this->tabla1, $elemento);
+		$this->db->insert($this->tabla2, array(
+			'nombre' => $elemento['nombre'],
+			'saldo'  => $elemento['saldo']
+		));
+
+		$this->db->insert($this->tabla1, array(
+			'id_cuenta' => $this->db->insert_id(),
+			'direccion' => $elemento['direccion'],
+			'tel_movil' => $elemento['tel_movil'],
+			'tel_fijo'  => $elemento['tel_fijo'],
+			'email'     => $elemento['email']
+		));
 
 		$this->db->trans_complete();
 
@@ -37,8 +48,9 @@ class Cliente_model extends CI_Model {
 		$this->db->trans_start();
 
 		//trae el campo "dado_de_baja" y "saldo" del cliente que se pretende actualizar
-		$this->db->SELECT('dado_de_baja, saldo');
-		$query = $this->db->get_where($this->tabla1, array($this->id_column => $elemento[$this->id_column]));
+
+		$this->db->select('dado_de_baja, saldo');
+		$query = $this->db->get_where($this->tabla2, array($this->id_column => $elemento[$this->id_column]));
 
 		//pregunto si el cliente está dado de baja, en cuyo caso finalizo la actualizacion
 		if ($query->row()->dado_de_baja == TRUE) {
@@ -53,7 +65,18 @@ class Cliente_model extends CI_Model {
 
 		//actualizo el cliente
 		$this->db->where($this->id_column, $elemento[$this->id_column]);
-		$this->db->update($this->tabla1, $elemento);
+		$this->db->update($this->tabla2, array(
+			'nombre' => $elemento['nombre'],
+			'saldo'  => $elemento['saldo']
+		));
+
+		$this->db->where($this->id_column, $elemento[$this->id_column]);
+		$this->db->update($this->tabla1, array(
+			'direccion' => $elemento['direccion'],
+			'tel_movil' => $elemento['tel_movil'],
+			'tel_fijo'  => $elemento['tel_fijo'],
+			'email'     => $elemento['email']
+		));
 
 		$this->db->trans_complete();
 
@@ -69,7 +92,7 @@ class Cliente_model extends CI_Model {
 
 		$this->db->set('dado_de_baja', TRUE);
 		$this->db->where($this->id_column, $id_elemento);
-		$this->db->update($this->tabla1);
+		$this->db->update($this->tabla2);
 
 		$this->db->trans_complete();
 

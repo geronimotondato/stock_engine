@@ -120,7 +120,7 @@ $( document ).ready(function() {
         /*data*/ $("#form_venta").serialize())
 
         .done(function(data){
-
+            alert(data);
             var resultado = JSON.parse(data);
 
             if(resultado.estado === "ok"){

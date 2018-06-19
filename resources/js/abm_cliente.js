@@ -25,6 +25,7 @@ $(document).ready(function(){
       /*data*/ $("#form_cliente").serialize())
 
       .done(function(data){
+        alert(data);
         var resultado = JSON.parse(data);
         if(resultado.estado === "ok"){
             $(location).attr('href', _$_HOME_URL+"/clientes");
