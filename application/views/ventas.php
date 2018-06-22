@@ -7,6 +7,15 @@
 
   <div class="seccion"><p>Ventas</p></div>
 
+  <ul class="tab tab-block" style="background-color: #fff; margin-top: 20px; border: 1px solid #ccc">
+    <li class="tab-item active">
+      <a href="#">Por cobrar</a>
+    </li>
+    <li class="tab-item">
+      <a href="#">Finalizadas</a>
+    </li>
+  </ul>
+
   <?PHP if ($ventas): ?>
 
   <?PHP foreach ($ventas as $venta): ?>

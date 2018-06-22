@@ -146,7 +146,7 @@ class venta_model extends CI_Model {
 
 	}
 
-	public function finalizar_venta($id_venta) {
+	public function cobrar_venta($id_venta) {
 
 		$this->db->trans_start();
 
@@ -184,7 +184,7 @@ class venta_model extends CI_Model {
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === FALSE) {
-			throw new Exception("No se pudo finalizar la venta en la base de datos");
+			throw new Exception("No se pudo cobrar la venta en la base de datos");
 		}
 	}
 
@@ -227,19 +227,18 @@ class venta_model extends CI_Model {
 
 	}
 
-	public function get_lista_ventas_abiertas_pagina($numero_pagina, $elementos_por_pagina) {
+	public function get_lista_ventas($estado) {
 
-		$limit = $elementos_por_pagina;
-		$offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
+		// $limit = $elementos_por_pagina;
+		// $offset = ($numero_pagina * $elementos_por_pagina) - $elementos_por_pagina;
 
 		try {
 
 			$query = $this->db->query(
 				"SELECT * FROM venta v LEFT JOIN cliente c ON v.id_cuenta = c.id_cuenta
 				LEFT JOIN cuenta cu ON c.id_cuenta = cu.id_cuenta
-				WHERE v.id_estado=1
-				ORDER BY v.fecha ASC
-				LIMIT {$limit} OFFSET {$offset}"
+				WHERE v.id_estado = {$estado}
+				ORDER BY v.fecha DESC, v.ultima_modificacion DESC LIMIT 10"
 			);
 
 			$query = $query->result_array();
@@ -278,13 +277,13 @@ class venta_model extends CI_Model {
 
 	}
 
-	public function cantidad_ventas() {
-		$query = $this->db->query("SELECT count(1) as total FROM venta WHERE id_estado=1");
-		return $query->row_array()["total"];
-	}
+	// public function cantidad_ventas() {
+	// 	$query = $this->db->query("SELECT count(1) as total FROM venta WHERE id_estado=1");
+	// 	return $query->row_array()["total"];
+	// }
 
-	public function cantidad_paginas($ventas_por_pagina) {
-		return ceil($this->cantidad_ventas() / $ventas_por_pagina);
-	}
+	// public function cantidad_paginas($ventas_por_pagina) {
+	// 	return ceil($this->cantidad_ventas() / $ventas_por_pagina);
+	// }
 
 }

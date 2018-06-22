@@ -71,6 +71,18 @@
           <i class="fas fa-users"></i> Clientes
         </a>
       </li>
+
+      <!-- menu divider -->
+      <li class="divider"></li>
+
+      <!-- menu item -->
+      <li class="menu-item">
+        <a href  ="<?PHP echo base_url('proveedores') ?>"
+          class ="<?PHP if($this->session->flashdata('side_bar') =="proveedores") echo 'active' ?>" >
+          <i class="fas fa-dolly"></i> Proveedores
+        </a>
+      </li>
+
       <!-- menu divider -->
       <li class="divider"></li>
 

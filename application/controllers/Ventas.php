@@ -10,28 +10,27 @@ class Ventas extends Member_Controller {
 		$this->form_validation->set_data($_GET);
 		$this->form_validation->set_rules('pagina_actual', 'Pagina actual', 'required|trim|greater_than[0]');
 
-		$pagina_actual = ($this->form_validation->run() == FALSE) ? 1 : $this->input->get('pagina_actual', TRUE);
+		// $pagina_actual = ($this->form_validation->run() == FALSE) ? 1 : $this->input->get('pagina_actual', TRUE);
 
-		$ventas_por_pagina = 10;
+		// $ventas_por_pagina = 10;
 
-		$cantidad_paginas_totales = $this->venta_model->cantidad_paginas($ventas_por_pagina);
+		// $cantidad_paginas_totales = $this->venta_model->cantidad_paginas($ventas_por_pagina);
 
-		$data["ventas"] = $this->venta_model->get_lista_ventas_abiertas_pagina(
-			$pagina_actual,
-			$ventas_por_pagina
-		);
+		$data["ventas"] = $this->venta_model->get_lista_ventas(1);
 
-		$data["paginador"] = $this->load->view(
-			"paginador.php",
-			array(
-				"link" => "",
-				"pagina_actual" => $pagina_actual,
-				"cantidad_paginas_totales" => $cantidad_paginas_totales,
-				"rango" => calcular_rango_paginador($pagina_actual,
-					$cantidad_paginas_totales, 7),
-			),
-			TRUE
-		);
+		// $data["paginador"] = $this->load->view(
+		// 	"paginador.php",
+		// 	array(
+		// 		"link" => "",
+		// 		"pagina_actual" => $pagina_actual,
+		// 		"cantidad_paginas_totales" => $cantidad_paginas_totales,
+		// 		"rango" => calcular_rango_paginador($pagina_actual,
+		// 			$cantidad_paginas_totales, 7),
+		// 	),
+		// 	TRUE
+		// );
+
+		$data["paginador"] = "";
 
 		$this->load->view("header.php", $this->session->set_flashdata('side_bar', 'ventas'));
 		$this->load->view("ventas.php", $data);
@@ -182,7 +181,7 @@ class Ventas extends Member_Controller {
 			$this->form_validation->set_rules('id_venta', 'id_venta', 'trim|required|numeric');
 
 			if (!($this->form_validation->run())) {
-				throw new Exception("No se pudo finalizar esta venta, vuelva a intentarlo mas tarde");
+				throw new Exception("No se pudo eliminar esta venta, vuelva a intentarlo mas tarde");
 			}
 
 			$this->load->model("venta_model");
@@ -199,7 +198,7 @@ class Ventas extends Member_Controller {
 		}
 	}
 
-	public function finalizar() {
+	public function cobrar() {
 
 		try {
 
@@ -208,11 +207,11 @@ class Ventas extends Member_Controller {
 			$this->form_validation->set_rules('id_venta', 'id_venta', 'trim|required|numeric');
 
 			if (!($this->form_validation->run())) {
-				throw new Exception("No se pudo finalizar esta venta, vuelva a intentarlo mas tarde");
+				throw new Exception("No se pudo cobrar esta venta, vuelva a intentarlo mas tarde");
 			}
 
 			$this->load->model('venta_model');
-			$this->venta_model->finalizar_venta($id_venta);
+			$this->venta_model->cobrar_venta($id_venta);
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
