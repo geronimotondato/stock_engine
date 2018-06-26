@@ -5,7 +5,7 @@
 
 <main class="margen">
 
-<div class="seccion"><p>cuenta<?= isset($cuenta)? " {$cuenta->codigo}" : "" ?></p></div>
+<div class="seccion"><p>Cuenta de Capital</p></div>
 
   <form id="form_cuenta">
   <fieldset <?= (isset($cuenta) && $cuenta->dado_de_baja)? "disabled" : "" ?> >

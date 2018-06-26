@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) {
 	exit('No direct script access allowed');
 }
 
-class Cliente_model extends CI_Model {
+class Proveedor_model extends CI_Model {
 
 	var $tabla1;
 	var $tabla2;
@@ -12,7 +12,7 @@ class Cliente_model extends CI_Model {
 
 	public function __construct() {
 
-		$this->tabla1 = "cliente";
+		$this->tabla1 = "proveedor";
 		$this->tabla2 = "cuenta";
 		$this->id_column = "id_cuenta";
 
@@ -47,23 +47,23 @@ class Cliente_model extends CI_Model {
 
 		$this->db->trans_start();
 
-		//trae el campo "dado_de_baja" y "saldo" del cliente que se pretende actualizar
+		//trae el campo "dado_de_baja" y "saldo" del proveedor que se pretende actualizar
 
 		$this->db->select('dado_de_baja, saldo');
 		$query = $this->db->get_where($this->tabla2, array($this->id_column => $elemento[$this->id_column]));
 
-		//pregunto si el cliente está dado de baja, en cuyo caso finalizo la actualizacion
+		//pregunto si el proveedor está dado de baja, en cuyo caso finalizo la actualizacion
 		if ($query->row()->dado_de_baja == TRUE) {
 			$this->db->trans_complete();
 			throw new Exception("No puede actualizar un {$this->tabla1} dado de baja");
 		}
 
-		//actualizo el saldo del cliente sumando el valor "saldo" de la BD
+		//actualizo el saldo del proveedor sumando el valor "saldo" de la BD
 		//con el valor "saldo" que viene por el pedido
 		//que es el resultado de $sumar - $restar
 		$elemento["saldo"] = $elemento["saldo"] + $query->row()->saldo;
 
-		//actualizo el cliente
+		//actualizo el proveedor
 		$this->db->where($this->id_column, $elemento[$this->id_column]);
 		$this->db->update($this->tabla2, array(
 			'nombre' => $elemento['nombre'],

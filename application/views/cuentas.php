@@ -5,7 +5,7 @@
 
 <main class="margen">
 
-<div class="seccion"><p>Lista cuentas</p></div>
+<div class="seccion"><p>Cuentas de Capital</p></div>
 
 <p></p>
 <form  action=<?= base_url("cuentas/buscar_elemento") ?> method="POST">
@@ -23,7 +23,7 @@
 
   <div class="cuenta">
 
-    <div class="cuenta-nombre"><i class="fas fa-user"></i> <?= $cuenta->nombre;?>
+    <div class="cuenta-nombre"><i class="fas fa-credit-card"></i> <?= $cuenta->nombre;?>
     <button class="btn btn-link expandir_cuenta" type="button">
       <i class='fas fa-angle-right'></i>
       <i class='fas fa-angle-down'></i>
@@ -42,7 +42,6 @@
       <tbody>
          <tr><td><i>Descripción:</i></td><td><?= $cuenta->descripcion ?></td></tr>
          <tr><td><i>Saldo:</i></td><td><?= $cuenta->saldo ?></td></tr>
-         <tr><td><i>Codigo:</i></td><td><?= $cuenta->codigo ?></td></tr>
     </tbody>
      </table>
 

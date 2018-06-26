@@ -39,15 +39,7 @@
           <i class="fas fa-clipboard-list"></i> Ventas
         </a>
       </li>
-      <!-- menu divider -->
-      <!-- <li class="divider"></li> -->
-      <!-- menu item -->
-<!--       <li class="menu-item">
-        <a href  ="<?PHP // echo base_url('ventas/abm_venta') ?>"
-          class ="<?PHP // if($this->session->flashdata('side_bar') =="venta") echo 'active' ?>" >
-          <i class="fas fa-shopping-cart"></i> Venta
-        </a>
-      </li> -->
+  
       <!-- menu divider -->
       <li class="divider"></li>
 
