@@ -28,7 +28,7 @@
         </select>
       </div>
       <div id="agregar_nuevo_cliente">
-          <a class="btn btn-primary" href="<?= base_url('clientes/abm_cliente') ?>">
+          <a class="btn btn-primary" href="<?= base_url('clientes/abm') ?>">
           <i class="fas fa-users"></i> <i class="fas fa-plus"></i>
           </a>
       </div>

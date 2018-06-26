@@ -9,8 +9,8 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
+      <th>Id Producto</th>
       <th>Nombre</th>
-      <th>Unid.</th>
       <th>Precio</th>
       <th>Stock</th>
     </tr>
@@ -20,8 +20,8 @@
 <?PHP foreach ($productos as $row): ?>
 
 <tr>
+  <td><?= $row->id_producto?></td>
   <td><?= $row->nombre?></td>
-  <td><?= (isset($row->stock))? $row->unidades : "X"?></td>
   <td><?= $row->precio_venta?></td>
   <td><?= (isset($row->stock))? $row->stock : "X"?></td>
 </tr> 
