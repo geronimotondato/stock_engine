@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Almacenes extends Member_Controller {
+class Marcas extends Member_Controller {
 
 	var $nombre_plural;
 	var $nombre_singular;
@@ -13,12 +13,12 @@ class Almacenes extends Member_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model('almacen_model', 'model');
+		$this->load->model('marca_model', 'model');
 
-		$this->nombre_plural = "almacenes";
-		$this->nombre_singular = "almacen";
-		$this->vista_listado = "almacenes.php";
-		$this->vista_abm = "abm_almacen.php";
+		$this->nombre_plural = "marcas";
+		$this->nombre_singular = "marca";
+		$this->vista_listado = "marcas.php";
+		$this->vista_abm = "abm_marca.php";
 
 		try {
 			switch ($this->router->fetch_method()) {
@@ -26,60 +26,52 @@ class Almacenes extends Member_Controller {
 			case 'guardar': // <<<---------
 
 				$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
-				$this->form_validation->set_rules('direccion', 'direccion', 'trim|alpha_numeric_spaces');
-				$this->form_validation->set_rules('telefono', 'telefono', 'trim|numeric');
 
 				if (!($this->form_validation->run())) {
 					throw new Exception(validation_errors());
 				}
 
 				$this->elemento = array(
-					"nombre" => $this->input->post("nombre", TRUE),
-					"direccion" => $this->input->post("direccion", TRUE),
-					"telefono" => $this->input->post("telefono", TRUE),
+					"nombre" => $this->input->post("nombre", TRUE)
 				);
 
 				break;
 
 			case 'actualizar': // <<<---------
 
-				$this->form_validation->set_rules('id_almacen', 'id_almacen', 'trim|greater_than_equal_to[0]');
+				$this->form_validation->set_rules('id_marca', 'id_marca', 'trim|greater_than_equal_to[0]');
 				$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
-				$this->form_validation->set_rules('direccion', 'Descripción', 'trim|alpha_numeric_spaces');
-				$this->form_validation->set_rules('telefono', 'telefono', 'trim|numeric');
 
 				if (!($this->form_validation->run())) {
 					throw new Exception(validation_errors());
 				}
 
 				$this->elemento = array(
-					"id_almacen" => $this->input->post("id_almacen", TRUE),
-					"nombre" => $this->input->post("nombre", TRUE),
-					"direccion" => $this->input->post("direccion", TRUE),
-					"telefono" => $this->input->post("telefono", TRUE),
+					"id_marca" => $this->input->post("id_marca", TRUE),
+					"nombre" => $this->input->post("nombre", TRUE)
 				);
 
 				break;
 
 			case 'eliminar': // <<<---------
 
-				$this->form_validation->set_rules('id_almacen', 'id_almacen', 'trim|greater_than[0]|required');
+				$this->form_validation->set_rules('id_marca', 'id_marca', 'trim|greater_than[0]|required');
 
 				if (!($this->form_validation->run())) {
 					throw new Exception(validation_errors());
 				}
 
-				$this->id_elemento = $this->input->post("id_almacen", TRUE);
+				$this->id_elemento = $this->input->post("id_marca", TRUE);
 
 				break;
 
 			case 'abm': // <<<---------
 
 				$this->form_validation->set_data($_GET);
-				$this->form_validation->set_rules("id_almacen", "id_almacen",
+				$this->form_validation->set_rules("id_marca", "id_marca",
 					"required|trim|greater_than_equal_to[0]");
 
-				$this->id_elemento = ($this->form_validation->run()) ? $this->input->get("id_almacen", TRUE) : null;
+				$this->id_elemento = ($this->form_validation->run()) ? $this->input->get("id_marca", TRUE) : null;
 
 				break;
 			default:

@@ -18,33 +18,6 @@ USE `stock_engine`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `almacen`
---
-
-DROP TABLE IF EXISTS `almacen`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `almacen` (
-  `id_almacen` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) DEFAULT NULL,
-  `direccion` varchar(255) DEFAULT NULL,
-  `telefono` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_almacen`),
-  FULLTEXT KEY `busqueda` (`nombre`,`direccion`,`telefono`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `almacen`
---
-
-LOCK TABLES `almacen` WRITE;
-/*!40000 ALTER TABLE `almacen` DISABLE KEYS */;
-INSERT INTO `almacen` VALUES (1,'galpon 1','agustin 1492',''),(2,'galpon 2','','545454');
-/*!40000 ALTER TABLE `almacen` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `capital`
 --
 
@@ -118,7 +91,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('750npq1hohoeq76bkp8fbovm7c4uji9f','::1',1530031520,'__ci_last_regenerate|i:1530031384;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('a8nqo99i9pmo05i85ao2idti392q0hfl','::1',1529944837,'__ci_last_regenerate|i:1529944837;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('ceq38r2l4m6kf3mo44a1p9hco48p3d6t','::1',1529049611,'__ci_last_regenerate|i:1529049598;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:5:\"venta\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('e036c7p59hke5d5abk9nrj4v99se014a','::1',1529848944,'__ci_last_regenerate|i:1529848883;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('fh1sv02trcc0d6em0f67k7ccp3d1vtpf','::1',1529119621,'__ci_last_regenerate|i:1529119404;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('fqkd7a93mapqjpsegeqa4f6rtksaspm7','::1',1529641660,'__ci_last_regenerate|i:1529641383;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('ik1a223qjfbdv28g2rm6tf92pg60fclc','::1',1530130086,'__ci_last_regenerate|i:1530129941;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"almacenes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('mumie299kgq810u45ngi45t7hgs6snj3','::1',1530047309,'__ci_last_regenerate|i:1530047309;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:8:\"clientes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('sotf8a4b9nhb026g08p7lsgprj00cp2j','::1',1529928829,'__ci_last_regenerate|i:1529928828;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
+INSERT INTO `ci_sessions` VALUES ('1gms5vbvrk3c8hh398emeqj7h8dbmtgr','::1',1530202950,'__ci_last_regenerate|i:1530202943;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('750npq1hohoeq76bkp8fbovm7c4uji9f','::1',1530031520,'__ci_last_regenerate|i:1530031384;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('a8nqo99i9pmo05i85ao2idti392q0hfl','::1',1529944837,'__ci_last_regenerate|i:1529944837;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('ceq38r2l4m6kf3mo44a1p9hco48p3d6t','::1',1529049611,'__ci_last_regenerate|i:1529049598;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:5:\"venta\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('e036c7p59hke5d5abk9nrj4v99se014a','::1',1529848944,'__ci_last_regenerate|i:1529848883;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('fh1sv02trcc0d6em0f67k7ccp3d1vtpf','::1',1529119621,'__ci_last_regenerate|i:1529119404;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('fqkd7a93mapqjpsegeqa4f6rtksaspm7','::1',1529641660,'__ci_last_regenerate|i:1529641383;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('i3ebd00d8kn9hf7vfntjkvlm2djov8l9','::1',1530133776,'__ci_last_regenerate|i:1530133769;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"almacenes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('mumie299kgq810u45ngi45t7hgs6snj3','::1',1530047309,'__ci_last_regenerate|i:1530047309;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:8:\"clientes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('sotf8a4b9nhb026g08p7lsgprj00cp2j','::1',1529928829,'__ci_last_regenerate|i:1529928828;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('vgirkc0v2mor56n4st6hdhr8u1tic80s','::1',1530218720,'__ci_last_regenerate|i:1530218532;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -386,6 +359,31 @@ LOCK TABLES `item_venta` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `marca`
+--
+
+DROP TABLE IF EXISTS `marca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `marca` (
+  `id_marca` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_marca`),
+  FULLTEXT KEY `busqueda` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `marca`
+--
+
+LOCK TABLES `marca` WRITE;
+/*!40000 ALTER TABLE `marca` DISABLE KEYS */;
+INSERT INTO `marca` VALUES (3,'geronimo'),(4,'adidas');
+/*!40000 ALTER TABLE `marca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `producto`
 --
 
@@ -401,16 +399,13 @@ CREATE TABLE `producto` (
   `precio_venta` float NOT NULL DEFAULT '0',
   `stock` int(11) DEFAULT NULL,
   `alerta_minimo` int(11) NOT NULL DEFAULT '0',
-  `id_categoria` int(11) DEFAULT NULL,
-  `id_almacen` int(11) DEFAULT NULL,
+  `id_marca` int(11) DEFAULT NULL,
   `fecha_alta` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ultima_modificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_producto`),
   UNIQUE KEY `ean-13_UNIQUE` (`ean-13`),
-  KEY `id_categoria_idx` (`id_categoria`),
-  KEY `id_almacen_idx` (`id_almacen`),
-  CONSTRAINT `fk_id_almacen_producto` FOREIGN KEY (`id_almacen`) REFERENCES `almacen` (`id_almacen`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_id_categoria_producto` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_id_marca_producto_idx` (`id_marca`),
+  CONSTRAINT `fk_id_marca_producto` FOREIGN KEY (`id_marca`) REFERENCES `marca` (`id_marca`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -420,8 +415,34 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'cocacola',NULL,NULL,10,20,200,0,NULL,NULL,'2018-06-15 22:31:30','2018-06-15 22:31:30'),(2,'seven UP',NULL,NULL,10,25,200,0,NULL,NULL,'2018-06-15 22:31:30','2018-06-15 22:31:30');
+INSERT INTO `producto` VALUES (1,'cocacola',NULL,NULL,10,20,200,0,NULL,'2018-06-15 22:31:30','2018-06-15 22:31:30'),(2,'seven UP',NULL,NULL,10,25,200,0,NULL,'2018-06-15 22:31:30','2018-06-15 22:31:30');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `producto_categoria`
+--
+
+DROP TABLE IF EXISTS `producto_categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `producto_categoria` (
+  `id_producto` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
+  PRIMARY KEY (`id_producto`,`id_categoria`),
+  KEY `fk_id_categoria_producto_categoria_idx` (`id_categoria`),
+  CONSTRAINT `fk_id_categoria_producto_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_id_producto_producto_categoria` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `producto_categoria`
+--
+
+LOCK TABLES `producto_categoria` WRITE;
+/*!40000 ALTER TABLE `producto_categoria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `producto_categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -601,4 +622,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-27 18:08:37
+-- Dump completed on 2018-06-28 18:07:07

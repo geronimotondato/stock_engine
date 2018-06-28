@@ -1,5 +1,5 @@
 
-.almacen{
+.marca{
 	max-width: 100%;
 	margin: 10px auto;
 	padding: 0px; 
@@ -11,7 +11,7 @@
 	border-radius: 3px;
 }
 
-.almacen-nombre{
+.marca-nombre{
 	display: inline-block;
 	vertical-align: middle;
 	margin-left: 10px;
@@ -36,7 +36,7 @@
 }
 
 
-.datos-almacen{
+.datos-marca{
 	display: none;
 	text-align: left;
 	margin-left:20px;
@@ -44,19 +44,19 @@
 	line-height: 20px;
 	white-space: pre-wrap;
 }
-.datos-almacen tr td:nth-child(2){
+.datos-marca tr td:nth-child(2){
 	padding-left: 20px;
 }
 
 
 
-#agregar-almacen{
+#agregar-marca{
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
 }
 
-#no-hay-almacenes{
+#no-hay-marcas{
 	color: #fff;
 	margin: 0 auto;
 	margin-top: 30px;

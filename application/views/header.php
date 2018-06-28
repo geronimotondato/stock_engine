@@ -90,9 +90,9 @@
 
       <!-- menu item -->
       <li class="menu-item">
-        <a href  ="<?PHP echo base_url('almacenes') ?>"
-          class ="<?PHP if($this->session->flashdata('side_bar') =="almacenes") echo 'active' ?>" >
-          <i class="fas fa-warehouse"></i> Almacenes
+        <a href  ="<?PHP echo base_url('marcas') ?>"
+          class ="<?PHP if($this->session->flashdata('side_bar') =="marcas") echo 'active' ?>" >
+          <i class="fas fa-trademark"></i> Marcas
         </a>
       </li>
       <!-- menu divider -->

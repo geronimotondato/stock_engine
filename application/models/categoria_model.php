@@ -2,7 +2,7 @@
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class categoria_model extends CI_Model {
+class Categoria_model extends CI_Model {
 
 	var $tabla;
 	var $id_column;

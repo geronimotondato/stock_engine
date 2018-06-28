@@ -2,15 +2,15 @@
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class almacen_model extends CI_Model {
+class Marca_model extends CI_Model {
 
 	var $tabla;
 	var $id_column;
 
 	public function __construct(){
 
-		$this->tabla = "almacen";
-		$this->id_column = "id_almacen";
+		$this->tabla = "marca";
+		$this->id_column = "id_marca";
 
 		parent::__construct(); 
 	}
@@ -101,7 +101,7 @@ class almacen_model extends CI_Model {
 
 		$query = $this->db->query(
 			"SELECT * FROM {$this->tabla} WHERE
-			 MATCH(nombre, direccion, telefono) 
+			 MATCH(nombre) 
 			 AGAINST(\"" . $texto_busqueda . "*\" IN BOOLEAN MODE)" );
 
 			if(empty($query)){ throw new Exception("No se encuentra {$this->tabla}");}
