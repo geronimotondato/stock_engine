@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `stock_engine` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `stock_engine`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: stock_engine
+-- Host: localhost    Database: stock_engine
 -- ------------------------------------------------------
--- Server version	5.6.24
+-- Server version	5.7.22-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -91,7 +91,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('1gms5vbvrk3c8hh398emeqj7h8dbmtgr','::1',1530202950,'__ci_last_regenerate|i:1530202943;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('750npq1hohoeq76bkp8fbovm7c4uji9f','::1',1530031520,'__ci_last_regenerate|i:1530031384;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('a8nqo99i9pmo05i85ao2idti392q0hfl','::1',1529944837,'__ci_last_regenerate|i:1529944837;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('ceq38r2l4m6kf3mo44a1p9hco48p3d6t','::1',1529049611,'__ci_last_regenerate|i:1529049598;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:5:\"venta\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('e036c7p59hke5d5abk9nrj4v99se014a','::1',1529848944,'__ci_last_regenerate|i:1529848883;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('fh1sv02trcc0d6em0f67k7ccp3d1vtpf','::1',1529119621,'__ci_last_regenerate|i:1529119404;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('fqkd7a93mapqjpsegeqa4f6rtksaspm7','::1',1529641660,'__ci_last_regenerate|i:1529641383;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('i3ebd00d8kn9hf7vfntjkvlm2djov8l9','::1',1530133776,'__ci_last_regenerate|i:1530133769;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"almacenes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('mumie299kgq810u45ngi45t7hgs6snj3','::1',1530047309,'__ci_last_regenerate|i:1530047309;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:8:\"clientes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('sotf8a4b9nhb026g08p7lsgprj00cp2j','::1',1529928829,'__ci_last_regenerate|i:1529928828;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('vgirkc0v2mor56n4st6hdhr8u1tic80s','::1',1530218720,'__ci_last_regenerate|i:1530218532;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
+INSERT INTO `ci_sessions` VALUES ('1gms5vbvrk3c8hh398emeqj7h8dbmtgr','::1',1530202950,'__ci_last_regenerate|i:1530202943;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('1r5q94ks1eifedop6d9cvjv11fqvej95','::1',1530406129,'__ci_last_regenerate|i:1530406071;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:8:\"clientes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('750npq1hohoeq76bkp8fbovm7c4uji9f','::1',1530031520,'__ci_last_regenerate|i:1530031384;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('a8nqo99i9pmo05i85ao2idti392q0hfl','::1',1529944837,'__ci_last_regenerate|i:1529944837;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('ceq38r2l4m6kf3mo44a1p9hco48p3d6t','::1',1529049611,'__ci_last_regenerate|i:1529049598;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:5:\"venta\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('dnos93tql8t2il3mjfve2hl9faq79m0o','::1',1530476598,'__ci_last_regenerate|i:1530476595;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('e036c7p59hke5d5abk9nrj4v99se014a','::1',1529848944,'__ci_last_regenerate|i:1529848883;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('fh1sv02trcc0d6em0f67k7ccp3d1vtpf','::1',1529119621,'__ci_last_regenerate|i:1529119404;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('fqkd7a93mapqjpsegeqa4f6rtksaspm7','::1',1529641660,'__ci_last_regenerate|i:1529641383;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"ventas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('i3ebd00d8kn9hf7vfntjkvlm2djov8l9','::1',1530133776,'__ci_last_regenerate|i:1530133769;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"almacenes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('mumie299kgq810u45ngi45t7hgs6snj3','::1',1530047309,'__ci_last_regenerate|i:1530047309;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:8:\"clientes\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('sotf8a4b9nhb026g08p7lsgprj00cp2j','::1',1529928829,'__ci_last_regenerate|i:1529928828;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('ss3ughrl0ghpimj9b735rpp12vu25qeu','::1',1530501336,'__ci_last_regenerate|i:1530501171;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:5:\"venta\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('tpc8s5nk1sq1o73g2m96533vjb7fuc2s','::1',1530311260,'__ci_last_regenerate|i:1530311255;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:6:\"marcas\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}'),('vgirkc0v2mor56n4st6hdhr8u1tic80s','::1',1530218720,'__ci_last_regenerate|i:1530218532;username|s:2:\"yo\";nombre|s:2:\"yo\";apellido|s:2:\"yo\";logged_in|b:1;side_bar|s:9:\"productos\";__ci_vars|a:1:{s:8:\"side_bar\";s:3:\"new\";}');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -393,13 +393,14 @@ DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `id_producto` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) NOT NULL,
+  `descripcion` text,
   `ean-13` varchar(13) DEFAULT NULL,
-  `sku` varchar(255) DEFAULT NULL,
-  `costo` float NOT NULL DEFAULT '0',
   `precio_venta` float NOT NULL DEFAULT '0',
   `stock` int(11) DEFAULT NULL,
-  `alerta_minimo` int(11) NOT NULL DEFAULT '0',
+  `unidad` varchar(45) DEFAULT 'Unidad',
+  `minimo` int(11) NOT NULL DEFAULT '0',
   `id_marca` int(11) DEFAULT NULL,
+  `dado_de_baja` tinyint(4) NOT NULL DEFAULT '0',
   `fecha_alta` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ultima_modificacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_producto`),
@@ -415,7 +416,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'cocacola',NULL,NULL,10,20,200,0,NULL,'2018-06-15 22:31:30','2018-06-15 22:31:30'),(2,'seven UP',NULL,NULL,10,25,200,0,NULL,'2018-06-15 22:31:30','2018-06-15 22:31:30');
+INSERT INTO `producto` VALUES (1,'cocacola',NULL,NULL,20,200,'Unidad',0,NULL,0,'2018-06-15 22:31:30','2018-06-15 22:31:30'),(2,'seven UP',NULL,NULL,25,200,'Unidad',0,NULL,0,'2018-06-15 22:31:30','2018-06-15 22:31:30');
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -622,4 +623,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-28 18:07:07
+-- Dump completed on 2018-07-02  0:21:58

@@ -13,6 +13,45 @@
     
     <p></p>
 
+<!-- PANEL SELECTOR DE CLIENTES -->
+<style>
+
+</style>
+
+<div class="modal active">
+  <a href="#close" class="modal-overlay" aria-label="Close"></a>
+  <div class="modal-container">
+    <p></p>
+    <p></p>
+      <ul class="menu">
+        <div class="input-group">
+          <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="<?= (isset($texto_busqueda))? $texto_busqueda : '' ?>">
+          <button class="btn btn-primary input-group-btn"><i class="fas fa-search"></i></button>
+        </div>
+
+        <li class="menu-item">
+          <a><i class="icon icon-link"></i>Slack</a>
+        </li>
+        <li class="menu-item">
+            <a><i class="icon icon-link"></i>Slack</a>
+        </li>
+        <li class="menu-item">
+          <a><i class="icon icon-link"></i>Slack</a>
+        </li>
+      <li class="menu-item">
+        <a><i class="icon icon-link"></i>Slack</a>
+      </li>
+      </ul>
+      <p></p>
+      <p></p>
+  </div> 
+
+</div>
+
+
+
+
+
 
     <!-- SELECTOR DE CLIENTES -->
     <?PHP //Si id_venta es igual a 0 significa que se va a crear una venta nueva
