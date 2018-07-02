@@ -15,37 +15,77 @@
 
 <!-- PANEL SELECTOR DE CLIENTES -->
 <style>
-
+  #seleccionador .modal-container{
+   
+    height: 100%;
+    max-height: 90%;
+  }
+  #seleccionador .menu{
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
 </style>
 
-<div class="modal active">
-  <a href="#close" class="modal-overlay" aria-label="Close"></a>
-  <div class="modal-container">
-    <p></p>
-    <p></p>
-      <ul class="menu">
+<script>
+  $( document ).ready(function() {
+
+    $("#seleccionador .modal-overlay").click(function(){
+      $("#seleccionador .modal").removeClass("active");
+    });
+
+    $("#seleccionador #cerrar").click(function(){
+      $("#seleccionador .modal").removeClass("active");
+    });
+
+    $("#seleccionador #buscador").keyup($.debounce(250, function(event) {
+
+      event.preventDefault();
+      $.post( 
+      /*url*/ _$_HOME_URL+"/Clientes/buscar_elemento_ajax", 
+      /*data*/ $("#buscador").serialize())
+
+      .done(function(data){
+          var resultado = JSON.parse(data);
+
+          $("#seleccionador .menu").empty();
+
+          resultado.map(function(elemento){
+            $("#seleccionador .menu").append("<li class='menu-item'><a>"+elemento.nombre+"</a></li>");
+          })
+  
+      })
+
+      .fail( function(xhr, textStatus, errorThrown){
+          alert(xhr.responseText);
+      });
+
+    }));
+
+  });
+</script>
+
+<div id="seleccionador">
+  <div class="modal active">
+    <a href="#close" class="modal-overlay" aria-label="Close"></a>
+    <div class="modal-container">
+      <div class="modal-header">
+        <a id="cerrar" href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+        <div class="modal-title h5">Seleccionar</div>
+        <p></p>
         <div class="input-group">
-          <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="<?= (isset($texto_busqueda))? $texto_busqueda : '' ?>">
-          <button class="btn btn-primary input-group-btn"><i class="fas fa-search"></i></button>
+          <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="" autocomplete="off">
+          <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-search"></i></button>
         </div>
-
-        <li class="menu-item">
-          <a><i class="icon icon-link"></i>Slack</a>
-        </li>
-        <li class="menu-item">
-            <a><i class="icon icon-link"></i>Slack</a>
-        </li>
-        <li class="menu-item">
-          <a><i class="icon icon-link"></i>Slack</a>
-        </li>
-      <li class="menu-item">
-        <a><i class="icon icon-link"></i>Slack</a>
-      </li>
-      </ul>
-      <p></p>
-      <p></p>
-  </div> 
-
+      </div>
+    <div class="modal-body">
+      <div class="content">
+        <ul class="menu">
+        </ul>
+      </div>
+     </div>
+    </div> 
+  </div>
+  <input type="hidden" name="id_cuenta">
 </div>
 
 

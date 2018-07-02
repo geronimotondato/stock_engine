@@ -255,4 +255,27 @@ class Clientes extends Member_Controller {
 
 	}
 
+	public function buscar_elemento_ajax() {
+
+		
+		$this->form_validation->set_rules('texto_busqueda', 'Busqueda', 'alpha_numeric_spaces|required');
+
+		if (!($this->form_validation->run())) {
+			$texto_busqueda = "";
+		}else{
+			$texto_busqueda = $_POST["texto_busqueda"];
+		}
+
+		try{
+			$resultado = $this->model->buscar_elemento($texto_busqueda);
+		}catch (Exception $e) {
+			$resultado = [];
+		}
+
+		$resultado = json_encode($resultado);
+		
+		echo $resultado;
+
+	}
+
 }
