@@ -16,14 +16,38 @@
 <!-- PANEL SELECTOR DE CLIENTES -->
 <style>
   #seleccionador .modal-container{
-   
     height: 100%;
     max-height: 90%;
   }
+
   #seleccionador .menu{
     box-shadow: none !important;
     padding: 0 !important;
   }
+
+  #seleccionador .menu-item {
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+  #seleccionador .menu-item a div{
+     display: inline-block;
+     vertical-align: middle;
+  }
+
+  #seleccionador .menu-item a div:nth-child(1){
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      max-width: 75%;
+  }
+
+  #seleccionador .menu-item a div:nth-child(2){
+      width: 25%;
+      text-align: right;
+  }
+
 </style>
 
 <script>
@@ -36,6 +60,8 @@
     $("#seleccionador #cerrar").click(function(){
       $("#seleccionador .modal").removeClass("active");
     });
+
+
 
     $("#seleccionador #buscador").keyup($.debounce(250, function(event) {
 
@@ -50,8 +76,16 @@
           $("#seleccionador .menu").empty();
 
           resultado.map(function(elemento){
-            $("#seleccionador .menu").append("<li class='menu-item'><a>"+elemento.nombre+"</a></li>");
-          })
+
+            item = $.parseHTML("<li class='menu-item' data-id_cuenta="+elemento.id_cuenta+"><a><div>"+elemento.nombre+"</div><div>$"+elemento.saldo+"</div></a></li>");
+
+            $(item).click(function(){
+              $("#seleccionador [name=id_cuenta]").attr("value", $(this).attr("data-id_cuenta"));
+               $("#seleccionador .modal").removeClass("active");
+            });
+
+            $("#seleccionador .menu").append(item);
+          });
   
       })
 
