@@ -10,3 +10,45 @@
 	background-color: #fff;
 	border: .05rem solid #caced7;
 }
+
+  #seleccionador input {
+    display: inline-block;
+    width: calc(100% - 60px);
+  }
+
+  #agregar_nuevo_cliente{
+    display: inline;
+    float: right;
+  }
+  #seleccionador .modal-container{
+    height: 100%;
+    max-height: 90%;
+  }
+
+  #seleccionador .menu{
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  #seleccionador .menu-item {
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+
+  #seleccionador .menu-item a div{
+     display: inline-block;
+     vertical-align: middle;
+  }
+
+  #seleccionador .menu-item a div:nth-child(1){
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      max-width: 75%;
+  }
+
+  #seleccionador .menu-item a div:nth-child(2){
+      width: 25%;
+      text-align: right;
+  }

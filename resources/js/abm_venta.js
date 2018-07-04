@@ -139,6 +139,64 @@ $( document ).ready(function() {
             alert(xhr.responseText);
         });
     });
+
+
+  /*SELECTOR DE CLIENTES */
+    $("#seleccionador").each(function(index,object){
+
+      $(".modal-overlay", object).click(function(){
+        $(".modal", object).removeClass("active");
+      });
+
+      $("#s-cerrar", object).click(function(){
+        $(".modal",object).removeClass("active");
+      });
+
+      $("input", object).click(function(){
+        $(".modal", object).addClass("active");
+        $("#s-buscador", object).focus();
+      });
+
+      $("#s-buscador",object).keyup($.debounce(250, function(event) {
+
+        event.preventDefault();
+        $.post( 
+        /*url*/ _$_HOME_URL+"/Clientes/buscar_elemento_ajax", 
+        /*data*/ $("#s-buscador").serialize())
+
+        .done(function(data){
+            var resultado = JSON.parse(data);
+
+            $(".menu",object).empty();
+
+            resultado.map(function(elemento){
+
+              item = $.parseHTML("<li class='menu-item' data-s-id="+elemento.id_cuenta+"><a><div>"+elemento.nombre+" </div><div>$"+elemento.saldo+"</div></a></li>");
+
+              $(item).click(function(){
+                $("#s-id",object).attr("value", $(this).attr("data-s-id"));
+                $("#s-nombre",object).attr("value", $("a", this).text());
+                $("#s-buscador",object).val("");
+                $(".menu",object).empty();
+                $(".modal",object).removeClass("active");
+              });
+
+              $(".menu", object).append(item);
+            });
+      
+        })
+
+        .fail( function(xhr, textStatus, errorThrown){
+            alert(xhr.responseText);
+        });
+
+      }));
+
+
+    });
+    /* FIN SELECTOR */
+
+
 });
 
 

@@ -14,106 +14,6 @@
     <p></p>
 
 <!-- PANEL SELECTOR DE CLIENTES -->
-<style>
-
-  #seleccionador input {
-    display: inline-block;
-    width: calc(100% - 60px);
-  }
-
-  #agregar_nuevo_cliente{
-    display: inline;
-    float: right;
-  }
-  #seleccionador .modal-container{
-    height: 100%;
-    max-height: 90%;
-  }
-
-  #seleccionador .menu{
-    box-shadow: none !important;
-    padding: 0 !important;
-  }
-
-  #seleccionador .menu-item {
-    border: 1px solid #ccc;
-    cursor: pointer;
-  }
-
-  #seleccionador .menu-item a div{
-     display: inline-block;
-     vertical-align: middle;
-  }
-
-  #seleccionador .menu-item a div:nth-child(1){
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 100%;
-      max-width: 75%;
-  }
-
-  #seleccionador .menu-item a div:nth-child(2){
-      width: 25%;
-      text-align: right;
-  }
-
-</style>
-
-<script>
-  $( document ).ready(function() {
-
-    $("#seleccionador .modal-overlay").click(function(){
-      $("#seleccionador .modal").removeClass("active");
-    });
-
-    $("#seleccionador #cerrar").click(function(){
-      $("#seleccionador .modal").removeClass("active");
-    });
-
-    $("#seleccionador input").click(function(){
-      $("#seleccionador .modal").addClass("active");
-      $("#seleccionador #buscador").focus();
-    });
-
-    $("#seleccionador #buscador").keyup($.debounce(250, function(event) {
-
-      event.preventDefault();
-      $.post( 
-      /*url*/ _$_HOME_URL+"/Clientes/buscar_elemento_ajax", 
-      /*data*/ $("#buscador").serialize())
-
-      .done(function(data){
-          var resultado = JSON.parse(data);
-
-          $("#seleccionador .menu").empty();
-
-          resultado.map(function(elemento){
-
-            item = $.parseHTML("<li class='menu-item' data-id_cuenta="+elemento.id_cuenta+"><a><div>"+elemento.nombre+"</div><div>$"+elemento.saldo+"</div></a></li>");
-
-            $(item).click(function(){
-              $("#seleccionador [name=id_cuenta]").attr("value", $(this).attr("data-id_cuenta"));
-              $("#seleccionador #cliente_nombre").attr("value", $("div:first-of-type", this).text());
-              $("#seleccionador #buscador").val("");
-              $("#seleccionador .menu").empty();
-              $("#seleccionador .modal").removeClass("active");
-            });
-
-            $("#seleccionador .menu").append(item);
-          });
-  
-      })
-
-      .fail( function(xhr, textStatus, errorThrown){
-          alert(xhr.responseText);
-      });
-
-    }));
-
-  });
-</script>
-
 
     <!-- SELECTOR DE CLIENTES -->
     <?PHP //Si id_venta es igual a 0 significa que se va a crear una venta nueva
@@ -122,16 +22,16 @@
     <?PHP if($venta["id_venta"] == 0 ): ?>
 
     <!-- INICIO SELECCIONADOR -->
-    <div id="seleccionador" class="form-group">
+    <div id="seleccionador">
       <div class="modal">
         <a href="#close" class="modal-overlay" aria-label="Close"></a>
         <div class="modal-container">
           <div class="modal-header">
-            <a id="cerrar" href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+            <a id="s-cerrar" href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
             <div class="modal-title h5">Seleccionar Cliente</div>
             <p></p>
             <div class="input-group">
-              <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="" autocomplete="off">
+              <input id="s-buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="" autocomplete="off">
               <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-search"></i></button>
             </div>
           </div>
@@ -143,8 +43,8 @@
          </div>
         </div> 
       </div>
-      <input type="hidden" name="id_cuenta">
-      <input id="cliente_nombre" class="form-input" type="text" readonly placeholder="Seleccionar cliente">
+      <input id="s-id" type="hidden" name="id_cuenta">
+      <input id="s-nombre" class="form-input" type="text" readonly placeholder="Seleccionar cliente">
       <div id="agregar_nuevo_cliente">
         <a class="btn btn-primary" href="<?= base_url('clientes/abm') ?>">
         <i class="fas fa-users"></i> <i class="fas fa-plus"></i>
@@ -170,7 +70,7 @@
 
     <p></p>
     <!-- SELECTOR DE FECHA DE ENTREGA -->
-    <input id="fecha" class="form-input" type="date" name="fecha" value=>
+    <input id="fecha" class="form-input" type="date" name="fecha" value="">
     <!-- FIN -->
     <p></p>
 
