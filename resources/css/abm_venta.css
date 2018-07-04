@@ -10,13 +10,3 @@
 	background-color: #fff;
 	border: .05rem solid #caced7;
 }
-
-#selector_de_clientes{
-	display: inline-block;
-	width: calc(100% - 60px);
-}
-
-#agregar_nuevo_cliente{
-	display: inline;
-	float: right;
-}

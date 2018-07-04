@@ -15,6 +15,16 @@
 
 <!-- PANEL SELECTOR DE CLIENTES -->
 <style>
+
+  #seleccionador input {
+    display: inline-block;
+    width: calc(100% - 60px);
+  }
+
+  #agregar_nuevo_cliente{
+    display: inline;
+    float: right;
+  }
   #seleccionador .modal-container{
     height: 100%;
     max-height: 90%;
@@ -61,7 +71,10 @@
       $("#seleccionador .modal").removeClass("active");
     });
 
-
+    $("#seleccionador input").click(function(){
+      $("#seleccionador .modal").addClass("active");
+      $("#seleccionador #buscador").focus();
+    });
 
     $("#seleccionador #buscador").keyup($.debounce(250, function(event) {
 
@@ -81,7 +94,10 @@
 
             $(item).click(function(){
               $("#seleccionador [name=id_cuenta]").attr("value", $(this).attr("data-id_cuenta"));
-               $("#seleccionador .modal").removeClass("active");
+              $("#seleccionador #cliente_nombre").attr("value", $("div:first-of-type", this).text());
+              $("#seleccionador #buscador").val("");
+              $("#seleccionador .menu").empty();
+              $("#seleccionador .modal").removeClass("active");
             });
 
             $("#seleccionador .menu").append(item);
@@ -98,59 +114,56 @@
   });
 </script>
 
-<div id="seleccionador">
-  <div class="modal active">
-    <a href="#close" class="modal-overlay" aria-label="Close"></a>
-    <div class="modal-container">
-      <div class="modal-header">
-        <a id="cerrar" href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
-        <div class="modal-title h5">Seleccionar</div>
-        <p></p>
-        <div class="input-group">
-          <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="" autocomplete="off">
-          <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-search"></i></button>
-        </div>
-      </div>
-    <div class="modal-body">
-      <div class="content">
-        <ul class="menu">
-        </ul>
-      </div>
-     </div>
-    </div> 
-  </div>
-  <input type="hidden" name="id_cuenta">
-</div>
-
-
-
-
-
 
     <!-- SELECTOR DE CLIENTES -->
     <?PHP //Si id_venta es igual a 0 significa que se va a crear una venta nueva
           //Caso contrario, se trata de una actualizacion de una venta preexistente
      ?>
     <?PHP if($venta["id_venta"] == 0 ): ?>
-      <div id="selector_de_clientes" class="form-group">
-        <select class="form-select" name="id_cuenta">
-          <option disabled selected>Lista de Clientes</option>
-          <?PHP foreach ($clientes as $cliente): ?>
-            <option value= <?= $cliente->id_cuenta ?>> <?= $cliente->nombre ?> </option>
-          <?PHP endforeach ?>
-        </select>
+
+    <!-- INICIO SELECCIONADOR -->
+    <div id="seleccionador" class="form-group">
+      <div class="modal">
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+          <div class="modal-header">
+            <a id="cerrar" href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+            <div class="modal-title h5">Seleccionar Cliente</div>
+            <p></p>
+            <div class="input-group">
+              <input id="buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="" autocomplete="off">
+              <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        <div class="modal-body">
+          <div class="content">
+            <ul class="menu">
+            </ul>
+          </div>
+         </div>
+        </div> 
       </div>
+      <input type="hidden" name="id_cuenta">
+      <input id="cliente_nombre" class="form-input" type="text" readonly placeholder="Seleccionar cliente">
       <div id="agregar_nuevo_cliente">
-          <a class="btn btn-primary" href="<?= base_url('clientes/abm') ?>">
-          <i class="fas fa-users"></i> <i class="fas fa-plus"></i>
-          </a>
+        <a class="btn btn-primary" href="<?= base_url('clientes/abm') ?>">
+        <i class="fas fa-users"></i> <i class="fas fa-plus"></i>
+        </a>
       </div>
+    </div><!-- FIN -->
+
     <?PHP else: ?>
+
         <?PHP if($venta["cliente"]["dado_de_baja"] == 0 ): ?>
+
           <strong>Cliente: <a href="<?= base_url('clientes/abm?id_cuenta=' . $venta['cliente']['id_cuenta']) ?>" target="_blank" > <?= $venta['cliente']['nombre'] ?> </a></strong>
+
         <?PHP else: ?>
+
           <strong>Cliente: <?= $venta['cliente']['nombre'] ?></strong>
+
         <?PHP endif; ?>
+        
     <?PHP endif; ?>
     <!-- FIN -->
  
