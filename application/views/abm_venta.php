@@ -25,8 +25,16 @@
 
     <?PHP if($venta["id_venta"] == 0 ): ?>
 
+    <input id="id_cliente" type="hidden" name="id_cuenta">
+    <input id="cliente_nombre" class="form-input" type="text" readonly placeholder="Seleccionar cliente">
+    <div id="agregar_nuevo_cliente">
+      <a class="btn btn-primary" href="<?= base_url('clientes/abm') ?>">
+      <i class="fas fa-users"></i> <i class="fas fa-plus"></i>
+      </a>
+    </div>
+
       <!-- INICIO SELECCIONADOR -->
-      <div id="seleccionador">
+      <div id="seleccionador1" class="seleccionador">
         <div class="modal">
           <a href="#close" class="modal-overlay" aria-label="Close"></a>
           <div class="modal-container">
@@ -46,13 +54,6 @@
             </div>
            </div>
           </div> 
-        </div>
-        <input id="s-id" type="hidden" name="id_cuenta">
-        <input id="s-nombre" class="form-input" type="text" readonly placeholder="Seleccionar cliente">
-        <div id="agregar_nuevo_cliente">
-          <a class="btn btn-primary" href="<?= base_url('clientes/abm') ?>">
-          <i class="fas fa-users"></i> <i class="fas fa-plus"></i>
-          </a>
         </div>
       </div><!-- FIN -->
 
@@ -78,17 +79,31 @@
 
     <p></p><!-- ESPACIO -->
 
-    <!-- SELECTOR DE PRODUCTOS -->
-    <div id="selector_de_productos" class="form-group">
-      <select class="form-select">
-        <option selected disabled="disabled">Productos</option>
 
-        <?PHP foreach ($productos as $producto): ?>
-        <option data-id_producto = <?= $producto->id_producto ?> > <?= $producto->nombre ?></option>
-        <?PHP endforeach; ?>
+    <!-- INICIO SELECCIONADOR -->
+    <div id="seleccionador2" class="seleccionador">
+      <div class="modal">
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+          <div class="modal-header">
+            <a id="s-cerrar" href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+            <div class="modal-title h5">Seleccionar Producto</div>
+            <p></p>
+            <div class="input-group">
+              <input id="s-buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="" autocomplete="off">
+              <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        <div class="modal-body">
+          <div class="content">
+            <ul class="menu">
+            </ul>
+          </div>
+         </div>
+        </div> 
+      </div>
+    </div><!-- FIN -->
 
-      </select>
-    </div> <!-- FIN -->
 
     <p></p><!-- ESPACIO -->
 
@@ -122,7 +137,9 @@
     <!-- PANEL DE PRODUCTOS -->
     <div id="panel_productos" class="panel">
       <div class="panel-header">
-        <div class="panel-title">Productos seleccionados</div>
+      <button id="boton_seleccionar_producto" type="button" class="btn">Seleccionar Producto</button>
+        <div class="divider"></div>
+        <!-- <div class="panel-title">Productos seleccionados</div> -->
       </div>
       <div class="panel-nav">
       </div>
