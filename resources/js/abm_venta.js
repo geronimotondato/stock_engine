@@ -126,6 +126,8 @@ $( document ).ready(function() {
         }
     }
 
+
+    //CIERRA EL MODAL DE PRODUCTOS
     function cerrar_modal() {
       $("#modal_producto").removeClass("active");
     }

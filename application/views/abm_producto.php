@@ -16,7 +16,7 @@
 
 <p></p>
 <div class="form-group">
-  <!-- <label class="form-label" for="nombre">Nombre</label> -->
+  <label class="form-label" for="nombre">Nombre</label>
   <input class="form-input" type="text" id="nombre" placeholder="Nombre" name="nombre" value='<?= isset($producto)? $producto->nombre : "" ?>' >
 </div>
 
@@ -24,8 +24,9 @@
 
 
 <div class="form-group">
-<input id="id_marca" type="hidden" name="id_cuenta">
-<input id="marca_nombre" class="form-input" type="text" readonly placeholder="Seleccionar marca">
+<label class="form-label" for="marca_nombre">Marca</label>
+<input id="id_marca" type="hidden" name="id_marca">
+<input id="marca_nombre" class="form-input" type="text" readonly placeholder="Marca">
 <div id="agregar_nuevo_marca">
   <a class="btn btn-primary" href="<?= base_url('marcas/abm') ?>">
   <i class="fas fa-trademark"></i> <i class="fas fa-plus"></i>
@@ -58,13 +59,55 @@
   </div><!-- FIN -->
 
 
+  <div class="form-group">
+  <label class="form-label" for="categoria_nombre">Categorías</label>
+  <input id="id_categoria" type="hidden" name="id_categoria">
+  <input id="categoria_nombre" class="form-input" type="text" readonly placeholder="Categoría">
+  <div id="agregar_nuevo_categoria">
+    <a class="btn btn-primary" href="<?= base_url('categorias/abm') ?>">
+    <i class="fas fa-tag"></i> <i class="fas fa-plus"></i>
+    </a>
+  </div>
+  </div>
+
+<div id="categorias-seleccionadas" class="container contenedor-decorado">
+
+  <p>Categorías Seleccionadas:</p>
+
+</div>
+
+    <!-- INICIO SELECCIONADOR -->
+    <div id="seleccionador2" class="seleccionador">
+      <div class="modal">
+        <a href="#close" class="modal-overlay" aria-label="Close"></a>
+        <div class="modal-container">
+          <div class="modal-header">
+            <a id="s-cerrar" href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+            <div class="modal-title h5">Seleccionar categoría</div>
+            <p></p>
+            <div class="input-group">
+              <input id="s-buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="" autocomplete="off">
+              <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        <div class="modal-body">
+          <div class="content">
+            <ul class="menu">
+            </ul>
+          </div>
+         </div>
+        </div> 
+      </div>
+    </div><!-- FIN -->
+
+
 
 
 
 
 <!-- form input control -->
 <div class="form-group">
-  <!-- <label class="form-label" for="descripcion">Descripción</label> -->
+  <label class="form-label" for="descripcion">Descripción</label>
   <textarea class="form-input" id="descripcion" placeholder="Descripción" rows="3" value='<?= isset($producto)? $producto->descripcion : ""?>'></textarea>
 
 
@@ -72,19 +115,19 @@
 
 <!-- form input control -->
 <div class="form-group">
-  <!-- <label class="form-label" for="ean-13">Código de Barras</label> -->
+  <label class="form-label" for="ean-13">Código de Barras</label>
   <input class="form-input" type="number" id="ean-13" placeholder="Código de Barras" name="ean-13" value='<?= isset($producto)? $producto->ean-13 : ""?>' >
 </div>
 
 <!-- form input control -->
 <div class="form-group">
-  <!-- <label class="form-label" for="precio_venta">Precio</label> -->
-  <input class="form-input" type="number" id="precio_venta" placeholder="Precio" name="precio_venta" value='<?= isset($producto)? $producto->precio_venta : "" ?>'>
+  <label class="form-label" for="precio_venta">Precio $</label>
+  <input class="form-input" type="number" id="precio_venta" placeholder="Precio $" name="precio_venta" value='<?= isset($producto)? $producto->precio_venta : "" ?>'>
 </div>
 
 <div id="unidades" class="form-group">
 
-  <!-- <label class="form-label" for="unidades">Unidades</label> -->
+  <label class="form-label" for="unidades">Unidades</label>
   <select class="form-select" name="unidad">
     <option disabled selected>Unidades</option>
  
@@ -114,10 +157,12 @@
 
 <!-- form input control -->
 <div class="form-group">
-  <!-- <label class="form-label" for="minimo">Mínimo</label> -->
+  <label class="form-label" for="minimo">Mínimo</label>
   <input class="form-input" type="number" id="minimo" placeholder="Mínimo" name="minimo" value='<?= isset($producto)? $producto->minimo : "" ?>'>
 </div>
 
+
+<label class="form-label" for="contenedor-stock">Stock</label>
 <!-- form input control -->
 <div id="contenedor-stock" class="container contenedor-decorado">
 

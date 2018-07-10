@@ -76,7 +76,9 @@ class Producto_model extends CI_Model {
 			if(empty($query->row())) throw new Exception("No existe {$this->tabla}");
 			return $query->row();
 
-		}catch (Throwable  | Exception $e){
+		}catch (Throwable $t){
+			throw new Exception($t->getMessage());
+		}catch (Exception $e){
 			throw new Exception($e->getMessage());
 		}
 	}

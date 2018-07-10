@@ -14,6 +14,16 @@
   width: calc(100% - 60px);
 }
 
+#agregar_nuevo_categoria{
+  display: inline;
+  float: right;
+}
+
+#categoria_nombre {
+  display: inline-block;
+  width: calc(100% - 60px);
+  text-align: left;
+}
 
 .seleccionador .modal-container{
   height: 100%;
