@@ -69,11 +69,16 @@ class Producto_model extends CI_Model {
 
 	public function get_elemento($id_elemento){
 
-		$query = $this->db->query("SELECT * FROM {$this->tabla} WHERE {$this->id_column} = " . $id_elemento);
+		$query=$this->db->query("SELECT * FROM {$this->tabla} WHERE {$this->id_column}={$id_elemento}");
 
-		if(empty($query->row())){ throw new Exception("No existe {$this->tabla}"); }
+		try{
 
-		return $query->row();
+			if(empty($query->row())) throw new Exception("No existe {$this->tabla}");
+			return $query->row();
+
+		}catch (Throwable  | Exception $e){
+			throw new Exception($e->getMessage());
+		}
 	}
 
 	public function get_lista_elementos_completa(){

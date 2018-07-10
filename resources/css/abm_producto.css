@@ -1,22 +1,15 @@
-.tile{
-	background-color: #5755d91f;
-	padding: 5px;
-	margin-bottom: 15px;
-	border-radius: 3px;
-	border: 1px solid #5755d9;
+#contenedor-stock > div:first-child,
+#contenedor-stock > div:nth-child(2){
+	display: inline-block; 
+	vertical-align: middle;
 }
 
-#panel_productos {
-	background-color: #fff;
-	border: .05rem solid #caced7;
-}
-
-#agregar_nuevo_cliente{
+#agregar_nuevo_marca{
   display: inline;
   float: right;
 }
 
-#cliente_nombre {
+#marca_nombre {
   display: inline-block;
   width: calc(100% - 60px);
 }

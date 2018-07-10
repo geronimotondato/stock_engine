@@ -20,51 +20,36 @@
 
   <?PHP foreach ($ventas as $venta): ?>
 
-  <div class="container venta">
-    <div class="columns">
+  <div class="venta">
 
-      <div class="cabecera-venta col-10">
-        <table >
-          <thead>
-            <tr>
-              <th>→ <?=$venta["nombre"];?></th>
-            </tr>
-            <tr>
-            <?PHP $aaaa_mm_dd = explode("-", $venta["fecha"]);?>
-              <th>→ <?=$aaaa_mm_dd[2] . '/' . $aaaa_mm_dd[1] . '/' . $aaaa_mm_dd[0]?></th>
-            </tr>
-            <tr>
-              <th>→ <?=$venta["direccion"];?></th>
-            </tr>
-          </thead>
-        </table>
-        </div>
+      <div class="cabecera-venta">
 
-      <div class="acciones  col-2">
-        <table>
-          <tbody>
-            <tr><td>
-              <button class="btn btn-link expandir_venta" type="button">
-              <i class='far fa-eye'></i><i class='far fa-eye-slash'></i>
-              </button>
-            </td></tr>
-            <tr><td>
-            <button class='btn btn-link'>
-              <a href="ventas/abm_venta?id_venta=<?PHP echo $venta['id_venta']; ?>">
-              <i class='fa  fa-edit'></i></a>
-            </button>
-            </td></tr>
-            <tr><td>
-              <button class="btn btn-link finalizar_venta" type="button" value=<?PHP echo $venta['id_venta']; ?>>
-              <i class='fas fa-dollar-sign'></i>
-              </button>
-            </td></tr>
-          </tbody>
-        </table>
+          <div>→ <?=$venta["nombre"];?></div>
+
+          <?PHP $aaaa_mm_dd = explode("-", $venta["fecha"]);?>
+          <div>→ <?=$aaaa_mm_dd[2] . '/' . $aaaa_mm_dd[1] . '/' . $aaaa_mm_dd[0]?></div>
+
+          <div>→ <?=$venta["direccion"];?></div>
       </div>
 
-      <div class="column col-12">
+      <div class="acciones">
+  
+        <div class="expandir_venta">
+        <i class='far fa-eye'></i><i class='far fa-eye-slash'></i>
+        </div>
+       
+        <div class=''>
+          <a href="ventas/abm_venta?id_venta=<?PHP echo $venta['id_venta']; ?>">
+          <i class='fa  fa-edit'></i></a>
+        </div>
 
+        <div class="finalizar_venta" value=<?PHP echo $venta['id_venta']; ?>>
+          <i class='fas fa-dollar-sign'></i>
+        </div>
+
+      </div>
+
+      <div class="">
         <table class="table tabla-productos">
           <thead>
             <tr>
@@ -95,11 +80,10 @@
             </tr>
           </tbody>
         </table>
-
       </div>
 
-    </div>
   </div>
+
 
   <?PHP endforeach?>
 

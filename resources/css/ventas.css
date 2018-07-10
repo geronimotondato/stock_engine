@@ -1,50 +1,60 @@
 .venta{
 	max-width: 100%;
 	margin: 20px auto;
-	padding: 8px; 
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	background-color: #fff;
 }
 
-.cabecera-venta table{
+.cabecera-venta{
+	display: inline-block;
+}
+
+.cabecera-venta{
 	color:#5755d9;
 	text-align: left;
-	margin-bottom: 20px;
 	margin-left:10px;
-	line-height: 36px;
-	/*background-color: #5755d915;*/
+	line-height: 27px;
+	
 }
 
-.acciones table{
-	width:100%;
+.acciones{
+	display: inline-block;
+	width: 60px;
+	vertical-align: top;
+	position: relative;
+	float: right;
+	border-left: 1px dashed #ccc;
+
 }
 
-.acciones table tbody tr td {
-		text-align: center;
+.acciones div{
+	height: 27px;
+	text-align: center;
+	vertical-align: middle;
+	
+}
+.acciones div:last-child{
+	border-bottom: none;
 }
 
-.acciones table tbody tr td button{
-	font-size: 20px;
-	width:36px;
-}
-
-.table{
+.tabla-productos{
 	text-align: left;
-	border: 1px solid #5755d9;
+	border-top: 1px solid #5755d9;
 	border-radius: 3px;
 	display: none;
 	width: 100%;
 	background-color: #fff;
 	line-height: 18px;
 	padding-top:10px;
+
 }
 
-.table tr{
+.tabla-productos tr{
 	border-bottom: 1px dashed #eee;
 }
 
-.table td, .table th{
+.tabla-productos td, .tabla-productos th{
 	border:0;
 	padding:3px 10px;
 }

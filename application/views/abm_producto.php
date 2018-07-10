@@ -14,63 +14,79 @@
     <input type="hidden" id="id_producto"  name="id_producto" value='<?= $producto->id_producto ?>' >
   <?PHP endif; ?>
 
+<p></p>
 <div class="form-group">
-  <label class="form-label" for="nombre">Nombre</label>
+  <!-- <label class="form-label" for="nombre">Nombre</label> -->
   <input class="form-input" type="text" id="nombre" placeholder="Nombre" name="nombre" value='<?= isset($producto)? $producto->nombre : "" ?>' >
 </div>
 
+
+
+
+<div class="form-group">
+<input id="id_marca" type="hidden" name="id_cuenta">
+<input id="marca_nombre" class="form-input" type="text" readonly placeholder="Seleccionar marca">
+<div id="agregar_nuevo_marca">
+  <a class="btn btn-primary" href="<?= base_url('marcas/abm') ?>">
+  <i class="fas fa-trademark"></i> <i class="fas fa-plus"></i>
+  </a>
+</div>
+</div>
+
+  <!-- INICIO SELECCIONADOR -->
+  <div id="seleccionador1" class="seleccionador">
+    <div class="modal">
+      <a href="#close" class="modal-overlay" aria-label="Close"></a>
+      <div class="modal-container">
+        <div class="modal-header">
+          <a id="s-cerrar" href="#close" class="btn btn-clear float-right" aria-label="Close"></a>
+          <div class="modal-title h5">Seleccionar marca</div>
+          <p></p>
+          <div class="input-group">
+            <input id="s-buscador" type="text" class="form-input" placeholder="buscar" name="texto_busqueda" value="" autocomplete="off">
+            <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      <div class="modal-body">
+        <div class="content">
+          <ul class="menu">
+          </ul>
+        </div>
+       </div>
+      </div> 
+    </div>
+  </div><!-- FIN -->
+
+
+
+
+
+
 <!-- form input control -->
 <div class="form-group">
-  <label class="form-label" for="descripcion">Descripción</label>
-  <input class="form-input" type="text" id="descripcion" placeholder="Descripción" name="descripcion" value='<?= isset($producto)? $producto->descripcion : ""?>'>
+  <!-- <label class="form-label" for="descripcion">Descripción</label> -->
+  <textarea class="form-input" id="descripcion" placeholder="Descripción" rows="3" value='<?= isset($producto)? $producto->descripcion : ""?>'></textarea>
+
+
 </div>
 
 <!-- form input control -->
 <div class="form-group">
-  <label class="form-label" for="ean-13">Código de Barras</label>
+  <!-- <label class="form-label" for="ean-13">Código de Barras</label> -->
   <input class="form-input" type="number" id="ean-13" placeholder="Código de Barras" name="ean-13" value='<?= isset($producto)? $producto->ean-13 : ""?>' >
 </div>
 
 <!-- form input control -->
 <div class="form-group">
-  <label class="form-label" for="precio_venta">Precio</label>
+  <!-- <label class="form-label" for="precio_venta">Precio</label> -->
   <input class="form-input" type="number" id="precio_venta" placeholder="Precio" name="precio_venta" value='<?= isset($producto)? $producto->precio_venta : "" ?>'>
 </div>
 
-<!-- form input control -->
-
-
-<div class="container">
- <label class="form-label" for="stock">Stock</label>
-  <div class="columns">
-
-    <div class="column col-4">
-      <div class="input-group">
-        <input readonly class="form-input" type="text" id="stock" placeholder="stock" name="stock" value='<?= isset($producto)? $producto->stock : "" ?>'>
-      </div>
-    </div>
-    <div class="column col-4">
-      <div class="input-group">
-
-        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-plus"></i></button>
-        <input id="sumar" class="form-input" type="number" placeholder="+" value="0" min="0" name="sumar">
-      </div>
-    </div>
-    <div class="column col-4">
-      <div class="input-group">
-
-        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-minus"></i></button>
-        <input id="restar" class="form-input" type="number" placeholder="-" value="0" min="0" name="restar">
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
 <div id="unidades" class="form-group">
+
+  <!-- <label class="form-label" for="unidades">Unidades</label> -->
   <select class="form-select" name="unidad">
-    <option disabled selected>Lista de Unidades</option>
+    <option disabled selected>Unidades</option>
  
       <option value="unidad">unidad</option>
       <option value="par">par</option>
@@ -98,8 +114,44 @@
 
 <!-- form input control -->
 <div class="form-group">
-  <label class="form-label" for="minimo">Mínimo</label>
+  <!-- <label class="form-label" for="minimo">Mínimo</label> -->
   <input class="form-input" type="number" id="minimo" placeholder="Mínimo" name="minimo" value='<?= isset($producto)? $producto->minimo : "" ?>'>
+</div>
+
+<!-- form input control -->
+<div id="contenedor-stock" class="container contenedor-decorado">
+
+  <!-- form switch control -->
+  <div>Stock</div>
+  <div class="form-group">
+    <label class="form-switch">
+      <input type="checkbox" checked name="usa_stock" ><i class="form-icon"></i></input>
+    </label>
+  </div>
+
+  <div class="columns">
+
+    <div class="column col-4">
+      <div class="input-group">
+        <input readonly class="form-input" type="text" id="stock" placeholder="stock" name="stock" value='<?= isset($producto)? $producto->stock : "" ?>'>
+      </div>
+    </div>
+    <div class="column col-4">
+      <div class="input-group">
+
+        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-plus"></i></button>
+        <input id="sumar" class="form-input" type="number" placeholder="+" value="0" min="0" name="sumar">
+      </div>
+    </div>
+    <div class="column col-4">
+      <div class="input-group">
+
+        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-minus"></i></button>
+        <input id="restar" class="form-input" type="number" placeholder="-" value="0" min="0" name="restar">
+      </div>
+
+    </div>
+  </div>
 </div>
 
 </fieldset>

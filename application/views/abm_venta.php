@@ -17,6 +17,12 @@
     
     <p></p><!-- ESPACIO -->
 
+    <!-- SELECTOR DE FECHA DE ENTREGA -->
+    <input id="fecha" class="form-input" type="date" name="fecha" value="">
+    <!-- FIN -->
+
+    <p></p><!-- ESPACIO -->
+
     <!-- SELECTOR DE CLIENTES -->
     <?PHP 
       /*Si id_venta es igual a 0 significa que se va a crear una venta nueva
@@ -72,13 +78,6 @@
     <?PHP endif; ?><!-- FIN -->
    
     <p></p><!-- ESPACIO -->
-
-    <!-- SELECTOR DE FECHA DE ENTREGA -->
-    <input id="fecha" class="form-input" type="date" name="fecha" value="">
-    <!-- FIN -->
-
-    <p></p><!-- ESPACIO -->
-
 
     <!-- INICIO SELECCIONADOR -->
     <div id="seleccionador2" class="seleccionador">

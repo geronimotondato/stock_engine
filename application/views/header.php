@@ -20,15 +20,14 @@
   <!-- HEADER -->
   <header class="navbar p-1">
     <section class="navbar-section">
-      <button id="drawer-toggle" class="btn btn-action btn-primary ">
-        <i class="fas fa-bars"></i></button>
-      </section>
-      <section class="navbar-center">
-        <div class="btn btn-link">StockENG <i class="fas fa-boxes"></i></div>
-      </section>
-      <section class="navbar-section">
-        <a href=<?PHP echo base_url('ventas/abm_venta'); ?> ><button class="btn btn-action btn-primary"><i class="fas fa-shopping-cart"></i></button></a>
-      </section>
+        <i id="drawer-toggle" class="fas fa-bars"></i>
+    </section>
+    <section class="navbar-center">
+        <div id="logo">StockENG <i class="fas fa-boxes"></i></div>
+    </section>
+    <section class="navbar-section">
+        <a id="venta_rapida" href=<?PHP echo base_url('ventas/abm_venta'); ?> ><i class="fas fa-shopping-cart"></i></a>
+    </section>
     </header> <!-- FIN HEADER -->
     <!-- DRAWER LATERAL -->
     <ul id="drawer" class="menu absolute">
