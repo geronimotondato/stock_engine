@@ -96,6 +96,24 @@ class Productos extends Member_Controller {
 	}
 
 
+	public function guardar(){
+		var_dump($_POST);
+
+		$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
+		$this->form_validation->set_rules('categorias[]',"Categorias", "trim|greater_than_equal_to[0]");
+		$this->form_validation->set_rules('marca', 'Marca', 'trim|greater_than_equal_to[0]');
+		$this->form_validation->set_rules('ean-13', 'Codigo de Barras', 'trim|exact_length[13]|numeric');
+		$this->form_validation->set_rules('precio_venta', 'Precio', 'trim|greater_than_equal_to[0]|required');
+		$this->form_validation->set_rules('unidad', 'Unidad', 'trim|alpha_numeric_spaces');
+		$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|alpha_numeric_spaces');
+		$this->form_validation->set_rules('minimo', 'Mínimo', 'trim|greater_than_equal_to[0]');
+		if (!empty($_POST['usa_stock'])) {
+			$this->form_validation->set_rules('sumar', 'Sumar', 'trim|greater_than_equal_to[0]');
+			$this->form_validation->set_rules('restar', 'Restar', 'trim|greater_than_equal_to[0]');
+		}
+	}
+
+
 
 
 	public function buscar_elemento_ajax() {

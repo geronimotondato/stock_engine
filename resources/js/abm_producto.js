@@ -108,7 +108,7 @@ $(document).ready(function(){
 
 	          $(item).click(function(){
 
-	            var chip = $.parseHTML("<span class='chip' value="+elemento.id_categoria+" name='categorias[]'>"+elemento.nombre+"<a href='#' class='btn btn-clear' aria-label='Close' role='button'></a></span>");
+	            var chip = $.parseHTML("<span class='chip'>"+elemento.nombre+"<a href='#' class='btn btn-clear' aria-label='Close' role='button'></a><input class='d-none' value="+elemento.id_categoria+" name='categorias[]'></span>");
 
 	            $(chip).click(function(){
 	            	$(this).remove();
@@ -146,5 +146,29 @@ $(document).ready(function(){
 			$("#restar").attr("readonly", true);
 			$(this).parents("#contenedor-stock").css("background", "repeating-linear-gradient(-45deg, #f4f4f4, #f4f4f4 10px, #f1f1f1 10px, #f1f1f1 20px )");
 		}
+	});
+
+
+	//GENERO EL POST AL HACER CLICK SOBRE LOS BOTOES DE GUARDAR, ACTUALIZAR O ELIMINAR
+	$("#btn_guardar, #btn_actualizar, #btn_eliminar_confirmado").click(function(event){
+	    event.preventDefault();
+	    $.post( 
+	    /*url*/ _$_HOME_URL+"/productos/"+ $(this).val(), 
+	    /*data*/ $("#form_producto").serialize())
+
+	    .done(function(data){
+	        alert(data);
+	        var resultado = JSON.parse(data);
+
+	        if(resultado.estado === "ok"){
+	            $(location).attr('href', _$_HOME_URL);
+	        }else{
+	            alert(resultado.mensaje);
+	        }
+	    })
+
+	    .fail( function(xhr, textStatus, errorThrown){
+	        alert(xhr.responseText);
+	    });
 	});
 });

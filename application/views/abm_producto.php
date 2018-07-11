@@ -58,22 +58,20 @@
     </div>
   </div><!-- FIN -->
 
-
+<label class="form-label" for="categoria_nombre">Categorías</label>
+<div class="container contenedor-decorado">
   <div class="form-group">
-  <label class="form-label" for="categoria_nombre">Categorías</label>
-  <input id="id_categoria" type="hidden" name="id_categoria">
   <input id="categoria_nombre" class="form-input" type="text" readonly placeholder="Categoría">
   <div id="agregar_nuevo_categoria">
     <a class="btn btn-primary" href="<?= base_url('categorias/abm') ?>">
     <i class="fas fa-tag"></i> <i class="fas fa-plus"></i>
     </a>
   </div>
+  <div class="divider"></div>
+  <div id="categorias-seleccionadas">
+    <small><em>Categorías Seleccionadas:</em></small><br>
   </div>
-
-<div id="categorias-seleccionadas" class="container contenedor-decorado">
-
-  <p>Categorías Seleccionadas:</p>
-
+  </div>
 </div>
 
     <!-- INICIO SELECCIONADOR -->
