@@ -163,7 +163,7 @@ $(document).ready(function(){
 	        if(resultado.estado === "ok"){
 	            $(location).attr('href', _$_HOME_URL);
 	        }else{
-	            alert(resultado.mensaje);
+	            mostrar_mensaje_error(resultado.mensaje);
 	        }
 	    })
 

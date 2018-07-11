@@ -34,7 +34,7 @@
     <input id="id_cliente" type="hidden" name="id_cuenta">
     <input id="cliente_nombre" class="form-input" type="text" readonly placeholder="Seleccionar cliente">
     <div id="agregar_nuevo_cliente">
-      <a class="btn btn-primary" href="<?= base_url('clientes/abm') ?>">
+      <a class="btn btn-primary" href="<?= base_url('clientes/abm') ?>" target="_blank">
       <i class="fas fa-users"></i> <i class="fas fa-plus"></i>
       </a>
     </div>

@@ -127,9 +127,8 @@
 
   <label class="form-label" for="unidades">Unidades</label>
   <select class="form-select" name="unidad">
-    <option disabled selected>Unidades</option>
- 
-      <option value="unidad">unidad</option>
+  
+      <option value="unidad" selected>unidad</option>
       <option value="par">par</option>
       <option value="docena">docena</option>
       <option value="pack">pack</option>
@@ -176,21 +175,21 @@
 
     <div class="column col-4">
       <div class="input-group">
-        <input readonly class="form-input" type="text" id="stock" placeholder="stock" name="stock" value='<?= isset($producto)? $producto->stock : "" ?>'>
+        <input readonly class="form-input" type="text" id="stock" placeholder="0" name="stock" value='<?= isset($producto)? $producto->stock : "" ?>'>
       </div>
     </div>
     <div class="column col-4">
       <div class="input-group">
 
         <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-plus"></i></button>
-        <input id="sumar" class="form-input" type="number" placeholder="+" value="0" min="0" name="sumar">
+        <input id="sumar" class="form-input" type="number" placeholder="0" value="" min="0" name="sumar">
       </div>
     </div>
     <div class="column col-4">
       <div class="input-group">
 
         <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-minus"></i></button>
-        <input id="restar" class="form-input" type="number" placeholder="-" value="0" min="0" name="restar">
+        <input id="restar" class="form-input" type="number" placeholder="0" value="" min="0" name="restar">
       </div>
 
     </div>

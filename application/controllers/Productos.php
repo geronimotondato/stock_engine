@@ -97,19 +97,53 @@ class Productos extends Member_Controller {
 
 
 	public function guardar(){
-		var_dump($_POST);
+		try{
 
-		$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
-		$this->form_validation->set_rules('categorias[]',"Categorias", "trim|greater_than_equal_to[0]");
-		$this->form_validation->set_rules('marca', 'Marca', 'trim|greater_than_equal_to[0]');
-		$this->form_validation->set_rules('ean-13', 'Codigo de Barras', 'trim|exact_length[13]|numeric');
-		$this->form_validation->set_rules('precio_venta', 'Precio', 'trim|greater_than_equal_to[0]|required');
-		$this->form_validation->set_rules('unidad', 'Unidad', 'trim|alpha_numeric_spaces');
-		$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|alpha_numeric_spaces');
-		$this->form_validation->set_rules('minimo', 'Mínimo', 'trim|greater_than_equal_to[0]');
-		if (!empty($_POST['usa_stock'])) {
-			$this->form_validation->set_rules('sumar', 'Sumar', 'trim|greater_than_equal_to[0]');
-			$this->form_validation->set_rules('restar', 'Restar', 'trim|greater_than_equal_to[0]');
+			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
+			$this->form_validation->set_rules('categorias[]',"Categorias", "trim|greater_than_equal_to[0]");
+			$this->form_validation->set_rules('marca', 'Marca', 'trim|greater_than_equal_to[0]');
+			$this->form_validation->set_rules('ean-13', 'Codigo de Barras', 'trim|exact_length[13]|numeric');
+			$this->form_validation->set_rules('precio_venta', 'Precio', 'trim|greater_than_equal_to[0]|required');
+			$this->form_validation->set_rules('unidad', 'Unidad', 'trim|alpha_numeric_spaces|required');
+			$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('minimo', 'Mínimo', 'trim|greater_than_equal_to[0]');
+			if (!empty($_POST['usa_stock'])) {
+				$this->form_validation->set_rules('sumar', 'Sumar', 'trim|greater_than_equal_to[0]');
+				$this->form_validation->set_rules('restar', 'Restar', 'trim|greater_than_equal_to[0]');
+			}
+
+
+			if (!($this->form_validation->run())) {
+				throw new Exception(validation_errors());
+			}
+
+			$elemento = array(
+				'nombre'       => $this->input->post("nombre", TRUE),
+				'categorias'   => $this->input->post("categorias", TRUE),
+				'id_marca'     => $this->input->post("id_marca", TRUE),
+				'ean-13'       => $this->input->post("ean-13", TRUE),
+				'precio_venta' => $this->input->post("precio_venta", TRUE),
+				'unidad'       => $this->input->post("unidad", TRUE),
+				'descripcion'  => $this->input->post("descripcion", TRUE),
+				'minimo'       => $this->input->post("minimo", TRUE),
+				'stock'        => $this->input->post("sumar", TRUE) - $this->input->post("restar", TRUE),
+			);
+			if (!empty($_POST['usa_stock'])) {
+				$elemento["stock"]     = $this->input->post("sumar", TRUE) - $this->input->post("restar", TRUE);
+				if($elemento["stock"] < 0) throw new Exception("El stock siempre debe ser igual o mayor a cero");
+				
+			}else{
+				$elemento["stock"]  = NULL;
+			}
+
+			var_dump($elemento);
+
+		}catch(Exception $e){
+			$respuesta["estado"] = "error";
+			$respuesta["mensaje"] = $e->getMessage();
+			echo json_encode($respuesta);
+			exit();
+
 		}
 	}
 
