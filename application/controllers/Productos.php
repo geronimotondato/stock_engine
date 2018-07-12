@@ -126,7 +126,7 @@ class Productos extends Member_Controller {
 				'unidad'       => $this->input->post("unidad", TRUE),
 				'descripcion'  => $this->input->post("descripcion", TRUE),
 				'minimo'       => $this->input->post("minimo", TRUE),
-				'stock'        => $this->input->post("sumar", TRUE) - $this->input->post("restar", TRUE),
+				'stock'        => $this->input->post("sumar", TRUE) - $this->input->post("restar", TRUE)
 			);
 			if (!empty($_POST['usa_stock'])) {
 				$elemento["stock"]     = $this->input->post("sumar", TRUE) - $this->input->post("restar", TRUE);
@@ -136,7 +136,10 @@ class Productos extends Member_Controller {
 				$elemento["stock"]  = NULL;
 			}
 
-			var_dump($elemento);
+			$this->model->guardar_elemento($elemento);
+
+			$respuesta["estado"] = "ok";
+			echo json_encode($respuesta);
 
 		}catch(Exception $e){
 			$respuesta["estado"] = "error";

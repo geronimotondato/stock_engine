@@ -7,11 +7,13 @@ if (!defined('BASEPATH')) {
 class Producto_model extends CI_Model {
 
 	var $tabla;
+	var $tabla2;
 	var $id_column;
 
 	public function __construct(){
 
 		$this->tabla = "producto";
+		$this->tabla2 = "producto_categoria";
 		$this->id_column = "id_producto";
 
 		parent::__construct(); 
@@ -19,14 +21,28 @@ class Producto_model extends CI_Model {
 	
 	public function guardar_elemento($elemento){
 
+		$categorias = array_unique($elemento["categorias"]);
+		unset($elemento["categorias"]);
+
 		$this->db->trans_start();
 		
 		$this->db->insert($this->tabla, $elemento);
 
+		$id_nuevo_producto = $this->db->insert_id();
+		$error = $this->db->error();
+
+		foreach ($categorias as $key => $id_categoria) {
+			echo $id_nuevo_producto. " ". $id_categoria. "!!!";
+			$this->db->insert($this->tabla2, array("id_producto" =>$id_nuevo_producto, "id_categoria" =>$id_categoria));
+		}
+		
 		$this->db->trans_complete();
 
 		if($this->db->trans_status() === FALSE){
 		   throw new Exception("No se pudo guardar {$this->tabla} en la base de datos");
+			var_dump($error);
+
+		   
 		}
 	}
 

@@ -6,7 +6,7 @@ var _$_HOME_URL = "/stockeng";
 
 var mostrar_mensaje_error = function(mensaje){
 	var mensaje = $.parseHTML(
-		"<div id='mensaje-error' class='toast toast-error'>\
+		"<div id='mensaje-error' class='toast toast-error' style='display: none;'>\
           <button class='btn btn-clear float-right'></button>"+mensaje+"\
         </div>"
      );
@@ -22,4 +22,5 @@ var mostrar_mensaje_error = function(mensaje){
 		$("#mensaje-error").remove()
 	});
 	$(mensaje).insertAfter("header");
+	$(mensaje).show("fast");
 }
