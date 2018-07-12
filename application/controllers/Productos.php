@@ -135,8 +135,10 @@ class Productos extends Member_Controller {
 			}else{
 				$elemento["stock"]  = NULL;
 			}
-
+			// var_dump($elemento);
 			$this->model->guardar_elemento($elemento);
+
+
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);

@@ -106,7 +106,7 @@
 <!-- form input control -->
 <div class="form-group">
   <label class="form-label" for="descripcion">Descripción</label>
-  <textarea class="form-input" id="descripcion" placeholder="Descripción" rows="3" value='<?= isset($producto)? $producto->descripcion : ""?>'></textarea>
+  <textarea class="form-input" id="descripcion" placeholder="Descripción" rows="3" name="descripcion" value='<?= isset($producto)? $producto->descripcion : ""?>'></textarea>
 
 
 </div>

@@ -29,10 +29,11 @@ class Producto_model extends CI_Model {
 		$this->db->insert($this->tabla, $elemento);
 
 		$id_nuevo_producto = $this->db->insert_id();
-		$error = $this->db->error();
+		// $error = $this->db->error();
 
 		foreach ($categorias as $key => $id_categoria) {
-			echo $id_nuevo_producto. " ". $id_categoria. "!!!";
+			// echo $id_nuevo_producto. " ". $id_categoria. "!!!";
+			// var_dump($error);
 			$this->db->insert($this->tabla2, array("id_producto" =>$id_nuevo_producto, "id_categoria" =>$id_categoria));
 		}
 		
@@ -40,7 +41,7 @@ class Producto_model extends CI_Model {
 
 		if($this->db->trans_status() === FALSE){
 		   throw new Exception("No se pudo guardar {$this->tabla} en la base de datos");
-			var_dump($error);
+			// var_dump($error);
 
 		   
 		}
