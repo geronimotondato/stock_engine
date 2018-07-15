@@ -19,36 +19,7 @@ class Productos extends Member_Controller {
 		$this->nombre_singular = "producto";
 		$this->vista_listado = "productos.php";
 		$this->vista_abm = "abm_producto.php";
-
-		try {
-
-			switch ($this->router->fetch_method()) {
-
-			case 'guardar': // <<<---------
-
-				break;
-
-			case 'actualizar': // <<<---------
-
-				break;
-
-			case 'eliminar': // <<<---------
-
-				break;
-			default:
-
-				break;
-			}
-
-		} catch (Exception $e) {
-
-			$respuesta["estado"] = "error";
-			$respuesta["mensaje"] = $e->getMessage();
-			echo json_encode($respuesta);
-			exit();
-
-		}
-
+		
 	}
 
 	public function index()
@@ -99,6 +70,15 @@ class Productos extends Member_Controller {
 	public function guardar(){
 		try{
 
+			// seteo los valores por default
+			if (empty($_POST['categorias'])) $_POST['categorias']=[];
+			if (empty($_POST['ean-13'])) $_POST['ean-13']=NULL;
+			if (empty($_POST['unidad'])) $_POST['unidad']="unidad";
+			if (empty($_POST['minimo'])) $_POST['minimo']=0;
+			if (empty($_POST['sumar'])) $_POST['sumar']=0;
+			if (empty($_POST['restar'])) $_POST['restar']=0;
+			
+
 			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
 			$this->form_validation->set_rules('categorias[]',"Categorias", "trim|greater_than_equal_to[0]");
 			$this->form_validation->set_rules('marca', 'Marca', 'trim|greater_than_equal_to[0]');
@@ -112,7 +92,6 @@ class Productos extends Member_Controller {
 				$this->form_validation->set_rules('restar', 'Restar', 'trim|greater_than_equal_to[0]');
 			}
 
-
 			if (!($this->form_validation->run())) {
 				throw new Exception(validation_errors());
 			}
@@ -125,20 +104,18 @@ class Productos extends Member_Controller {
 				'precio_venta' => $this->input->post("precio_venta", TRUE),
 				'unidad'       => $this->input->post("unidad", TRUE),
 				'descripcion'  => $this->input->post("descripcion", TRUE),
-				'minimo'       => $this->input->post("minimo", TRUE),
-				'stock'        => $this->input->post("sumar", TRUE) - $this->input->post("restar", TRUE)
+				'minimo'       => $this->input->post("minimo", TRUE)
 			);
+
 			if (!empty($_POST['usa_stock'])) {
 				$elemento["stock"]     = $this->input->post("sumar", TRUE) - $this->input->post("restar", TRUE);
 				if($elemento["stock"] < 0) throw new Exception("El stock siempre debe ser igual o mayor a cero");
-				
 			}else{
 				$elemento["stock"]  = NULL;
 			}
+
 			// var_dump($elemento);
 			$this->model->guardar_elemento($elemento);
-
-
 
 			$respuesta["estado"] = "ok";
 			echo json_encode($respuesta);
