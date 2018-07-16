@@ -72,7 +72,7 @@ class Productos extends Member_Controller {
 
 			// seteo los valores por default
 			if (empty($_POST['categorias'])) $_POST['categorias']=[];
-			if (empty($_POST['ean-13'])) $_POST['ean-13']=NULL;
+			if (empty($_POST['ean13'])) $_POST['ean13']=NULL;
 			if (empty($_POST['unidad'])) $_POST['unidad']="unidad";
 			if (empty($_POST['minimo'])) $_POST['minimo']=0;
 			if (empty($_POST['sumar'])) $_POST['sumar']=0;
@@ -82,7 +82,7 @@ class Productos extends Member_Controller {
 			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
 			$this->form_validation->set_rules('categorias[]',"Categorias", "trim|greater_than_equal_to[0]");
 			$this->form_validation->set_rules('marca', 'Marca', 'trim|greater_than_equal_to[0]');
-			$this->form_validation->set_rules('ean-13', 'Codigo de Barras', 'trim|exact_length[13]|numeric');
+			$this->form_validation->set_rules('ean13', 'Codigo de Barras', 'trim|exact_length[13]|numeric');
 			$this->form_validation->set_rules('precio_venta', 'Precio', 'trim|greater_than_equal_to[0]|required');
 			$this->form_validation->set_rules('unidad', 'Unidad', 'trim|alpha_numeric_spaces|required');
 			$this->form_validation->set_rules('descripcion', 'Descripción', 'trim|alpha_numeric_spaces');
@@ -100,7 +100,7 @@ class Productos extends Member_Controller {
 				'nombre'       => $this->input->post("nombre", TRUE),
 				'categorias'   => $this->input->post("categorias", TRUE),
 				'id_marca'     => $this->input->post("id_marca", TRUE),
-				'ean-13'       => $this->input->post("ean-13", TRUE),
+				'ean13'       => $this->input->post("ean13", TRUE),
 				'precio_venta' => $this->input->post("precio_venta", TRUE),
 				'unidad'       => $this->input->post("unidad", TRUE),
 				'descripcion'  => $this->input->post("descripcion", TRUE),
@@ -128,8 +128,6 @@ class Productos extends Member_Controller {
 
 		}
 	}
-
-
 
 
 	public function buscar_elemento_ajax() {

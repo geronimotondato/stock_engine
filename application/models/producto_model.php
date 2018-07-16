@@ -8,12 +8,16 @@ class Producto_model extends CI_Model {
 
 	var $tabla;
 	var $tabla2;
+	var $tabla3;
+	var $tabla4;
 	var $id_column;
 
 	public function __construct(){
 
-		$this->tabla = "producto";
-		$this->tabla2 = "producto_categoria";
+		$this->tabla     = "producto";
+		$this->tabla2    = "producto_categoria";
+		$this->tabla3    = "marca";
+		$this->tabla4    = "categoria";
 		$this->id_column = "id_producto";
 
 		parent::__construct(); 
@@ -86,17 +90,48 @@ class Producto_model extends CI_Model {
 
 	public function get_elemento($id_elemento){
 
-		$query=$this->db->query("SELECT * FROM {$this->tabla} WHERE {$this->id_column}={$id_elemento}");
+		$query=$this->db->query("
+			SELECT  p.id_producto,
+							p.nombre,
+							p.descripcion,
+							p.ean13,
+							p.precio_venta,
+							p.stock,
+							p.unidad,
+							p.minimo,
+							p.id_marca,
+							m.nombre as marca_nombre,
+							p.dado_de_baja,
+							p.fecha_alta,
+							p.ultima_modificacion
+				FROM {$this->tabla} p LEFT JOIN {$this->tabla3} m ON p.id_marca = m.id_marca
+			  WHERE p.{$this->id_column} = {$id_elemento}");
+
+		$query2=$this->db->query("
+			SELECT  c.id_categoria,
+							c.nombre
+			FROM {$this->tabla2} cp JOIN {$this->tabla4} c 
+			ON cp.id_categoria = c.id_categoria 
+			WHERE cp.id_producto = {$id_elemento}");
 
 		try{
 
 			if(empty($query->row())) throw new Exception("No existe {$this->tabla}");
-			return $query->row();
+
+			$resultado = $query->row();
+			$resultado->categorias = $query2->result();
+
+
+			return $resultado;
 
 		}catch (Throwable $t){
+
 			throw new Exception($t->getMessage());
+
 		}catch (Exception $e){
+
 			throw new Exception($e->getMessage());
+
 		}
 	}
 

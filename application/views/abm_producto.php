@@ -25,8 +25,8 @@
 
 <div class="form-group">
 <label class="form-label" for="marca_nombre">Marca</label>
-<input id="id_marca" type="hidden" name="id_marca">
-<input id="marca_nombre" class="form-input" type="text" readonly placeholder="Marca">
+<input id="id_marca" type="hidden" name="id_marca" value='<?= isset($producto)? $producto->id_marca : "" ?>'>
+<input id="marca_nombre" class="form-input" type="text" readonly placeholder="Marca" value='<?= isset($producto)? $producto->marca_nombre : "" ?>'>
 <div id="agregar_nuevo_marca">
   <a class="btn btn-primary" href="<?= base_url('marcas/abm') ?>">
   <i class="fas fa-trademark"></i> <i class="fas fa-plus"></i>
@@ -70,6 +70,17 @@
   <div class="divider"></div>
   <div id="categorias-seleccionadas">
     <small><em>Categorías Seleccionadas:</em></small><br>
+
+<?PHP IF(isset($producto->categorias)): ?>
+<?PHP FOREACH ($producto->categorias as $categoria): ?>
+
+<?= "<span class='chip'>".$categoria->nombre."<a href='#' class='btn btn-clear' aria-label='Close' role='button' onClick='$(this).parent().remove();'></a><input class='d-none' value=".$categoria->id_categoria." name='categorias[]'></span>" ?>
+
+<?PHP ENDFOREACH; ?>
+
+
+<?PHP ENDIF; ?>
+
   </div>
   </div>
 </div>
@@ -113,8 +124,8 @@
 
 <!-- form input control -->
 <div class="form-group">
-  <label class="form-label" for="ean-13">Código de Barras</label>
-  <input class="form-input" type="number" id="ean-13" placeholder="Código de Barras" name="ean-13" value='<?= isset($producto)? $producto->ean-13 : ""?>' >
+  <label class="form-label" for="ean13">Código de Barras</label>
+  <input class="form-input" type="number" id="ean13" placeholder="Código de Barras" name="ean13" value='<?= isset($producto)? $producto->ean13 : ""?>' >
 </div>
 
 <!-- form input control -->
