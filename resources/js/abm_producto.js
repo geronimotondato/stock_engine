@@ -149,6 +149,16 @@ $(document).ready(function(){
 	});
 
 
+
+	$("#eliminar_producto").click(function(){
+	  $("#eliminar_producto_dialog").addClass("active");
+	});
+
+	$(".cerrar_eliminar_producto_dialog").click(function(){
+	  $("#eliminar_producto_dialog").removeClass("active");
+	});
+
+
 	//GENERO EL POST AL HACER CLICK SOBRE LOS BOTOES DE GUARDAR, ACTUALIZAR O ELIMINAR
 	$("#btn_guardar, #btn_actualizar, #btn_eliminar_confirmado").click(function(event){
 	    event.preventDefault();

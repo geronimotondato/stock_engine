@@ -169,7 +169,7 @@
   <input class="form-input" type="number" id="minimo" placeholder="Mínimo" name="minimo" value='<?= isset($producto)? $producto->minimo : "" ?>'>
 </div>
 
-
+<?PHP IF(!isset($producto)): ?>
 <label class="form-label" for="contenedor-stock">Stock</label>
 <!-- form input control -->
 <div id="contenedor-stock" class="container contenedor-decorado">
@@ -207,6 +207,46 @@
   </div>
 </div>
 
+<?PHP ELSEIF(isset($producto->stock)):?>
+
+<label class="form-label" for="contenedor-stock">Stock</label>
+<!-- form input control -->
+<div id="contenedor-stock" class="container contenedor-decorado">
+
+  <!-- form switch control -->
+  <div>Stock</div>
+  <div class="form-group">
+    <label class="form-switch">
+    </label>
+  </div>
+
+  <div class="columns">
+
+    <div class="column col-4">
+      <div class="input-group">
+        <input readonly class="form-input" type="text" id="stock" placeholder="0" name="stock" value='<?= isset($producto)? $producto->stock : "" ?>'>
+      </div>
+    </div>
+    <div class="column col-4">
+      <div class="input-group">
+
+        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-plus"></i></button>
+        <input id="sumar" class="form-input" type="number" placeholder="0" value="" min="0" name="sumar">
+      </div>
+    </div>
+    <div class="column col-4">
+      <div class="input-group">
+
+        <button class="btn btn-primary input-group-btn" type="button"><i class="fas fa-minus"></i></button>
+        <input id="restar" class="form-input" type="number" placeholder="0" value="" min="0" name="restar">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<?PHP ENDIF; ?>
+
 </fieldset>
 
 <p></p>
@@ -222,7 +262,7 @@
       <h5>Dar de baja a este producto</h5>
       <p></p>
       <p></p>
-      <button id="btn_eliminar" class="btn" type="button" value="eliminar">Eliminar</button>
+      <button id="btn_eliminar_confirmado" class="btn" type="button" value="eliminar">Eliminar</button>
       <button class="btn btn-primary cerrar_eliminar_producto_dialog" type="button" >Cancelar</button>
     </div>
   </div>

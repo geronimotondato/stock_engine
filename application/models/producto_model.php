@@ -44,49 +44,46 @@ class Producto_model extends CI_Model {
 		$this->db->trans_complete();
 
 		if($this->db->trans_status() === FALSE){
-		   throw new Exception("No se pudo guardar {$this->tabla} en la base de datos");
 		   // var_dump($error);
+		   throw new Exception("No se pudo guardar {$this->tabla} en la base de datos");
 
 		   
 		}
 	}
 
-	public function actualizar_elemento($elemento){
+	// public function actualizar_elemento($elemento){
 
-		$this->db->trans_start();
+	// 	$this->db->trans_start();
 
-		$this->db->where($this->id_column, $elemento[$this->id_column]);
-		$this->db->update($this->tabla, $elemento);
+	// 	$this->db->where($this->id_column, $elemento[$this->id_column]);
+	// 	$this->db->update($this->tabla, $elemento);
 
-		$this->db->trans_complete();
+	// 	$this->db->trans_complete();
 
 
-		//chequeo si la transaccion falló en cuyo caso lanzo una excepcion
-		if($this->db->trans_status() === FALSE){
-			throw new Exception("No se pudo actualizar {$this->tabla} en la base de datos");
-		}
-	}
+	// 	//chequeo si la transaccion falló en cuyo caso lanzo una excepcion
+	// 	if($this->db->trans_status() === FALSE){
+	// 		throw new Exception("No se pudo actualizar {$this->tabla} en la base de datos");
+	// 	}
+	// }
 
 	public function eliminar_elemento($id_elemento){
 
-		$this->db->trans_start();
+			$this->db->trans_start();
 
-		//pongo en null el id_elemento de los productos que pertenecen a la elemento que va a ser elimina
-		$this->db->set($this->id_column, NULL);
-		$this->db->where($this->id_column, $id_elemento);
-		$this->db->update('producto');
-
-		//Elimino el elemento
-		$this->db->where($this->id_column, $id_elemento);
-		$this->db->delete($this->tabla);
+			$this->db->set('dado_de_baja', TRUE);
+			$this->db->where($this->id_column, $id_elemento);
+			$this->db->update($this->tabla);
 
 
-		$this->db->trans_complete();
+			$this->db->trans_complete();
 
-		if($this->db->trans_status() === FALSE){
-		throw new Exception("No se pudo eliminar {$this->tabla} de la base de datos");
-		}
+			if ($this->db->trans_status() === FALSE) {
+
+				throw new Exception("No se pudo eliminar {$this->tabla} de la base de datos");
+			}
 	}
+
 
 	public function get_elemento($id_elemento){
 

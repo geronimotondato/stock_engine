@@ -71,12 +71,13 @@ class Productos extends Member_Controller {
 		try{
 
 			// seteo los valores por default
-			if (empty($_POST['categorias'])) $_POST['categorias']=[];
-			if (empty($_POST['ean13'])) $_POST['ean13']=NULL;
-			if (empty($_POST['unidad'])) $_POST['unidad']="unidad";
-			if (empty($_POST['minimo'])) $_POST['minimo']=0;
-			if (empty($_POST['sumar'])) $_POST['sumar']=0;
-			if (empty($_POST['restar'])) $_POST['restar']=0;
+			if (empty($_POST['id_marca'])) $_POST['id_marca']     =NULL;
+			if (empty($_POST['categorias'])) $_POST['categorias'] =[];
+			if (empty($_POST['ean13'])) $_POST['ean13']           =NULL;
+			if (empty($_POST['unidad'])) $_POST['unidad']         ="unidad";
+			if (empty($_POST['minimo'])) $_POST['minimo']         =0;
+			if (empty($_POST['sumar'])) $_POST['sumar']           =0;
+			if (empty($_POST['restar'])) $_POST['restar']         =0;
 			
 
 			$this->form_validation->set_rules('nombre', 'Nombre', 'trim|alpha_numeric_spaces|required');
@@ -129,6 +130,32 @@ class Productos extends Member_Controller {
 		}
 	}
 
+
+	public function eliminar() {
+
+		try {
+
+			$this->form_validation->set_rules('id_producto', 'id_producto', 'trim|greater_than[0]|required');
+
+			if (!($this->form_validation->run())) {
+				throw new Exception(validation_errors());
+			}
+
+			$this->id_elemento = $this->input->post("id_producto", TRUE);
+
+			$this->model->eliminar_elemento($this->id_elemento);
+
+			$respuesta["estado"] = "ok";
+			echo json_encode($respuesta);
+
+		} catch (Exception $e) {
+
+			$respuesta["estado"] = "error";
+			$respuesta["mensaje"] = $e->getMessage();
+			echo json_encode($respuesta);
+		}
+
+	}
 
 	public function buscar_elemento_ajax() {
 		$this->form_validation->set_rules('texto_busqueda','Busqueda','alpha_numeric_spaces|required');
