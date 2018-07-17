@@ -149,7 +149,7 @@ $(document).ready(function(){
 	});
 
 
-
+	//EVENTOS PARA DESPLEGAR EL MENU DE ELIMINAR PRODUCTO
 	$("#eliminar_producto").click(function(){
 	  $("#eliminar_producto_dialog").addClass("active");
 	});

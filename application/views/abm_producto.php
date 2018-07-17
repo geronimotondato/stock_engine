@@ -164,10 +164,23 @@
 </div>
 
 <!-- form input control -->
+<?PHP IF(!isset($producto)): ?>
 <div class="form-group">
   <label class="form-label" for="minimo">Mínimo</label>
-  <input class="form-input" type="number" id="minimo" placeholder="Mínimo" name="minimo" value='<?= isset($producto)? $producto->minimo : "" ?>'>
+  <input class="form-input" type="number" id="minimo" placeholder="Mínimo" name="minimo"
+    value=''>
 </div>
+
+<?PHP ELSEIF(isset($producto->stock)):?>
+
+<div class="form-group">
+  <label class="form-label" for="minimo">Mínimo</label>
+  <input class="form-input" type="number" id="minimo" placeholder="Mínimo" name="minimo"
+    value='<?= $producto->minimo ?>'>
+</div>
+
+<?PHP ENDIF; ?>
+
 
 <?PHP IF(!isset($producto)): ?>
 <label class="form-label" for="contenedor-stock">Stock</label>
